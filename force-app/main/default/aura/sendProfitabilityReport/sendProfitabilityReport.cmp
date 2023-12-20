@@ -1,0 +1,16 @@
+<aura:component controller="profitabilityReportEmailSendClass" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="isSent" type="boolean" default="false"/>
+    <aura:attribute name="notSent" type="boolean" default="false"/>
+    <aura:attribute name="recordId" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div style="width:100px; height:50px; text-align:center;">
+    <aura:if isTrue="{!v.isSent}">
+        <h1>Profitability Report Successfully Shared!</h1>
+        </aura:if>
+        <aura:if isTrue="{!v.notSent}">
+        <h1>Some Error Occurred!</h1>
+        </aura:if>
+    </div>
+</aura:component>

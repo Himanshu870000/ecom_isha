@@ -1,0 +1,15 @@
+<apex:page standardController="Quote" renderAs="pdf" applyBodyTag="false">
+    <head>
+        <style type="text/css" media="print">
+            <apex:outputPanel layout="none" rendered="{!IF(Quote.status == 'approved', true, false)}">
+                .watermark {
+                    background-repeat: repeat;
+                    background-image: url="{!$Resource.util}");
+                }
+            </apex:outputPanel>
+        </style>
+    </head>
+    <body class="watermark">
+        <!-- PDF stuff goes here -->
+    </body>
+</apex:page>

@@ -1,0 +1,22 @@
+/*.THIS .myColor {
+        background-color: #00706B;
+                  width  :1000px;
+                
+}
+.THIS .slds-card__body{
+        background-color: #00706B;
+     width  :1000px;
+}
+.THIS .slds-card__footer{
+        background-color: #00706B;
+     width  :1000px;
+}*/
+
+
+.THIS {
+}
+.THIS.slds-card{
+        background-color: #00706B!important;
+         width:100%!important;
+         height:1000%!important;
+}

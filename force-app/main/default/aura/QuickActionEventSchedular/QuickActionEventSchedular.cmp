@@ -1,0 +1,181 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global"  controller="AuraComponentHelper">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="BrandingAssetList" type="List"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="data" type="List"/>
+    <aura:attribute name="selectedLeads" type="List"/>
+    <aura:attribute name="selectedCount" type="integer" default="0"/>
+    <aura:attribute name="showErrorClass" type="boolean" default="false"/>
+    <aura:attribute name="Productcount" type="integer"/>
+    <aura:attribute name="EditMode" type="boolean" default="false" />
+    <aura:attribute name="EditEmail" type="boolean" default="false" />
+    <aura:attribute name="BBAIdString" type="List"/>
+    <aura:attribute name="selctProductQty" type="List"/>
+    <aura:attribute name="AllSelectedBidBrandingRecs" type="List"/>
+    <aura:attribute name="checkSelect" type="boolean" default="false" />
+    <aura:attribute name="selectedRecordToShow" type="boolean" default="false" />
+    <aura:attribute name="selectedFirstRecordPage" type="boolean" default="false" />
+    <aura:attribute name="SelectedRecordShowList" type="List"/>
+    <aura:attribute name="buttonLabel" type="string" default="Next"/>
+    <aura:attribute name="disableSave" type="boolean" default="false" />
+    <aura:attribute name="backgroundImageURL" type="String" default=""/>
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }       
+        
+        .slds-modal__container{
+        max-width: 174rem !important;
+        width: 70% !important
+       
+        }
+        
+    </aura:html>
+    
+    <div class="container">
+        
+        
+    <div class="modal-header slds-modal__header slds-size_1-of-1" style="background:#0b2243">
+        <h4 class="title slds-text-heading--medium" style="color: aliceblue;">
+            Branding Asset Line Item
+        </h4>
+    </div>     
+    <!--lightning:datatable class="table" columns="{! v.columns }" data="{! v.data }" keyField="id" onrowselection="{! c.updateSelectedText}" /-->
+    
+    <!--contacts table part--> 
+    <aura:if isTrue="{!v.selectedFirstRecordPage}">
+        <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+            <thead class="dinesh">
+                <tr class="slds-text-title--caps">
+                    <th style="auto" class="slds-text-align--right">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <label class="slds-checkbox">
+                                    <!--header checkbox for select all-->
+                                    <ui:inputCheckbox aura:id="box3" change="{!c.selectAll}"/>
+                                    <span class="slds-checkbox--faux"></span>
+                                    <span class="slds-form-element__label text"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <span class="slds-truncate" title="Name">Asset Name</span>      
+                    </th>
+                    <th>
+                        <span class="slds-truncate" title="Name">Stadium</span>      
+                    </th>
+                    
+                    <th>
+                        <span class="slds-truncate" title="Name">Sport Board/Club</span>      
+                    </th>
+                    
+                    
+                </tr>
+            </thead>
+            <!--table body start, 
+         Iterate contact list as a <tr>
+         -->
+            <tbody style="color: #079ce3fa;font-weight: 900;background-size: contain;background: url('https://cdn1.vectorstock.com/i/1000x1000/85/40/background-for-posters-night-cricket-stadium-vector-8858540.jpg');">
+                <aura:iteration items="{!v.data}" var="con" indexVar="i">
+                    <tr>
+                        <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <label class="slds-checkbox">
+                                        <ui:inputCheckbox text="{!con.Id}" aura:id="boxPack" value="" change="{!c.checkboxSelect}"/>
+                                        <span class="slds-checkbox--faux"></span>
+                                        <span class="slds-form-element__label text"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </td>  
+                        <td scope="row">
+                            <div class="slds-truncate" title="{!con.Branding_Asset_Master__r.Product__r.Name}">{!con.Branding_Asset_Master__r.Product__r.Name}</div>
+                        </td>
+                        <td scope="row">
+                            <div class="slds-truncate" title="{!con.Stadium__r.Name}">{!con.Stadium__r.Name}</div>
+                        </td>
+                        
+                        <td scope="row">
+                            <div class="slds-truncate" title="{!con.Stadium__r.Sport_Board__r.Name}">{!con.Stadium__r.Sport_Board__r.Name}</div>
+                        </td>
+                      
+                        <!--td scope="row" ondblclick="{!c.inlineEditDescription}" class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+                        <div class="slds-truncate" title="{!con.Stadium__r.Sport_Board__r.Name}"><a>{!con.Product_Available_Quantity__c}</a></div>
+                    </td-->
+                        
+                        
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.selectedRecordToShow}">
+        <table class="slds-table slds-table--bordered slds-table--cell-buffer" style="max-width: 195rem !important;">
+            <thead >
+                <tr class="slds-text-title--caps">
+                    <th scope="col">
+                        <div class="slds-truncate">S.No</div>
+                    </th>
+                    <th>
+                        <span class="slds-truncate" title="Name">Asset Name</span>      
+                    </th>
+                    <th>
+                        <span class="slds-truncate" title="Name">Quantity</span>      
+                    </th>
+                     <th>
+                        <span class="slds-truncate" title="Name">Actual Asset Cost</span>      
+                    </th>
+                     <th>
+                        <span class="slds-truncate" title="Name">Selling Asset Cost</span>      
+                    </th>
+                     <th>
+                        <span class="slds-truncate" title="Name">Selling Target Date</span>      
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.SelectedRecordShowList}" var="con" indexVar="i">
+                    <tr>
+                        <td>
+                            {!i + 1}
+                        </td>
+                        <td scope="row">
+                            <div class="slds-truncate" title="{!con.Branding_Asset_Master__r.Product__r.Name}"><a>{!con.Branding_Asset_Master__r.Product__r.Name}</a></div>
+                        </td>
+                        <td scope="row">
+                            <lightning:input type="number" name="input2" label="" value="{!con.Total_Quantity__c}" />
+                        </td>
+                        <td>
+                            <lightning:input type="number" name="input1" value="{!con.Actual_Asset_Cost__c}"/>
+                        </td>
+                        <td>
+                            <lightning:input type="number" name="input1" value="{!con.Selling_Asset_Cost__c}" />
+                        </td>
+                        <td>
+                            <lightning:input type="date" name="input1" value="{!con.Selling_Target_Date__c}" />
+                        </td>
+                         
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </aura:if>
+    
+        
+        <div class="modal-footer slds-modal__footer slds-size_1-of-1" style="width: 100%; ">
+            <div class="forceChangeRecordTypeFooter">
+                <ui:button class="slds-button slds-float_left  slds-button_neutral" label="Cancel"
+                           press="{! c.hideQuickAction}" />
+                <ui:button class="slds-button slds-button--brand" label="Save" press="{!c.SaveRecord}" />
+            </div>
+        </div>
+        
+    </div>
+</aura:component>

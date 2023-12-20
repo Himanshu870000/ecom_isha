@@ -1,0 +1,14 @@
+<template>
+    <template if:true={isLoaded}>
+        <lightning-spinner alternative-text="Loading" size="large">
+        </lightning-spinner>
+    </template>
+    <lightning-card variant="Narrow" icon-name="standard: file" title="File Upload">
+        <div class="custom-csv-upload-container slds-var-p-horizontal_medium">
+            <lightning-file-upload accept={acceptedFormats}
+                label="Please upload transactions from the bank download file. Do NOT alter the file before upload."
+                multiple="multiple" onuploadfinished={uploadFileHandler}>
+            </lightning-file-upload>
+        </div>
+    </lightning-card>
+</template>

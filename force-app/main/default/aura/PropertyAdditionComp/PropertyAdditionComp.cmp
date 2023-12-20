@@ -1,0 +1,92 @@
+<aura:component controller = "propertyMgtController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="recordId" type="string" />
+    <aura:attribute name="selectProjectDisplay" type="boolean" />
+    <aura:attribute name="selectedProject" type="string" />
+    <aura:attribute name="displayResult" type="boolean" default="false" />
+    <aura:attribute name="rooms" type="String[]" default="Fully Furnished,Semi Furnished,Non Furnished"/>
+    <aura:attribute name="sharingType" type="String[]" default="2 BHK,3 BHK,4 BHK,5 BHK"/>
+    <aura:attribute name="acNeeded" type="String[]" default="Yes,No"/>
+    <aura:attribute name="selectedRoomType" type="string" />
+    <aura:attribute name="selectedSharingType" type="string" />
+    <aura:attribute name="isAcRequired" type="string" />
+    <aura:attribute name="Blocks" type="String[]" default=""/>
+    <aura:attribute name="Towers" type="String[]" default=""/>
+    <aura:attribute name="Floors" type="String[]" default=""/>
+    
+    <aura:if isTrue="{!v.selectProjectDisplay}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                        <b style="font-size:26px;color:#089ae2;">
+                            Select Your Property !!
+                        </b>
+                    </h2>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                    <div class="slds-grid slds-gutters">
+                        
+                        <div class="slds-col slds-size_2-of-8">
+                            <lightning:select name="select" label="Choose Room Type" required="true" value="{!v.selectedRoomType}">
+                                <aura:iteration items="{!v.rooms}" var="room">
+                                    <option text="{!room}"></option>
+                                </aura:iteration>
+                            </lightning:select>
+                            <br/>
+                        </div>
+                        
+                        <div class="slds-col slds-size_2-of-8">
+                            <lightning:select name="select" label="Choose Sharing Type" required="true" value="{!v.selectedSharingType}" >
+                                <aura:iteration items="{!v.sharingType}" var="sharing">
+                                    <option text="{!sharing}"></option>
+                                </aura:iteration>
+                            </lightning:select>
+                            <br/>
+                        </div>
+                        <div class="slds-col slds-size_2-of-8">
+                            
+                            <lightning:select name="select" label="Is AC needed" required="true" value="{!v.isAcRequired}">
+                                <aura:iteration items="{!v.acNeeded}" var="ac">
+                                    <option text="{!ac}"></option>
+                                </aura:iteration>
+                            </lightning:select>
+                            <br/>
+                        </div>
+                        <div class="slds-col slds-size_2-of-8">
+                            <br/>
+                            <lightning:button label="Search Rooms" variant="brand"  iconName="utility:search" onclick="{!c.submitDetails}" ></lightning:button>
+                        </div>
+                    </div>
+                    
+                    <aura:if isTrue="{!v.displayResult}">
+                        <c:PropertySearchResult selectProjectDisplay="{!v.selectProjectDisplay}" Blocks="{!v.Blocks}" Towers="{!v.Towers}" Floors="{!v.Floors}" recordId="{!v.recordId}"/>
+                    </aura:if>
+                    
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeModel }"/>
+                    <lightning:button variant="brand"
+                                      label="OK"
+                                      title="OK"
+                                      onclick="{!c.submitDetails}"/>
+                </footer>
+            </div>
+            
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+</aura:component>

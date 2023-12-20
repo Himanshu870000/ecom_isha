@@ -1,0 +1,126 @@
+<apex:page showHeader="false" sidebar="false"  docType="html-5.0" applyBodyTag="false" renderAs="pdf" applyHtmlTag="false"  standardController="Opportunity" extensions="PurchesOrderUtilPDFController">
+    
+    
+    <head>
+        <style>
+            @page {
+            margin-top: 1cm;
+            margin-right:1cm;
+            }
+        </style>
+    </head>
+    
+    <body>
+        
+        <div class="header">
+            <!--apex:image value="https://cmenvirosystems--cmedev.sandbox.my.salesforce.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0685j000007gufR&operationContext=CHATTER&contentId=05T5j00000Hz5kT" style="float:right;height:75px;" /-->
+            <div Style="float:left">
+                <apex:image url="{!$Resource.Utillogo}" width="auto" height="auto" /><br/>   
+            </div>
+            <br/>
+            <div Style="float:right;padding-right:70px;padding-top:0px;font-size:25px;letter-spacing:2px;color:Orange;font-family: Noto Sans,Helvetica,sans-serif;">
+                <b>PURCHASE ORDER</b>   
+            </div>
+        </div>
+        
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>        
+        <div style="display: inline-block;width: 100%;padding-top:10px;font-family: Noto Sans,Helvetica,sans-serif;">
+            
+            <div style="display: inline-block;float:left;width:50%">
+                <b Style="color:#949699;">Utilitarian Labs Private Limited </b><br/>
+                <span style="color:#606060">
+                    4th Floor, 70, 1st Cross Rd <br/>
+                    Sahyadri Layout, Panduranga Nagar<br/>  
+                    Bengaluru, Karnataka (560076) <br/>
+                    Phone: +91-9910770310<br/>
+                    Website: https://utilitarianlabs.com/ 
+                </span>
+                <br/>
+            </div>
+            
+            <div style="display: inline-block;float:right;width:50%">
+                <span></span><br/>
+                <span style="color:#606060">Date : <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}"><apex:param value="{!todayDate}"  />  </apex:outputText></span><br/>
+                <span style="color:#606060">PO # : HJ657 </span><br/>
+                <br/>
+            </div>
+            
+        </div>
+        
+        <br/>
+        <br/>
+        
+        <div style="margin-left: 0px;margin-right:30px;font-family: Noto Sans,Helvetica,sans-serif">
+            
+            
+            <div style="display: inline-block;width: 100%;margin: 1rem;padding: 2rem 2rem;padding-top:10px;font-family: Noto Sans,Helvetica,sans-serif;">
+                
+                <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:50%">
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px">VENDOR DETAILS</span><br/>
+                    <span style="color:#606060;font-size: 13.5px;font-weight: bold;"> </span>  <span style="font-size:13px;color: #606060;font-weight: normal"> Utilitarian Labs Private Limited </span><br/>
+                    <span style="color:#606060;font-size: 13.5px;font-weight: bold;"> </span>  <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> Dinesh Baddawar</span> <br/>
+                    <span style="color:#606060;font-size: 13.5px;font-weight: bold;"></span> <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> Sahyadri Layout, Panduranga Nagar</span>   <br/>
+                    <span style="color:#606060;font-size: 13.5px;font-weight: bold;"></span> <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> Bengaluru, Karnataka 560076</span>   <br/>
+                    <span style="color:#606060;font-size: 13.5px;font-weight: bold;"></span> <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal">Phone : 08446557829</span>   <br/>
+                    <span style="color:#606060;font-size: 13.5px;font-weight: bold;"></span> <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal">Fax : 08446557829</span>   <br/>
+                </div>
+                <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:50%;color:#606060;">
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px">VENDOR SHIP DETAILS</span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">Chadan Kumar</span> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">Util Labs</span> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">5th Stage, J. P. Nagar</span> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">M M Main Road, Bangalore - 560022</span> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">Phone : 07588229058</span> </span><br/>
+                    
+                </div>
+            </div>
+            
+            <br/>
+            <br/>
+            
+            <table style="width:100%;border:1px solid black;border-collapse:collapse;">
+                <tr>
+                    <th  style="border:1px solid black;background-color: #dddddd;width:5px;text-align:center;font-size:12px;">ITEM #</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">DESCRIPTION</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:20px;">QTY</th> 
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">UNIT PRICE</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">TOTAL</th>
+                    
+                </tr>
+                <apex:variable var="index" value="{!0}" />
+                <apex:repeat value="{!oppLineItemList}" var="lineItems">
+                     <apex:variable var="TotalPrice" value="{!lineItems.Quantity * lineItems.UnitPrice}"/>
+                    <tr>
+                        <apex:variable var="index" value="{!(index+1)}"/>
+                        <td style="border:1px solid black;width:5px;text-align:center;"><apex:outputText value="{!index}"/></td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;width:25px;text-align:center;">{!lineItems.Product2.Name}</td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;width:20px;text-align:center;"> <apex:outputText value="{0, number, #,###}"> <apex:param value="{!lineItems.Quantity}" /> </apex:outputText> </td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;"> <apex:outputText value="{0, number, #,###}"> <apex:param value="{!lineItems.UnitPrice}" /> </apex:outputText> </td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;"> $<apex:outputText value="{0, number, #,###}"> <apex:param value="{!TotalPrice}" /> </apex:outputText></td>
+                    </tr>
+                </apex:repeat> 
+                <tr >
+                    <td  colspan="2" style="border:1px solid black;text-align:center;width:50%;font-size:14px;">SUBTOTAL</td>
+                    <td  colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:16px;"><b> <apex:outputText value="{0, number, #,###}"> $<apex:param value="{!SubTotalPrice}" /> </apex:outputText></b></td>
+                </tr>
+                 <tr >
+                    <td  colspan="2" style="border:1px solid black;text-align:center;width:50%;font-size:14px;">TAX</td>
+                    <td  colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:16px;"><b> <apex:outputText value="{0, number, #,###}"> <apex:param value="{!Discount}" /> </apex:outputText>%</b></td>
+                </tr>
+                 <tr >
+                    <td  colspan="2" style="border:1px solid black;text-align:center;width:50%;font-size:14px;">TOTAL</td>
+                    <td  colspan="3" style="border:1px solid black;text-align:center;width:50%;font-size:16px;"><b> <apex:outputText value="{0, number, #,###}"> <apex:param value="{!subtotalwithDiscount}" /> </apex:outputText></b></td>
+                </tr>
+            </table>
+            
+        </div>
+        
+        
+    </body>
+    
+</apex:page>

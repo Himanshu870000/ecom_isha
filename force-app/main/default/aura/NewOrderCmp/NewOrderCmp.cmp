@@ -1,0 +1,61 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="openmodel" type="boolean"/>
+    <aura:attribute name="newOrder" type="sObject" default="{}"/>
+    <aura:attribute name="lstOfRecordType" type="String[]" />
+    <aura:attribute name="stageOptions" type="List" default="[]"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:method name="submitDR" action="{!c.openEventPopup}">        
+        <aura:attribute name="showModalFade" type="string"/>
+        <aura:attribute name="darkModalBackdrop" type="String"/>
+    </aura:method>
+    
+    <section role="dialog" class="slds-modal" aura:id="modalFade">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeEventPopup}">
+                    
+                </button>
+                
+                <h2 class="slds-text-heading_medium slds-hyphenate">New Order</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium">         
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <span>
+                        	<lightning:input name="orderId" label="Order Id" value="initial value"/>
+                        </span>
+                    </div>
+                    <div class="slds-col">
+                        <span>
+                        	<lightning:input type="date" name="ordPlacedOn" label="Order Placed On" value="2020-09-07" />
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <span>
+                        	<lightning:combobox aura:id="selectItem" name="ordStage" label="Order Status"
+                                                                                   placeholder="New"
+                                                                                   value="new"
+                                                                                   onchange="{!c.handleOptionSelected}"
+                                                                                   options="{!v.stageOptions}"/>
+                        </span>
+                    </div>
+                    <div class="slds-col">
+                        <span>
+                        	<lightning:input type="date" name="ODDate" label="OrderDelivery Date" value="2020-09-07" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <lightning:button variant="bare"  label="Cancel"  onclick="{!c.closeEventPopup}" class="cancel-button" />
+                <lightning:button variant="bare"  label="Add Product"  iconName="utility:add" onclick="{!c.newOrder}" class="custom-button"/>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop" aura:id="modalBackdrop"></div>
+    
+</aura:component>

@@ -1,0 +1,57 @@
+<template>
+    
+    <article class="slds-card">
+        <div class="slds-grid slds-einstein-header slds-card__header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-utility-salesforce1">
+                            <svg class="slds-icon slds-icon_small slds-icon-text-default" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-truncate" title="Einstein (10+)">
+                            <a href="#" class="slds-card__header-link" title="Einstein (10+)">
+                                <span class="slds-text-heading_small">Revenue Tracking</span>
+                            </a>
+                        </h2>
+                    </div>
+                </div>
+                <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+            </header>
+            
+        </div>
+        
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-form">
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Fiscal Target</span>
+                    <div class="slds-form-element__control">
+                      <div class="slds-form-element__static">{goalTrackData.Target__c}</div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Achieved Target</span>
+                    <div class="slds-form-element__control">
+                      <div class="slds-form-element__static">{goalTrackData.Achieved_Target__c}</div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">In Progress</span>
+                    <div class="slds-form-element__control">
+                      <div class="slds-form-element__static">{goalTrackData.Expected_Amount__c}</div>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Percentage Achieved</span>
+                    <div class="slds-form-element__control">
+                      <div class="slds-form-element__static"><lightning-formatted-number value={achived_percentage} maximum-fraction-digits="2"></lightning-formatted-number>%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    
+</template>

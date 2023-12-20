@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="">
+        <div class="slds-p-around_small">
+            
+            <div class="row">
+                <lightning-input type="text" label="Jira issue Subject" value={Subject} disabled="false"></lightning-input>
+            </div>
+            <div class="row">
+                <lightning-input type="text" label="Jira issue Description" value={Description} disabled="true"></lightning-input>
+            </div>
+            <div class="row">
+                <button class="slds-button slds-button_brand" onclick={addIssue}>Create JIRA Issue</button>
+            </div>
+        </div>
+      
+    </lightning-card>
+</template>

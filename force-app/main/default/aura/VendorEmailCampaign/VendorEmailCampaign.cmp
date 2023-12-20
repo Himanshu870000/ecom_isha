@@ -1,0 +1,91 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global"  controller="GetSupplierDetails" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="data" type="List"/>
+    <aura:attribute name="EvnetScheId" type="String"/>
+    <aura:attribute name="BALIId" type="String"/>
+    <aura:attribute name="OppName" type="String"/>
+    <aura:attribute name="ProductId" type="String"/>
+    <aura:attribute name="selectedCount" type="Integer"/>
+    <aura:attribute name="show" type="Boolean" default="false" />
+    
+    <aura:html tag="style">             
+        .slds-modal__container{        
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 110rem !important;
+        max-height: 150rem !important;
+        }        
+    </aura:html> 
+    
+    <div class="role" style="width:100%;">
+        <div class="card" >
+            <div class="card-header" style="background-color:powderblue; height:20%;padding: 12px;">
+                <h4><b><center>RUN Email Campaign</center></b></h4>
+            </div>
+            <div class="card-body" >
+                <table class="slds-table slds-table--bordered slds-table--cell-buffer" >
+                    <thead >
+                        <tr class="slds-text-title--caps">
+                            <th style="width:3.20rem;" class="slds-text-align--right">
+                                <label class="slds-checkbox">
+                                    <!--header checkbox for select all-->
+                                    <ui:inputCheckbox aura:id="box3" change="{!c.selectAll}"/>
+                                    <span class="slds-checkbox--faux"></span>
+                                    <span class="slds-form-element__label text"></span>
+                                </label>
+                            </th>
+                            <th>
+                                <span class="slds-truncate" title="Name">Name</span>      
+                            </th>
+                            <th>
+                                <span class="slds-truncate" title="Name">Vendor Email</span>      
+                            </th>
+                            <th>
+                                <span class="slds-truncate" title="Name">Vendor Phone</span>      
+                            </th>
+                            <th>
+                                <span class="slds-truncate" title="Name">Vendor Category</span>      
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.data}" var="con" indexVar="i">
+                            <tr>
+                                <td scope="row" class="slds-text-align--right" style="width:3.25rem;">
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <label class="slds-checkbox">
+                                                <ui:inputCheckbox text="{!con.Id}" aura:id="boxPack" value="" change="{!c.checkboxSelect}"/>
+                                                <span class="slds-checkbox--faux"></span>
+                                                <span class="slds-form-element__label text"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </td>  
+                                <td scope="row">
+                                    <div class="slds-truncate" title="{!con.Name}"><a>{!con.Name}</a></div>
+                                </td>
+                                <td scope="row">
+                                    <div class="slds-truncate" title="{!con.Name}"><a>{!con.Vendor_Email__c}</a></div>
+                                </td>
+                                <td scope="row">
+                                    <div class="slds-truncate" title="{!con.Name}"><a>{!con.Vendor_Phone__c}</a></div>
+                                </td>
+                                <td scope="row">
+                                    <div class="slds-truncate" title="{!con.Name}"><a>{!con.Vendor_category__c}</a></div>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer slds-modal__footer slds-size_1-of-1">
+        <div class="slds-align_absolute-center">
+            <ui:button class="slds-button slds-float_left  slds-button_neutral" label="Cancel"
+                       press="{! c.hideQuickAction}" />
+            <ui:button class="slds-button slds-button--brand" label="Save" press="{!c.SaveRecord}" />
+        </div>
+    </div>
+</aura:component>

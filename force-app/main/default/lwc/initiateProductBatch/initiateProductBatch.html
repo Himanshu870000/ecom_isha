@@ -1,0 +1,66 @@
+<template>
+    <lightning-quick-action-panel header="Product Bundle Creation" style="height: 200px;">
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+
+        <lightning-combobox
+            name="progress"
+            label="Choose Product"
+            value={productSelected}
+            placeholder="Choose Product"
+            options={products}
+            onchange={handleChange} ></lightning-combobox>
+
+            <template if:true={showBatches}>
+                <div style="margin-top: 3%;">
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_bordered slds-table_col-bordered">
+                            <thead>
+                                <th>
+                                    <lightning-input type="checkbox"
+                                        disabled="true">
+                                    </lightning-input>
+                                </th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Recommended</th>
+                                <th>Description</th>
+                            </thead>
+                            <tbody>
+                                <template for:each={productBundle} for:item="prod">
+                                    <tr key={prod.Id}>
+                                        <td>
+                                            <lightning-input data-name="checkbox1" type="checkbox" data-id={prod.Id} checked={prod.checked}
+                                                onchange={inputHandler}></lightning-input>
+                                        </td>
+                                        <td>{prod.Name}</td>
+                                        <td> <lightning-input data-name="input" data-id={prod.Id} type="number" value={prod.Quantity__c} onchange={inputHandler}></lightning-input></td>
+                                        <td><b>{prod.Price__c}</b></td>
+                                        <td>
+                                            <lightning-input data-name="checkbox2" type="checkbox" data-id={prod.Id} checked={prod.Recommended__c}
+                                            onchange={inputHandler}></lightning-input>
+                                        </td>
+                                        <td>{prod.Description__c}</b></td>
+                                       
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                </div>
+            </template>
+            <template if:false={showBatches}>
+                <div style="margin-top: 20%;"></div>
+            </template>
+
+            <div slot="footer">
+                <lightning-button variant="neutral" label="Cancel" onclick={closePopup}></lightning-button>
+                <lightning-button variant="brand" label="Submit" class="slds-m-left_x-small" onclick={submitBundle}
+                    disabled={disableSubmitBtn}>
+                </lightning-button>
+            </div>
+    </lightning-quick-action-panel>
+</template>

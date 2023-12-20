@@ -1,0 +1,47 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+   
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-9" style="margin-right:1%; margin-bottom:1.5%">
+            <!-- Card markup -->
+            <div class="slds-card">
+                <header class="slds-card__header" >
+                    <h2 class="slds-text-heading_small" style="text-align: center; font-weight: 650;">Goal</h2>
+                </header>
+                <div class="slds-card__body">
+                    <!-- Add other content for the card -->
+                    <div  style="background-color:#FFC300; padding:2%; width:70%; margin-left:14%; border-radius:8px;margin-right:-1%">
+                        <div style="text-align: center; color: white; font-size: 180%; font-weight: 550;">10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-9" style="margin-right:1%; margin-bottom:1.5%">
+            <!-- Card markup -->
+            <div class="slds-card">
+                <header class="slds-card__header" >
+                    <h2 class="slds-text-heading_small" style="text-align: center; font-weight: 650;">Achievement</h2>
+                </header>
+                <div class="slds-card__body">
+                    <!-- Add other content for the card -->
+                    <div  style="background-color:#3498DB; padding:1.7%; width:70%; margin-left:14%; border-radius:8px;margin-right:-1%">
+                        <div style="text-align: center; color: white; font-size: 180%; font-weight: 550;">30L+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-9" style=" margin-bottom:1.5%">
+            <!-- Card markup -->
+            <div class="slds-card">
+                <header class="slds-card__header" >
+                    <h2 class="slds-text-heading_small" style="text-align: center; font-weight: 650;">Special Notes</h2>
+                </header>
+                <div class="slds-card__body">
+                    <!-- Add other content for the card -->
+                    <div  style="background-color:#27AE60; padding:2.3%; width:70%; margin-left:14%; border-radius:8px;">
+                        <div style="text-align: center; color: white; font-size: 110%; font-weight: 550;">Sales Team has been assigned a new Task</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

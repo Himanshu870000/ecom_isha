@@ -1,0 +1,43 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    
+        <lightning:card footer="" title="">
+
+    <table class="myTable">
+        <thead >
+            <th>
+                <p class="slds-align_absolute-center" style="font-size:16px;">
+                    <b>What To Sell</b>
+                </p> 
+            </th>
+            <th>
+                <p class="slds-align_absolute-center" style="font-size:16px;">
+                    <b>Recommended Clients</b>
+                </p> 
+            </th>
+            <th>
+                <p class="slds-align_absolute-center" style="font-size:16px;">
+                   <b>Other Actions</b>
+                </p> 
+                
+            </th>
+        </thead>
+        <tbody> 
+            <tr>
+                <td>
+                    <c:bidBrandingCmp/>
+                </td>
+                <td>
+                    <c:investmentRecordCmp/>
+                </td>
+                <td>
+                    <c:OtherActionsCmp/>
+                    
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+    
+    </lightning:card>
+    
+</aura:component>

@@ -1,0 +1,32 @@
+<apex:page showHeader="false" sidebar="false">
+    <html>
+        <head>
+            <apex:includeLightning />
+            <c:Libraries ></c:Libraries> 
+        </head>
+        <script type="text/javascript">
+        var component;
+        debugger;
+        var accId = '{!$CurrentPage.parameters.id}';
+        debugger;
+        $Lightning.use("c:MasterDealerDashboardApp", function() {
+            $Lightning.createComponent("c:MasterDealerDashboardCmp", 
+                                       {"accountId": accId},
+                                       "LightningContainer",
+                                       function(cmp) {
+                component = cmp;
+                console.log('Component created');
+            });
+        });
+        
+        //Method to call Lightning Component Method
+        var getWelcomeMessage = function(){
+            component.welcomeMsgMethod({message : "Welcome to Salesforce Ohana", developerGroup: "Bengaluru"}, "Biswajeet Samal");
+        }
+        
+        </script>
+        <body>
+            <div style="width:100%;height:100px;" id="LightningContainer" />
+        </body>
+    </html>
+</apex:page>

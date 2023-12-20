@@ -1,0 +1,70 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global"  controller = "propertyMgtController" >
+    
+    <aura:attribute name="recordId" type="string" />
+    <aura:attribute name="selectProjectDisplay" type="boolean" />
+    <aura:attribute name="selectedProject" type="string" />
+    <aura:attribute name="displayDailyLineItems" type="boolean" default="false" />
+    <aura:attribute name="Blocks" type="String[]" default=""/>
+    <aura:attribute name="Towers" type="String[]" default=""/>
+    <aura:attribute name="Floors" type="String[]" default=""/>
+    <aura:attribute name="rooms" type="String[]" default=""/>
+    
+    <aura:if isTrue="{!v.selectProjectDisplay}">
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_2-of-8">
+                    <lightning:button label="Available Blocks" disabled = "true" variant="brand"></lightning:button>
+                    <br/>
+                    <br/>
+                    <aura:iteration items="{!v.Blocks}" var="room">
+                        <button class="slds-button slds-button_neutral" data-id="{!room.Id}" onclick="{!c.getTowers}" >
+                            <option text="{!room.Name}"></option>
+                        </button>
+                        <br/><br/>
+                    </aura:iteration>
+                </div>
+                <div class="slds-col slds-size_2-of-8">
+                    <lightning:button label="Available Towers" disabled = "true" variant="brand"></lightning:button>
+                    <br/>
+                    <br/>
+                    <aura:iteration items="{!v.Towers}" var="room">
+                        <button class="slds-button slds-button_success" data-id="{!room.Id}" onclick="{!c.getFloors}">
+                            <option text="{!room.Name}"></option>
+                        </button>
+                        <br/><br/>
+                    </aura:iteration>
+                    <br/>
+                </div>
+                <div class="slds-col slds-size_2-of-8">
+                    <lightning:button label="Available Floors" disabled = "true" variant="brand"></lightning:button>
+                    <br/>
+                    <br/>
+                    <aura:iteration items="{!v.Floors}" var="room">
+                        <button class="slds-button slds-button_success"  data-id="{!room.Id}" onclick="{!c.getRooms}">
+                            <option text="{!room.Name}"></option>
+                        </button>
+                        <br/><br/>
+                    </aura:iteration>
+                    <br/>  
+                </div>
+                <div class="slds-col slds-size_2-of-8">
+                    <lightning:button label="Available Rooms" disabled = "true" variant="brand"></lightning:button>
+                    <br/>
+                    <br/>
+                    <aura:iteration items="{!v.rooms}" var="room">
+                        <button class="slds-button slds-button_neutral slds-button_dual-stateful slds-is-pressed" aria-live="assertive" aria-pressed="true" data-id="{!room.Id}" onclick="{!c.bookRoom}">
+                            <span class="slds-text-not-pressed">
+                                <option text="{!room.Name}"></option>
+                            </span>
+                            <span class="slds-text-pressed">
+                                <option text="{!room.Name}"></option>
+                            </span>
+                        </button>
+                        <br/><br/>
+                    </aura:iteration>
+                    <br/>            
+                </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

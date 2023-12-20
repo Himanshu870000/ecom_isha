@@ -1,0 +1,56 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" 
+                access="global" controller="CallBatchController">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute type="Investment__c[]" name="investmentList"/>
+    
+    <p style="font-size:25px; text-align:center;"><b>Recent Fundings</b></p>
+    <aura:iteration items="{!v.investmentList}" var="invest" indexVar="index">
+        <lightning:card>
+            <div class="slds-modal__content slds-app-launcher__content" id="modal-content-id-1" style="width:80%; height:20%; align:center;padding-left:30px;zoom:80%">
+                <div class="slds-section slds-is-open">
+                    <div aria-hidden="false" class="slds-section__content" id="appsContent">
+                        <div class="slds-assistive-text" id="drag-live-region" aria-live="assertive"></div>
+                        <ul class="slds-grid slds-grid_pull-padded slds-wrap">
+                            <li class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_4-of-4">
+                                <div draggable="true" class="slds-app-launcher__tile slds-text-link_reset slds-is-draggable">
+                                    <div class="slds-app-launcher__tile-figure">
+                                        <span class="slds-avatar slds-avatar_large">
+                                            <abbr>{!invest.Name}</abbr>
+                                        </span>
+                                        <div class="slds-m-top_xxx-small">
+                                            <button class="slds-button slds-button_icon" aria-pressed="false" title="Reorder">
+                                                <span class="slds-assistive-text">Reorder</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="slds-app-launcher__tile-body" style="font-size:1.2rem;">
+                                        <h3 style="padding-top:1rem; text-align:center;"><b>{!invest.Name}</b></h3>
+                                        <p style="padding-top:1rem; text-align:center;"> Company Name : {!invest.Account__r.Name}</p>
+                                        <p style="padding-top:1rem; text-align:center;"> Funding Amount : {!invest.Funding_Amount__c}</p>
+                                        <p style="padding-top:1rem; text-align:center;"> Funding Date : {!invest.Funding_Date__c}</p>
+                                        <p style="padding-top:1rem; text-align:center;"> Funded By : {!invest.Investment_Firms__c}</p>
+                                        <div class="slds-popover slds-popover_tooltip slds-nubbin_top-right slds-hide" role="tooltip" id="help-0" style="position:absolute;top:80px;right:30px">
+                                            <div class="slds-popover__body"></div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-app-launcher__tile-figure">
+                                        <span class="slds-avatar slds-avatar_large">
+                                            <abbr >{!invest.Name}</abbr>
+                                        </span>
+                                        <div class="slds-m-top_xxx-small">
+                                            <button class="slds-button slds-button_icon" aria-pressed="false" title="Reorder">
+                                                <span class="slds-assistive-text">Reorder</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </lightning:card> 
+    </aura:iteration>
+    
+</aura:component>

@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <lightning:card >
+        <img src="{!$Resource.GraphyOppTrial}"/>
+    </lightning:card>
+</aura:component>

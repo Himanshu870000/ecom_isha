@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT">
+    <aura:attribute name="selectedDate" type="date"/>
+    <aura:attribute name="selectedDay" type="string"/>
+</aura:event>

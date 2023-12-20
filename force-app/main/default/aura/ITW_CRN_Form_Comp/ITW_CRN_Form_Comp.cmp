@@ -1,0 +1,99 @@
+<aura:component>
+    
+    <aura:attribute name="brandName" type="String" />
+    <aura:attribute name="legalName" type="String" />
+
+
+    <div class="slds-page-header" >
+        
+        <div class="slds-grid " style="margin-bottom:-3%;" >
+            
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_2-of-12" style="margin-left:20px;">
+                <img src="{!$Resource.ITW}"  style="width:70%; height:70%;"/> 
+            </div>
+            
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_7-of-12">
+                <b style="font-size: 200%; color:black; margin-top:20%; padding-left:25%; font-style: Inknut Antiqua; " >Customer Request Form</b> 
+            </div>
+            
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_3-of-12" style="margin-top:20px;">
+                <b style="font-size: 200%; padding-right:20px;">ITW Consulting</b> 
+            </div>
+         </div> 
+         
+    </div>
+    <div style="margin-left:40Px; margin-right:40Px;">
+        <b>Company Details</b>
+    </div>
+    <div class="slds-form_horizontal slds-form slds-grid slds-wrap"  style="margin-left:40Px; margin-right:40Px;">
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:input   type="text" value=" " Name="BrandName" label ="Company Brand Name"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input   type="text" value=" " Name="LegalName" label ="Company Legal Name"/>
+        </div> 
+        <br/> 
+        
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:select name="select1" label="Inception  Of Company"  >
+                <option value="">choose one...</option>
+                <option value="1">2000</option>
+                <option value="2">2001</option>
+                <option value="3">2002</option>
+            </lightning:select> </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:select name="select1" label="Company Industry"  >
+                <option value="">choose one...</option>
+                <option value="1">one</option>
+                <option value="2">two</option>
+                <option value="3">three</option>
+            </lightning:select>        </div> 
+            <br/>  
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:input aura:id="contactField" type="text" value=" " Name="Last Name" label ="Website"/>
+        </div>
+         
+     </div>
+     <div style="margin-left:40Px; margin-right:40Px;">
+        <b>Contact Details</b>
+    </div>
+    <div class="slds-form_horizontal slds-form slds-grid slds-wrap" style="margin-left:40Px; margin-right:40Px;" >
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:select name="select1" label="Title"  >
+                <option value="">choose one...</option>
+                <option value="1">MR.</option>
+                <option value="2">Ms.</option>
+                <option value="3">Mrs.</option>
+            </lightning:select> 
+        </div>
+     </div>
+        <br/>
+    <div class="slds-form_horizontal slds-form slds-grid slds-wrap" style="margin-left:40Px; margin-right:40Px;" >
+
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:input aura:id="contactField" type="text" value=" " Name="Last Name" label ="First Name"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:id="contactField" type="text" value=" " Name="First Name" label ="Last Name"/>
+        </div> 
+        <br/> 
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:input aura:id="contactField" type="text" value=" " Name="Last Name" label ="Email"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:id="contactField" type="text" value=" " Name="First Name" label ="Phone"/>
+        </div>
+        <br/> <br/>  
+        <div class="slds-col slds-size_1-of-2" style="margin-left:92%;">
+            <lightning:button label="Submit" variant="brand" onclick="{!c.openNewRecord}" class="slds-m-right_x-small"></lightning:button>
+       </div> 
+
+    </div>
+
+   <br/>
+ 
+  
+<div class="slds-col modal-footer slds-modal__footer"> 
+     
+</div>
+</aura:component>

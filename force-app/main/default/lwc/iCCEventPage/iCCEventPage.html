@@ -1,0 +1,115 @@
+<template>
+      
+    <template if:true={areDetailsVisible}>
+        <div class="slds-page-header">
+            <!-- LAYOUT GRID -->
+            <div class="slds-grid ">
+                <!-- GRID COL -->
+                <div class="slds-col slds-has-flexi-truncate slds-col slds-size_2-of-12" style="margin-left:20px;">
+                    <img  src={icclogo1} > 
+                </div>
+                <!-- GRID COL -->  
+                <div class="slds-col slds-has-flexi-truncate slds-col slds-size_8-of-12">
+                    <b style="font-size: 300%; color:black; margin-top:30px; margin-left:70px; font-style: Inknut Antiqua; " >International Cricket Council</b> 
+                </div>
+                <!-- GRID COL -->
+                <div class="slds-col slds-has-flexi-truncate slds-col slds-size_2-of-12" style="margin-top:20px;">
+                    <img  src={DashboardButton1} > 
+                </div>
+               
+            </div> 
+             
+        </div>
+         
+        <div class="slds-media__body"   style="Background-color:#00706B;">
+
+            <img  src={ICCButton1}  onclick={clickHandler2} style=" width:10%; height:10%;   margin-top:3%;   margin-left:40%;"  class="img5" >
+             
+        <!--   <ul  class="slds-list_horizontal slds-align_absolute-center   "   > 
+                
+             <template for:each={boardslist.data} for:item="board"  >
+                
+                   <lightning-formatted-rich-text value={board.Board_Logo__c} key={board.Id}></lightning-formatted-rich-text> 
+                   <lightning-button  label={board.Name} key={board.Id} ></lightning-button>
+                  <lightning-carousel key={board.Id}>
+                    <lightning-carousel-image
+                        src={board.Board_Logo__c}
+                        header={board.Name}
+                     >   </lightning-carousel-image>
+                    </lightning-carousel> 
+                   
+            </template>   
+        </ul>--> 
+        
+        <div class="row  slds-align_absolute-center" style="Background-color:#00706B;">
+        <template for:each={boardslist.data} for:item="board"   >
+           
+            <div class="column" style="width:30%; float:center;"  key={board.Id} >
+                
+             <p> <lightning-formatted-rich-text value={board.Board_Logo__c}   style="width:90px;"  ></lightning-formatted-rich-text>  </p> 
+             <p>  <lightning-button data-id={board.Id} label={board.Name} onclick={handleOnClick} ></lightning-button></p> 
+            </div>
+ 
+    </template>
+
+    <br/>
+    <div class="row  slds-align_absolute-center">
+    <template for:each={data} for:item="event">
+        
+        <div class="column" style="width:30%; float:center;"  key={event} >
+            <p>  <lightning-button  label={event} onclick={handleOnClick1} ></lightning-button></p> 
+        </div>
+
+    </template>
+</div>
+</div>  1
+ 
+ 
+
+       
+     <!--      <ul  class="slds-list_horizontal slds-align_absolute-center " > 
+            
+                <template for:each={boardslist.data} for:item="board"  >
+                       <lightning-button  label={board.Name} key={board.Id} ></lightning-button>
+                
+   
+               </template>   
+            </ul>--> 
+           
+            
+        </div>
+   
+    </template>
+    <template if:false={areDetailsVisible}>
+    <div class="slds-page-header">
+        <!-- LAYOUT GRID -->
+        <div class="slds-grid ">
+            <!-- GRID COL -->
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_2-of-12" style="margin-left:20px;">
+                <img  src={icclogo1} > 
+            </div>
+            <!-- GRID COL -->  
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_8-of-12">
+                <b style="font-size: 300%; color:black; margin-top:30px; margin-left:70px; font-style: Inknut Antiqua; " >International Cricket Council</b> 
+            </div>
+            <!-- GRID COL -->
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_2-of-12" style="margin-top:20px;">
+                <img  src={DashboardButton1} > 
+            </div>
+           
+        </div>
+         
+    </div>
+    
+    <div   class="container" >
+        <img  src={BackgroundBlue1}   class="img1" >  
+        <img  src={GroupImage1}   class="img2" >
+        <img  src={PlayingImage1}  class="img3" >
+        <img  src={PlayingImage11}  class="img4" >
+        <div style= "width:100%;" >
+            <img  src={ICCButton1}  onclick={clickHandler1} style=" width:10%; height:10%;   margin-top:3%;   margin-left:40%;"  class="img5" >
+            <!--Code Part-->
+        </div>
+    </div> 
+</template>
+</template>

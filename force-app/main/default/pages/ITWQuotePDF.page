@@ -1,0 +1,26 @@
+<apex:page renderas="pdf">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style>
+            body, html {
+            height: 100%;
+            margin: 0;
+            }
+            
+            .bg {
+            background-image:url("{!$Resource.AgentAvatar_For_Chat}");
+            
+            height: 100%; 
+            
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            }
+        </style>
+    </head>
+    <body>
+        <apex:image url="{!$Resource.itwlogo}" style="height: 100%;background-position: center;background-size: cover;"/>
+
+<p>This example creates a full page background image. Try to resize the browser window to see how it always will cover the full screen (when scrolled to top), and that it scales nicely on all screen sizes.</p>
+    </body>
+</apex:page>

@@ -1,0 +1,33 @@
+.THIS .Row {
+    display: table;
+    width: 100%; /*Optional*/
+   
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+.THIS .Column {
+    display: table-cell;
+    background-color: slategray; /*Optional*/
+     height: 7 rem;
+    table-layout: fixed;
+}
+
+.THIS .slds-modal__container{
+   width:100%;
+    margin-top: -52px;
+} 
+
+.THIS .dot {
+  height: 40px;
+  width: 40px;
+  background-color: aquamarine;
+  border-radius: 50%;
+  display: inline-block;
+  text-align:center;
+    padding-top: 6px;
+}
+
+.THIS .slds-avatar__initials{
+    font-family: cursive;
+    font-size: 25px;
+}

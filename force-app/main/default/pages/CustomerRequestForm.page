@@ -1,0 +1,17 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:includeLightning /> 
+    <apex:includeScript value="/lightning/lightning.out.js" />
+    <div id="LightningComponentid" />    
+    <script>
+    debugger;
+    $Lightning.use("c:ITW_CRN_RequestApp", function() {
+        $Lightning.createComponent("c:ITW_CRN_RequestForm",
+          { recordId: '{!$CurrentPage.parameters.id}'
+          },
+          "LightningComponentid",
+          function(cmp) {
+             console.log('LWC Componenet added in VF page');
+          });
+    });
+    </script>
+</apex:page>

@@ -1,0 +1,140 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="dashBoard" type="boolean" default="false"/>
+    <aura:attribute name="dealerProduct" type="boolean" default="false"/>
+    <aura:attribute name="livInventory" type="boolean" default="false"/>
+    <aura:attribute name="order" type="boolean" default="false"/>
+    <aura:attribute name="orderDetail" type="boolean" default="false"/>
+    <aura:attribute name="goalSetting" type="boolean" default="false"/>
+    <aura:attribute name="invoice" type="boolean" default="false"/>
+    <aura:attribute name="right" type="boolean" default="true"/>
+    <aura:attribute name="left" type="boolean" default="false"/>
+    <aura:attribute name="withoutlabel" type="boolean" default="true"/>
+    <aura:attribute name="withlabel" type="boolean" default="false"/>
+    <aura:attribute name="accountId" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:card>
+        <lightning:layout>
+            <div style="background-color=#D7EAEB;">
+                <lightning:layoutItem size="2">
+                    <!-- Sidebar content without label -->
+                    <aura:if isTrue="{!v.withoutlabel}">
+                        <div class="sidebar" style="margin-top: 96px;">
+                            <aura:if isTrue="{!v.right}">
+                                <div class="slds-p-left_x-large slds-float_right">
+                                    <lightning:button variant="bare"  iconName="utility:jump_to_right" onclick="{!c.toggleRightSidebar}" class="slds-p-left_medium slds-button_full-width"/>  
+                                </div><br/><br/>
+                            </aura:if>
+                            
+                            <div class="slds-align_absolute-left slds-m-top_small slds-m-left_small">
+                                <div ><img src="{!$Resource.DML_logo}"/></div> 
+                            </div><br/>
+                            
+                            <div id="divsection" class="slds-p-bottom_x-small slds-p-left_x-small slds-m-top_small">
+                                <lightning:button  variant="bare"  iconName="utility:screen" onclick="{!c.navigateDB}" class="custom-button slds-p-left_medium slds-button"/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small ">
+                                <lightning:button  variant="bare"  iconName="utility:edit_form" onclick="{!c.navigateLivInv}" class="custom-button slds-p-left_medium slds-button "/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small ">
+                                <lightning:button  variant="bare"  iconName="utility:products" onclick="{!c.navigateProd}" class="custom-button slds-p-left_medium slds-button"/>
+                            </div> 
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small ">
+                                <lightning:button  variant="bare"  iconName="utility:richtextbulletedlist" onclick="{!c.navigateOrd}" class="custom-button slds-p-left_medium slds-button "/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small ">
+                                <lightning:button  variant="bare"  iconName="utility:watchlist" onclick="{!c.navigateGSetting}" class="custom-button slds-p-left_medium slds-button"/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small ">
+                                <lightning:button  variant="bare"  iconName="utility:form" onclick="{!c.navigateInv}" class="custom-button slds-p-left_medium slds-button"/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small ">
+                                <lightning:button  variant="bare"  iconName="utility:logout" onclick="{!c.navigateInv}" class="custom-button slds-p-left_medium slds-button"/>
+                            </div>
+                        </div>
+                    </aura:if>
+                    
+                    
+                    
+                    <!-- Sidebar content with Labels -->
+                    <aura:if isTrue="{!v.withlabel}">
+                        <div class="sidebar1" style="margin-top: 96px;">
+                            <aura:if isTrue="{!v.left}">
+                                <div class="slds-p-left_x-large slds-float_right">
+                                    <lightning:button  variant="bare"  iconName="utility:jump_to_left" onclick="{!c.toggleLeftSidebar}" class="slds-p-left_medium"/>
+                                </div><br/><br/>
+                            </aura:if>
+                            
+                            
+                            <div class="slds-grid slds-align_absolute-left slds-m-left_small"  style="margin-bottom:0%;"  >
+                                <img src="{!$Resource.DML_logo}"  />
+                                <div class="slds-col slds-p-left_small slds-m-top_medium"><b>DEALER <br/>MANAGEMENT</b></div>
+                            </div><br/>
+                            
+                            <div class="slds-p-bottom_x-small  slds-p-left_x-small slds-m-top_small" style="margin-top:2%"  >
+                                <lightning:button variant="bare"  label="Dashboard"  iconName="utility:screen" onclick="{!c.navigateDB}" class="custom-button1 slds-p-left_medium slds-button" />
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small "   >
+                                <lightning:button variant="bare"  label="Live Inventory"  iconName="utility:edit_form" onclick="{!c.navigateLivInv}" class="custom-button1 slds-p-left_medium slds-button"/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small "   >
+                                <lightning:button variant="bare"  label="Products"  iconName="utility:products" onclick="{!c.navigateProd}" class="custom-button1 slds-p-left_medium slds-button"/>
+                            </div> 
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small "   >
+                                <lightning:button variant="bare"  label="Orders"  iconName="utility:richtextbulletedlist" onclick="{!c.navigateOrd}" class="custom-button1 slds-p-left_medium slds-button"/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small "   >
+                                <lightning:button variant="bare"  label="Goal Setting"  iconName="utility:watchlist" onclick="{!c.navigateGSetting}" class="custom-button1 slds-p-left_medium slds-button"/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small "   >
+                                <lightning:button variant="bare"  label="Invoices"  iconName="utility:form" onclick="{!c.navigateInv}" class="custom-button1 slds-p-left_medium slds-button"/>
+                            </div>
+                            <div class="slds-p-bottom_x-small   slds-p-left_x-small "   >
+                                <lightning:button variant="bare"  label="Logout"  iconName="utility:logout" onclick="{!c.navigateInv}" class="custom-button1 slds-p-left_medium slds-button"/>
+                            </div>
+                        </div>
+                    </aura:if>
+                </lightning:layoutItem>
+            </div>
+            
+            <lightning:layoutItem size="10">
+                <div class="slds-grid slds-wrap slds-m-bottom_xx-large">
+                    <!--div class="slds-col slds-size_2-of-3 slds-p-left_xx-large">
+                        <c:SearchCmp/>
+                    </div-->
+                   
+                    <div class="slds-col slds-size_1-of-3 slds-text-align_right slds-p-top_medium">
+                        <lightning:avatar variant="circle" src="https://www.lightningdesignsystem.com/assets/images/avatar2.jpg" initials="AW" fallback-icon-name="standard:person_account" alternative-text="Amy Weaver" class="slds-m-right_small"></lightning:avatar>
+                         <b>Welcome Tushar</b>
+                    </div>
+                </div>
+                <div class="content">
+                    <!-- Main content goes here 
+                    Main Content-->
+                    <aura:if isTrue="{!v.dashBoard}">
+                        <c:DealerDashboardCmp accIdForChild="{!v.accountId}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.dealerProduct}">
+                        <c:DealerProduct accIdForChild="{!v.accountId}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.livInventory}">
+                        <c:LiveInventoryTableCmp accIdForChild="{!v.accountId}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.order}">
+                        <c:OrderTableCmp accIdForChild="{!v.accountId}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.orderDetail}">
+                        <c:OrderDetailsCmp accIdForChild="{!v.accountId}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.goalSetting}">
+                        <c:GoalSettingPage accIdForChild="{!v.accountId}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.invoice}">
+                        <c:InvoiceTableCmp accIdForChild="{!v.accountId}"/>
+                    </aura:if>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

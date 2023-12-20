@@ -1,0 +1,30 @@
+<aura:component controller="QuoteConfigurationEditLine">
+  
+  
+  <aura:attribute name="isFourVisible" type="Boolean" default="false" />
+  <aura:attribute name="systemNames" type="List" default="['red', 'blue', 'green']"/>
+  <aura:attribute name="selectedQLI" type="List"/>
+    
+  <aura:attribute name="contacts" type="SObject[]" />
+  <aura:attribute name="Categories" type="String[]" />
+  <aura:attribute name="SelectedProductOptions" type="List"/>
+  <aura:attribute name="productIds" type="List"/>
+  <aura:registerEvent name="featuresXOptions" type="c:QuotelineitemEvent"></aura:registerEvent>
+    
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:button variant="success" label="Save" title="Success" onclick="{!c.handleClickSave}"/>
+    
+    <lightning:tabset>
+        <aura:iteration items="{!v.Categories}" var="sys">
+               <lightning:tab label="{!sys}" id="{!sys}">
+                {!sys}
+                <c:childfeaturescreen featureList="{!v.contacts}" categorieType="{!sys}" SelectedProductOptions="{!v.SelectedProductOptions}" selectedQLI="{!v.selectedQLI}"/>
+                </lightning:tab>
+          </aura:iteration>
+        
+    </lightning:tabset>
+    <aura:iteration items="{!v.selectedQLI}" var="item">
+        <p>{!item.Name}</p>
+    </aura:iteration>
+</aura:component>

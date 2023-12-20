@@ -1,0 +1,112 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="availableSlotHelper" access="global" >
+	
+    <aura:attribute name="ShowAvailableSlots" type="boolean" default="false"/>
+    <aura:attribute name="BookedAndAvailbleSlots" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.onload}" />
+    
+    <!--lightning:button variant="brand"
+                          label="Available Slots"
+                          title="Available Slots"
+                          onclick="{! c.openModel }" / -->
+    
+     <aura:if isTrue="{!v.ShowAvailableSlots}">
+        
+        <!--section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Availability</h2>
+                    </header -->
+                    <lightning:card>
+                        <aura:if isTrue="{!v.BookedAndAvailbleSlots.length > 0}">
+                            <!-- div class="slds-table-header-fixed_container" style="" -->
+                                <div class="slds-modal__content slds-p-around_x-small" style="">
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-no-row-hover slds-scrollable">
+                                        <thead>
+                                            <tr class="slds-line-height_reset slds-text-title_caps">
+                                                <th  class="slds-is-resizable" scope="col">
+                                                    <div class="slds-truncate" title="Name">
+                                                        Start Time
+                                                    </div>
+                                                </th>
+                                                <th  class="slds-is-resizable" scope="col">
+                                                    <div class="slds-truncate" title="Account Number">
+                                                        End Time
+                                                    </div>
+                                                </th>
+                                                <th class="slds-is-resizable" scope="col">
+                                                    <div class="slds-truncate" title="Industry">
+                                                        Available/Booked
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <aura:if isTrue="{!v.BookedAndAvailbleSlots.length > 0}">
+                                            <tbody>
+                                                <aura:iteration items="{!v.BookedAndAvailbleSlots}" var="Slots">
+                                                    <tr class="slds-hint-parent">
+                                                        
+                                                        <th data-label="Name" scope="row">
+                                                            <div class="slds-truncate" title="{!Slots.SlotStartTime}">
+                                                                <!-- lightning:formattedDateTime value="{!Slots.SlotStartTime}" timeZone="UTC" / --> 
+                                                                {!Slots.SlotStartTime}<!--lightning:formattedDateTime value="{!Slots.SlotStartTime}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/-->                                                   
+                                                            </div>
+                                                        </th>
+                                                        <td data-label="Account Number">
+                                                            <div class="slds-truncate" title="{!Slots.SlotEndTime}">
+                                                                <!-- lightning:formattedDateTime value="{!Slots.SlotEndTime}" timeZone="UTC" / -->
+                                                                {!Slots.SlotEndTime} <!--lightning:formattedDateTime value="{!Slots.SlotEndTime}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/--> 
+                                                            </div>
+                                                        </td>
+                                                        <td data-label="Industry">
+                                                                <aura:if isTrue="{!Slots.SlotBookedOrNot == 'Available'}">
+                                                                    <b style="color:green;">Available</b>
+                                                                    <aura:set attribute="else">
+                                                                        <b style="color:red;">Booked</b>
+                                                                    </aura:set>
+                                                                  </aura:if>
+            
+                                                        </td>
+                                                        <td>
+                                                            <aura:if isTrue="{!Slots.SlotBookedOrNot == 'Available'}">
+                                                                   <lightning:button variant="brand" label="Book Slot" title="Book Slot" onclick="{! c.handleClick }" />
+                                                            </aura:if>
+                                                        </td>
+                                                    </tr>
+                                                </aura:iteration>
+                                            </tbody>
+                                        </aura:if>
+                                    </table>
+                                </div>
+
+                            <!-- /div -->
+                            
+                            <aura:set attribute="else">
+                                <lightning:card>
+                                    <div style=" border-radius: 10px; width: 500px; height:50px; font-size: 25px; margin-top: 100px; margin-bottom: 120px" class="slds-align_absolute-center slds-notify slds-notify_alert" role="alert" >
+                                        
+                                        All The Slots Are Available!!!!!
+                                        
+                                    </div>
+                                </lightning:card>
+                            </aura:set>
+                            
+                        </aura:if>
+                        
+                        
+                    </lightning:card>
+                        <!--footer class="slds-modal__footer">
+                            <lightning:button variant="neutral"
+                                              label="Cancel"
+                                              title="Cancel"
+                                              onclick="{! c.closeModel }"/>
+                        </footer>
+            </div>
+        </section>
+            <div class="slds-backdrop slds-backdrop_open"></div -->
+    </aura:if>
+</aura:component>

@@ -1,0 +1,32 @@
+<template>
+    <lightning-quick-action-panel class="field-title" header="Initiate Conversation with Decision Makers">
+        <ul class="dynamic-text">
+            <li class="item">
+                <div class="app ">
+                    <template for:each={recList} for:item="rec">
+                        <div key={rec.Id}>
+                            <div class="slds-card card-color slds-m-left_small">
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col" style="margin-left:px; margin-top:8px; margin-bottom:0px;">
+                                      <span><lightning-icon icon-name="action:user">
+                                         </lightning-icon></span>
+                                    </div>
+                                    <div class="slds-col" style="margin-left:%; margin-top:%;">
+                                      <span>
+                                          <p class="slds-p-horizontal_small">First Name : {rec.FirstName}</p>
+                                          <p class="slds-p-horizontal_small">Last Name : {rec.LastName}</p>
+                                          <p class="slds-p-horizontal_small">Company Name : {rec.Account.Name}</p>
+                                          <p class="slds-p-horizontal_small"> 
+                                                <a href={rec.url}>Click to Initiate Conversation</a>
+                                          </p>
+                                    </span>
+                                    </div>
+                                </div>
+                           </div><br/>
+                    </div>
+                    </template>
+                </div>
+            </li>
+        </ul>
+</lightning-quick-action-panel>
+</template>

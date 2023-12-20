@@ -1,0 +1,59 @@
+* {
+    /* padding: 0; */
+    margin: 0;
+  }
+   .blackColor a{
+    color: black !important; 
+}
+  
+  .field-title{
+    font-size:20px;
+    font-weight: bold;
+  }
+
+  .app{
+    /* font-size:15px; */
+    font-weight: normal;
+    height:400px;
+  }
+
+  body {
+    font-family: Montserrat;
+  }
+
+  .marg{
+    margin-left:36px;
+  }
+
+  .card-color{
+    background-color:rgb(229, 231, 231);
+    border-left: 4px solid #1099f5;
+    
+  }
+
+  .item {
+    position: relative;
+    top: 0;
+    animation: mymove 5s infinite 1s;
+   /*- &:first-child {
+    }
+    &:nth-child(2) {
+      color: #F79256;
+    }
+    &:nth-child(3) {
+      color: #0FA3B1;
+    }
+    &:nth-child(4) {
+      color: #FE5F55;
+    }
+    &:nth-child(5) {
+      color: #B0DB43;
+    } */
+  }
+   
+ /*  @keyframes mymove {
+    100% {
+      top: -200px; 
+    }
+   
+  } */

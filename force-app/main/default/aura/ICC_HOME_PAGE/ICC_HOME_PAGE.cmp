@@ -1,0 +1,125 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:html tag="style">
+        .container{
+        position: relative;
+        margin-top:100px;
+        }
+        .img1{
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        
+        }
+        .img2{
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        
+        }
+        .img3{
+        position: absolute;
+        z-index: 3;
+        width: 100%;
+        
+        }
+        .img4{
+        position: absolute;
+        z-index: 4;
+        width:100%;
+        color:black; 
+        
+        }
+        .img5{
+        position: relative;
+        z-index: 5;
+        width:100%;
+        color:black; 
+        
+        }
+        
+    </aura:html>
+    <aura:attribute name="Dispatched" type="Boolean" default="false"/>
+    
+    <lightning:card>
+        <!--<div  style="width:100%;     margin-top:-20px;">
+          <div style="width:20%;   float: left;">
+              <img  src="{!$Resource.IccLogo}" style="width:80px; height:80px; margin-left:40px; margin-top:20px;" /> 
+            </div>
+             <div style="width:80%;   float: right;">
+                 <div style="width:60%;   float: left; margin-right:250px; margin-top:30px;">
+                    <b style="font-size: 35px; color:black; font-style: Inknut Antiqua; margin-left:80px;" >International Cricket Council</b>  
+            </div>
+                 <div style="width:20%;   float: right;"  onclick="{!c.clickHandler}" class="p1">
+                    <img  src="{!$Resource.DashboardButton}" style="width:30px; height:30px; margin-right:90px; margin-top:-100px;" /> 
+            </div>
+            </div>
+          </div>
+        <br/>
+        <div   class="container"   >
+          <img  src="{!$Resource.BackgroundBlue}"   class="img1" />  
+             <img  src="{!$Resource.GroupImage}"   class="img2" />
+            <img  src="{!$Resource.PlayingImage}"   class="img3" />
+             <img  src="{!$Resource.PlayingImage1}"   class="img4" />
+              <div style= "width=100%;" >
+                 <img  src="{!$Resource.ICCButton}"   onclick="{!c.clickHandler2}" style=" width:15%; height:15%;   margin-top:3%;   margin-left:40%;"  class="img5" />
+            </div>
+             
+            
+        </div>-->
+        <div style="width:100%">
+            <aura:if isTrue="{!v.Dispatched}">
+                <div  style="width:100%;     margin-top:20px;">
+                    <div style="width:20%;   float: left;">
+                        <img  src="{!$Resource.IccLogo}" style="width:80px; height:80px; margin-left:40px; margin-top:20px;" /> 
+                    </div>
+                    <div style="width:80%;   float: right;">
+                        <div style="width:60%;   float: left; margin-right:250px; margin-top:30px;">
+                            <b style="font-size: 35px; color:black; font-style: Inknut Antiqua; margin-left:80px;" >International Cricket Council</b>  
+                        </div>
+                        <div style="width:20%;   float: right;"  onclick="{!c.clickHandler}" class="p1">
+                            <img  src="{!$Resource.DashboardButton}" style="width:30px; height:30px; margin-right:90px; margin-top:-100px;" /> 
+                        </div>
+                    </div>
+                    
+                </div>
+                <div style= "width=100%;" >
+                    <img  src="{!$Resource.ICCButton}"   onclick="{!c.clickHandler2}" style=" width:15%; height:15%;   margin-bottom:-15%;   margin-left:40%;"  class="img5" />
+                    <div class="   slds-m-around_x-small"  style="   margin-top:-1%;">
+                        <c:Child_Home_Page   /></div>
+                    
+                </div>
+                
+                
+                
+                
+                <aura:set attribute="else">
+                    <div  style="width:100%;     margin-top:-20px;">
+                        <div style="width:20%;   float: left;">
+                            <img  src="{!$Resource.IccLogo}" style="width:80px; height:80px; margin-left:40px; margin-top:20px;" /> 
+                        </div>
+                        <div style="width:80%;   float: right;">
+                            <div style="width:60%;   float: left; margin-right:250px; margin-top:30px;">
+                                <b style="font-size: 35px; color:black; font-style: Inknut Antiqua; margin-left:80px;" >International Cricket Council</b>  
+                            </div>
+                            <div style="width:20%;   float: right;"  onclick="{!c.clickHandler}" class="p1">
+                                <img  src="{!$Resource.DashboardButton}" style="width:30px; height:30px; margin-right:90px; margin-top:-100px;" /> 
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div   class="container"   >
+                        <img  src="{!$Resource.BackgroundBlue}"   class="img1" />  
+                        <img  src="{!$Resource.GroupImage}"   class="img2" />
+                        <img  src="{!$Resource.PlayingImage}"   class="img3" />
+                        <img  src="{!$Resource.PlayingImage1}"   class="img4" />
+                        <div style= "width=100%;" >
+                            <img  src="{!$Resource.ICCButton}"   onclick="{!c.clickHandler2}" style=" width:15%; height:15%;   margin-top:3%;   margin-left:40%;"  class="img5" />
+                        </div>
+                    </div> 
+                </aura:set>
+            </aura:if>
+        </div>
+        
+    </lightning:card>
+    
+</aura:component>

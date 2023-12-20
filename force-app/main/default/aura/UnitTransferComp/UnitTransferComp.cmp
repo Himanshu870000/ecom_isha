@@ -1,0 +1,55 @@
+<aura:component controller="UnitSearchController" implements="force:lightningQuickAction,force:hasRecordId,force:hasSObjectName,flexipage:availableForRecordHome">
+    <aura:attribute name="units" type="List" />
+    <aura:attribute name="recordId" type="String"  />
+    <aura:attribute name="selectedUnit" type="String"  />
+    <aura:attribute name="displayUnits" type="boolean" default="false"/>
+    <aura:attribute name="checkSpinner" type="boolean" default="false"/>
+    <aura:attribute name="isSelectAll" type="boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />        
+    
+    <aura:if isTrue="{!v.checkSpinner}">
+        <div class="exampleHolder">
+            <lightning:spinner alternativeText="Loading" size="small" />
+        </div>
+    </aura:if>
+    <br/><br/>
+    <aura:if isTrue="{!v.displayUnits}">
+        <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+            <thead>
+                <tr class="slds-text-heading_label">    
+                    <th>           
+                        <label class="slds-checkbox">
+                            <ui:inputCheckbox value="{!v.isSelectAll}" change="{!c.handleSelectAllContact}" aura:id="selectAll"/>
+                            <span class="sldscheckboxfaux" />
+                            <span class="slds-form-element__label"></span>
+                        </label>
+                    </th>
+                    <th scope="col"><div class="slds-truncate" title="Name">Unit Number</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Type">Project Name</div></th>         
+                    <th scope="col"><div class="slds-truncate" title="Phone">Construction Status</div></th>            
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.units}" var="account">
+                    <tr>  
+                        <th>
+                            <label class="slds-checkbox">
+                                <ui:inputCheckbox  class="myCheckbox"  change="{!c.handleSelectedContacts}" name="{!account.Id}"></ui:inputCheckbox>
+                                
+                                <span class="slds-checkbox--faux" />
+                                <span class="slds-form-element__label"></span>
+                            </label>
+                        </th>
+                        <td><div class="slds-truncate" title="{!account.Name}">{!account.Name}</div></td>
+                        <td><div class="slds-truncate" title="{!account.Project__r.Name}">{!account.Project__r.Name}</div></td>                   
+                        <td><div class="slds-truncate" title="{!account.Project__r.Construction_Status__c}">{!account.Project__r.Construction_Status__c}</div></td>                    
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        <br/>
+        <div stle="margin-left:50%">
+            <lightning:button variant="brand" onclick="{!c.createVisits}" label="Transfer Unit"></lightning:button>
+        </div>
+    </aura:if>
+</aura:component>

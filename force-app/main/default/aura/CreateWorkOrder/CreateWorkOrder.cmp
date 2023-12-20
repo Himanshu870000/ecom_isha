@@ -1,0 +1,5 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+                access="global" controller="WorkOrderController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <h4 style="font-size:20px; text-align: center; color: #4CAF50;"> Creating Work Order</h4>
+</aura:component>

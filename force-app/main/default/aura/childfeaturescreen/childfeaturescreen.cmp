@@ -1,0 +1,24 @@
+<aura:component>
+
+    <aura:attribute name="featureList" type="List" />
+    <aura:attribute name="SelectedProductOptions" type="List"/>
+    <aura:attribute name ="selectedQLI" type="List"/>
+    <aura:attribute name="categorieType" type="String"/>
+    <aura:attribute name="tempList" type="List" />
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Sales', 'value': 'option1'},
+    {'label': 'Force', 'value': 'option2'}
+    ]"/>
+    <aura:attribute name="value" type="String" default="option1"/>
+    <aura:handler name="init" value="{!this}" action="{!c.myAction}" />
+
+    <aura:iteration items="{!v.tempList}" var="sys">
+        <lightning:card footer="" title="{!sys.Name}">
+        
+        <p class="slds-p-horizontal_small">
+            <c:featurelineitems SelectedProductOptions = "{!v.SelectedProductOptions}" FeatureName ="{!sys.Name}" selectedQLI="{!v.selectedQLI}"/>
+        </p>
+            
+    </lightning:card>
+    </aura:iteration>
+</aura:component>

@@ -1,0 +1,187 @@
+<aura:component controller="ProductBundleApexController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <ltng:require styles="{!$Resource.ModalCSS}"/>
+    <!--declare aura attributes-->
+    
+    <aura:attribute name="QuoteLineItemlist" type="List" />
+    <aura:attribute name="QuoteTableScreen" type="String" />
+    <aura:attribute name="ProductTableScreen" type="Boolean" />
+    <aura:attribute name="ProductOptionScreen" type="Boolean" />
+    <aura:attribute name="QuoterecordId" type="String" />
+    
+    <aura:attribute name="Productlist" type="List"/>
+    <aura:attribute name="selectedProductList" type="List"/>
+    <aura:attribute name="AllProductIds" type="List"/>
+    <aura:attribute name="SelectedProductOptions" type="List"/>
+    <aura:attribute name="SelectedOptionlist" type="List"/>
+    <aura:attribute name="WrapperList" type="List"/>
+    <aura:handler name="featuresXOptions" event="c:QuotelineitemEvent"  action="{!c.handleComponentEvent}"></aura:handler>
+    
+    
+    <aura:attribute name="showinputfield" type="Boolean"/>
+    <aura:attribute name="showHideIcons" type="Boolean"/>
+    
+    <aura:if isTrue="{!v.QuoteTableScreen}">
+    <div class="slds-m-around_large">
+      <lightning:card>
+        <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <lightning:icon iconName="standard:webcart" alternativeText="Edit Quote" title="Edit Quote" />
+                <div class="slds-media__body">
+                    <div class="slds-page-header__name">
+                    <div class="slds-page-header__name-title">
+                      <h1>
+                        <span>Opportunity</span>
+                        <span class="slds-page-header__title slds-truncate" title="Edit Quote"><b>Edit Quote</b></span>
+                      </h1>
+                    </div>
+                 </div>
+           </div>
+                <div class="slds-page-header__col-actions">
+                 <div class="slds-page-header__controls">
+                   <div class="slds-page-header__control">
+                          <lightning:button label="Add Product" title="Neutral action" onclick="{!c.handleClickAddProduct }"/>
+                          <lightning:button label="Calculate" title="Neutral action" onclick="{! c.handleClickCalculate }"/>
+                          <lightning:button variant="brand" label="Save" title="Brand action" onclick="{!c.handleClickSave }" />
+                  </div>
+                </div>
+              </div>
+        </div>
+     </div>
+        
+        <!--Data Table--> 
+        <aura:if isTrue="{!v.QuoteLineItemlist.length > 0}">
+        <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-title--caps">
+                    <th scope="col"><div class="slds-truncate" title="Id">S.No</div></th> 
+                    <th scope="col"><div class="slds-truncate" title="Contact Last Name">Product Name</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Contact Email">Description</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Contact Description">Quantity #</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Contact Description">ListUnit Price #</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Contact Description">ADDITIONAL DISC. #</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Contact Description">Net Total #</div></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <!--### display all records of QuoteLineItemlist attribute one by one by aura:iteration ###-->
+                <aura:iteration items="{!v.QuoteLineItemlist}" var="acc" indexVar="sNo">
+                    <!-- Child Lightning Component -->
+                    <c:InlineEditProductBundle singleRec="{!acc}" sNo="{!sNo + 1}" />
+                </aura:iteration>
+            </tbody>
+        </table> 
+      </aura:if>
+            <aura:if isTrue="{!empty(v.QuoteLineItemlist)}">
+                    <div class="slds-align_absolute-center">
+                        This quote has no line items. Click on Add Products button to select products.
+                    </div>
+            </aura:if>
+      </lightning:card>
+    </div>
+        
+   <aura:set attribute="else">
+     <aura:if isTrue="{!v.ProductTableScreen}">  
+       <div>
+          <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <lightning:icon iconName="standard:product" alternativeText="Edit Quote" title="Edit Quote" />
+                <div class="slds-media__body">
+                    <div class="slds-page-header__name">
+                    <div class="slds-page-header__name-title">
+                      <h1>
+                        <span>Product</span>
+                        <span class="slds-page-header__title slds-truncate" title="Edit Quote"><b>Product Selection</b></span>
+                      </h1>
+                    </div>
+                 </div>
+             </div>
+                
+                <div class="slds-page-header__col-actions">
+                 <div class="slds-page-header__controls">
+                   <div class="slds-page-header__control">
+                          <lightning:button label="Select" title="Neutral action" onclick="{!c.handleClickSelect}"/>
+                          <!--lightning:button variant="brand" label="Save" title="Brand action" onclick="{! c.handleClickSaveProduct}" /--> 
+                  </div>
+                </div>
+              </div>
+        </div>
+     </div>
+          
+          <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered" role="grid">
+                    
+                      <tr>
+                            <th scope="col" height="22" style="width: 3rem"> Select</th>
+                            <th scope="col" height="22">Product Name</th>
+                            <th scope="col" height="22">Description</th>
+                            <th scope="col" height="22">List Price #</th> 
+                      </tr>                      
+                   
+                    
+                    <tbody>
+                        
+                        <aura:iteration items="{!v.Productlist}" var="ProductlistRec">
+                            <aura:iteration items="{!ProductlistRec.PricebookEntries}" var="PbErec">
+                                <tr class="slds-hint-parent">
+                                    <td>
+                                        <!--div data-id="{!ProductlistRec.Id}" onchange="{!c.selectSinglerec}">
+                                                     <lightning:input type="checkbox" aura:id="checkContact" label=""  name="Selected Product"   value="{ProductlistRec.checkedvalue}" text="{!ProductlistRec.Id}" />
+                                                 </div-->
+                                        <label class="slds-checkbox">
+                                            <ui:inputCheckbox aura:id="checkContact" value="" text="{!ProductlistRec.Id}" change="{!c.selectSingleProduct}"/>
+                                            <span class="slds-checkbox--faux" />
+                                            <span class="slds-form-element__label"></span>
+                                        </label>
+                                    </td>
+                                    <th data-label="Product Name" scope="row">
+                                        <div class="slds-truncate" title="{!ProductlistRec.Name}">{!ProductlistRec.Name}</div>  
+                                    </th>
+                                    <td data-label="Description">
+                                        <div class="slds-truncate" title="{!ProductlistRec.Description}">{!ProductlistRec.Description}</div>
+                                        
+                                    </td>
+                                    <td data-label="ListUnit Price">
+                                        <div class="slds-truncate" title="{!PbErec.UnitPrice}">{!PbErec.UnitPrice}</div>
+                                    </td>   
+                                </tr>
+                            </aura:iteration> 
+                        </aura:iteration> 
+                       </tbody>
+                </table>
+           </div>
+         </aura:if>
+           </aura:set>
+        
+  </aura:if>
+    <aura:if isTrue="{!v.ProductOptionScreen}">
+    <div>
+         <div class="slds-page-header slds-page-header_record-home">
+            <div class="slds-page-header__row">
+                <lightning:icon iconName="custom:custom19" alternativeText="Edit Quote" title="Edit Quote" />
+                <div class="slds-media__body">
+                    <div class="slds-page-header__name">
+                    <div class="slds-page-header__name-title">
+                      <h1>
+                        <span>Product Options</span>
+                        <span class="slds-page-header__title slds-truncate" title="Edit Quote"><b>Configure Products</b></span>
+                      </h1>
+                    </div>
+                 </div>
+           </div>
+                <div class="slds-page-header__col-actions">
+                 <div class="slds-page-header__controls">
+                   <div class="slds-page-header__control">
+                          <lightning:button variant="brand" label="Save" title="Brand action" onclick="{! c.handleClickSaveProduct}" /> 
+                          <lightning:button variant="" label="Previous" title="Brand action" onclick="{! c.handleClickPrevious }" />
+                  </div>
+                </div>
+              </div>
+        </div>
+     </div>
+        <div>
+            <c:quotelineitems aura:id="quotelineitems" productIds="{!v.AllProductIds}"/>
+        </div>
+   </div>
+ </aura:if>
+</aura:component>

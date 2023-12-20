@@ -1,0 +1,40 @@
+<template>
+
+    <div class="slds-grid slds-gutters" style="background-color:#0b2243;">
+        <div class="slds-col">
+            <img src={ItwLogo} width="200" height="500" style="padding-left:10%;">
+       </div>
+        <div class="slds-col">
+            <br/>
+            <br/>
+            <br/>
+            <span style="font-weight: bold;font-size:30px;color:#25abe3;padding-left:20%;">Requirement Request Form</span>
+        </div>
+        <div class="slds-col">
+            <br/>
+            <br/>
+            <br/>
+            <span style="font-weight: bold;font-size:30px;color:#25abe3;padding-left:30%;">ITW Consulting</span>
+        </div>
+    </div>
+        <lightning-card >
+        <div class="slds-grid slds-wrap" style="padding:35px;background-image: url('https://thumbs.dreamstime.com/z/test-cricket-match-international-england-india-edgbaston-birmingham-england-uk-64683030.jpg');">
+            <div class="slds-col slds-size_6-of-12">
+                <span>
+                    <lightning-input-rich-text value={richtext} onchange={handleChange}></lightning-input-rich-text>
+                </span>
+                </div>
+            <div class="slds-col slds-size_6-of-12">
+                
+                    <span style="padding-left:30%;">
+                        <lightning-input type="file" label="" multiple="false" accept=".xlsx, .xls, .csv, .png, .doc, .docx, .pdf" onchange={handleInputChange}></lightning-input>
+                    </span>
+                
+                </div>
+        </div>
+        <br>
+        <br>
+       <lightning-button class="slds-align_absolute-center" label="Submit" disabled={buttonDisable} variant="brand" onclick={HandleSumbit}></lightning-button>
+        </lightning-card>
+
+</template>

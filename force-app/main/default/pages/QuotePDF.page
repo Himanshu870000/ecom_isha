@@ -1,0 +1,267 @@
+<apex:page standardController="Quote" docType="html-5.0" showHeader="false" extensions="QuotePDFController" title="Quote PDF" >
+    <!-- CSS only  renderAs="pdf" -->
+    
+    
+    
+    <apex:stylesheet value="{!$Resource.pdf}"/>
+    
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine" />
+        <style>
+            
+        </style>
+        <script type = "text/javascript">
+        
+        </script>
+    </head>
+    <body style="margin-left:7%;margin-right:7%;">
+        
+        <div class="header" >
+            <apex:image value="https://images.squarespace-cdn.com/content/v1/5c93e9f765a70799785038f0/1571151037691-FK70IPSHSBGAI07SDW3C/vipa-logo.jpg" style="float:right;height:75px;" />
+            <!--https://cmenvirosystems--c.documentforce.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0685j000007gufR&operationContext=CHATTER&contentId=05T5j00000Hz5kT-->
+            <!--https://cmenvirosystems--cmedev--c.documentforce.com/file-asset/logo_1?v=1&width=128&height=128-->
+        </div>
+        
+        <div class="footer">
+            <hr style="background:blue;height:5px;" />
+            <table class="footer-table">
+                <tr>
+                    <td style="text-align:left;"><img src="https://img.icons8.com/external-kmg-design-glyph-kmg-design/100/000000/external-web-web-hosting-kmg-design-glyph-kmg-design.png" style="height:15px;margin-top:3px;"/>https://automationcombine.in/ </td>
+                    <td style="text-align:center;">CIN:U27109KA1981PTC004249</td>
+                    <td style="text-align:right;"><img src="https://img.icons8.com/ios-glyphs/30/000000/missed-call--v2.png" style="height:15px;"/>+91 888 000 7700</td>
+                </tr>
+                <tr >
+                    <td ><apex:image value="https://img.icons8.com/plumpy/24/000000/email-open.png" style="height:15px;"/>sales@automationcombine.com</td>
+                    <td style="text-align:center;">Registered Office :B R House, 4th Floor, </td>
+                    <td style="text-align:right;"><img src="https://img.icons8.com/external-icongeek26-glyph-icongeek26/100/000000/external-telephone-office-icongeek26-glyph-icongeek26.png" style="height:15px;"/>+91 (80) 2773 4010</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td style="text-align:center;">Hennur Main Rd, Bengaluru, Karnataka 560043</td>
+                </tr>
+            </table>
+            <div class="number">Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+        </div>
+        
+        <div class="content">
+            
+            <table class='quotation-table'>
+                <tbody>
+                    <tr>
+                        <td colspan="3"><center><strong class='header-text'>Quotation</strong></center></td>
+                    </tr>
+                    <tr>
+                        <td class="organization-details">
+                            <div >
+                                <div ><p class='organization'><strong>VIPA AUTOMATION INDIA (P) LTD.</strong></p></div>
+                                <div >
+                                    B R House, 4th Floor, Hennur Main Rd,
+                                    Bengaluru, Karnataka 560043
+                                </div>
+                                <div>
+                                    <span class='organization'>Phone: :+91 93 421 37534</span>
+                                    <span class='organization'>Fax:+91 80 27734010 </span>
+                                    <span class='organization'>E-mail:sales@automationcombine.com</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Date :<br/> <strong>{!CreatedDate}</strong></td>
+                    </tr>
+                    
+                    <tr class='to-address'>
+                        <td >
+                            <div >
+                                To,
+                            </div>
+                            <div>
+                                <strong>{!billInfoForQuote.Account.Name}</strong>
+                                <address>
+                                    {!billInfoForQuote.Account.BillingStreet}
+                                    {!billInfoForQuote.Account.BillingCity}
+                                    {!billInfoForQuote.Account.BillingState}
+                                </address>
+                            </div>
+                            <div class="gst">
+                                <!--GSTIN : {!billInfoForQuote.Account.GSTIN__c}-->
+                            </div>
+                            <br/>
+                            <div  >
+                                <p>
+                                    Kind Attn : {!billInfoForQuote.Contact.Salutation} {!billInfoForQuote.Contact.Name}<!--, R and D Department, Braking Division-->
+                                    <br/>Email Id : {!billInfoForQuote.Contact.Email}
+                                </p>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div >
+                                Ship to,
+                            </div>
+                            <div>
+                                <strong>{!billInfoForQuote.Account.Name}</strong>
+                                <address>
+                                    {!billInfoForQuote.Account.ShippingStreet}
+                                    {!billInfoForQuote.Account.ShippingCity}
+                                    {!billInfoForQuote.Account.ShippingState}
+                                    
+                                </address>
+                            </div>
+                            <div class="gst">
+                                <!--GSTIN :{!billInfoForQuote.Account.GSTIN__c}--> <!--27AAACE7066P1Z3-->
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <apex:variable var="rowNumber" value="{!1}"/>
+            <br/>
+            
+            <table class='Quote-items'>
+                <tr class='quote-header' style = "background: mediumseagreen;color:white">
+                    <th>S.No.</th>
+                    <th>Order Code</th>
+                    <th>Description of Goods </th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Total</th>
+                </tr>
+                <apex:variable var="index" value="{!0}" />
+                
+                <apex:repeat value="{!quoteLines}" var="lineItems">
+                    <tr class='item-details'>
+                        <apex:variable var="index" value="{!(index+1)}"/>
+                        
+                        <!--<apex:param  /> -->
+                        <td><apex:outputText value="{!index}" id="theValue"/> </td>
+                        
+                        <apex:outputText >
+                            
+                            <td >
+                                <apex:image value="{!lineItems.Product2.Image__c}" styleClass="imageStyle" width="180" height="140"/>
+                                <!--apex:image url={!$Resource.{!lineItems.Product2.Name}} width="180" height="140"/-->
+                                <br/>
+                                <b>
+                                    {!lineItems.Product2.ProductCode}
+                                </b>
+                            </td>
+                        </apex:outputText>
+                        
+                        <td style="text-align:center"><b>{!lineItems.Product2.Name}</b><br/>
+                            {!lineItems.Product2.Description}<br/>
+                            <b>{!lineItems.Product2.HSN_Code__c}</b>
+                        </td>
+                        <td style="text-align:right">{!lineItems.Quantity}</td>
+                        <td style="text-align:right">{!lineItems.unitPrice}</td>
+                        <td style="text-align:right">{!lineItems.TotalPrice}</td>
+                    </tr>
+                </apex:repeat>
+                <apex:outputText >
+                    <tr class='item-details'>
+                        <td colspan="6" class="total" style="text-align:center">
+                            <strong>Sub Total = {!billInfoForQuote.TotalPrice}</strong>
+                        </td>
+                        
+                    </tr>
+                </apex:outputText>
+            </table>
+            <br/>
+            <br/>
+            <br/>
+            
+            <div style="page-break-before: always">
+                
+                <h1><u style="color:blue;">Terms and Condition:</u></h1>
+                            <div style="margin-left:3%;margin-top:2%;">
+                                <div><strong><u style="color:blue;"> Price Basis:</u></strong></div>
+                                
+                                <ol>
+                                    <li>Price basis is NET Ex – our works Bangalore.</li>
+                                    <li> Price quoted is for supply of the above-mentioned material only.</li>
+                                    <li>acking and Freight charges shall be extra.</li>
+                                    <li>Insurance shall be arranged by us. </li>
+                                </ol> 
+                                
+                                <h2 style="color:blue;"> Taxes and Duties:</h2>
+                                <div>
+                                    <b>GST shall be applicable extra @ 18% which is MODVATABLE at your end</b>
+                                </div>
+                                
+                                <h2 style="color:blue;">Terms of Payment:</h2>
+                                <ol>
+                                    <li> 25% advance along with the PO.</li>
+                                    <li> Balance amount including GST shall be paid against Performa Invoice before dispatch.</li>
+                                </ol> 
+                                
+                                <h2 style="color:blue;">Delivery:</h2>
+                                
+                                <div>Due to the global shortage of electronic components the delivery schedule has increased up to 26 weeks.
+                                    We shall update the delivery schedule on confirmation from VIPA Germany.</div>
+                                
+                                <h2 style="color:blue;">Validity:</h2>
+                                
+                                <ol>
+                                    <div>This offer is valid for your acceptance for a period of 30 Days.</div>
+                                </ol> 
+                                <h2 style="color:blue;">Warranty:</h2>
+                                
+                                <ol>
+                                    <div>
+                                        12 months from the date of Invoice.
+                                        Warranty is limited to design/manufacturing defects only.
+                                    </div>
+                                </ol> 
+                                
+                                <h2 style="color:blue;">Order cancellation:</h2>
+                                
+                                <ol>
+                                    Your orders should be non-cancellable as the items will be imported exclusively against your order. 
+                                    
+                                </ol> 
+                                
+                                <h2 style="color:blue;">Scope:</h2>
+                                
+                                <ol>
+                                    Price quoted is only for the hardware supply. Should you need engineering and other support, it shall be extra.
+                                </ol> 
+                                <h2>VAIPL-Service Charges</h2>
+                                
+                                <ol>
+                                    Rs: 9,500 per day / per engineer + Taxes, Travel, Boarding and Lodging will be at actual.
+                                </ol> 
+                                <h2>Order to be placed on,</h2>
+                                
+                                <ol>
+                                    M/s. VIPA AUTOMATION INDIA PVT LTD<br/><br/>
+                                    B.R. House, 3<br/><br/>
+                                    rd Floor <br/><br/>
+                                    B.B.M.P. Ward-24, 1st Cross, <br/><br/>
+                                    Hennur Main Road<br/><br/>
+                                    Bangalore - 560043<br/><br/>
+                                    Email: sales@vipaindia.com<br/><br/>
+                                    Attn: Mr. Gloris Jose / Mr. Joseph Cherian / Mr. O. F. Cherian<br/><br/>
+                                    93.421.37534 98.452.03047 98.452.84550<br/><br/>
+                                </ol> 
+                                <h2>
+                                    <b>GST: 29AACCV0625K1Z7</b>
+                                </h2>
+                                <div>
+                                    Trust that our offer is in line with your requirement.<br/><br/>
+                                    Should you need any further clarification, please contact us.<br/><br/>
+                                    Looking forward to receive your valued order.<br/><br/>
+                                    Thanking you and assuring you our best services at all times.<br/><br/>
+                                </div>
+                                <div style="margin-top:1%;">
+                                    Best wishes,
+                                </div>
+                                <div style="margin-top:1%;">
+                                    
+                                    O.F. CHERIAN<br/>
+                                    Managing Director<br/>
+                                    <h1 style="color:mediumseagreen;">VIPA Automation India Pvt. Ltd.</h1> 
+                                </div> 
+                            </div>
+            </div>    
+        </div>
+        
+    </body>
+</apex:page>

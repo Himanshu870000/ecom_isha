@@ -1,0 +1,20 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="CallBatchController" access="global" >
+    <aura:attribute name="data" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    
+      
+        
+    <br/>
+            <aura:iteration items="{!v.data}" var="accountRec">  
+                
+                <a target="_blank" href="{!$Site.CurrentSiteUrl+'/lightning/r/Account/'+accountRec.Id+'/view'}" tabindex="-1">
+                    
+                    <lightning:button variant="brand" label="{!accountRec.Name}"  class="slds-align_absolute-center"/> <br/>
+                </a>
+            </aura:iteration>
+        
+        
+        
+</aura:component>

@@ -1,0 +1,135 @@
+<apex:page readOnly="true" standardController="Invoices__c" extensions="TaxInvoiceHelperKlincoPDF" applyHtmlTag="false" sidebar="false" showHeader="false" cache="true" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        <head>
+            <style type="text/css">
+                @page {
+                padding-left: 5px;    
+                padding-right: 5px;      
+                }
+                th {  
+                font-weight: bold;
+                text-align: center;
+                background-color: #92d5f0;
+                color: black;
+                padding: 8px;
+                }
+                td {    
+                font-size: 15px;
+                text-align: left;
+                padding: 8px;
+                }
+                table{
+                border-collapse: collapse;
+                }
+                table, th, td {
+                border: 1px solid black;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:70%;text-align: center;border-right: none;">
+                        <b>
+                            Payment Receipt
+                        </b>
+                    </td>
+                    <td style="width:30%;">
+                        <img src="{!$Resource.klincologo}" width="280px" height="100px" align="right"/>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%">
+                
+                <tr>
+                    <td>
+                        <center><b>{!companyDetails.Name__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>Address: {!companyDetails.Klincoaddress__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>CIN: {!companyDetails.CIN__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>GSTIN: {!companyDetails.GSTIN__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>PAN: {!companyDetails.PAN__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>Phone Number.: {!companyDetails.Phone__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>Email Address: {!companyDetails.Email__c}</b></center>
+                    </td>
+                </tr>
+                
+                
+            </table>           
+            <table style="width:100%">
+                <tr>
+                    <td style="text-align:center">
+                        <b>Details of Payment Received</b>
+                    </td>  
+                </tr>
+            </table>
+            <table style="width:100%">
+                <tr>
+                    <td style="text-align:center">
+                        <b>Invoice No.</b>
+                    </td>  
+                    <td style="text-align:center">
+                        {!getInvRecord.Name}
+                    </td>  
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        <b>Invoice Date</b>
+                    </td>  
+                    <td style="text-align:center">{!todayDate}</td>  
+                </tr> 
+                <tr>
+                    <td style="text-align:center">
+                        <b>Amount</b>
+                    </td>  
+                    <td style="text-align:center">
+                        {!getInvRecord.Amount__c}                       
+                    </td>  
+                </tr>
+            </table>
+            
+            
+            
+            
+            <table style="width:100%">
+                <tr>
+                    <td><center>This is a computer generated document requires no signature or stamp</center></td>
+                </tr>
+                
+                <tr>
+                    <td><center>KLiNCO Organic Laundry | Dry Cleaners | Best Laundromat Services | Sanjaynagar</center></td>
+                </tr> 
+            </table>
+        </body>
+    </html>
+</apex:page>

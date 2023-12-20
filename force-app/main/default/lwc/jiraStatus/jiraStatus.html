@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="">
+        <div class="slds-p-around_small ">
+            <template class="box-shadow" for:each={statuses} for:item="status">
+                <div class="box-shadow" key={status.key}>
+                    <lightning-card  variant="Narrow" key={status.key}  title={status.key} icon-name="standard:account">
+                    <hr/>
+
+                    <!-- <lightning-button-icon   icon-name="utility:down" variant="border-filled" alternative-text="Show More" slot="actions"></lightning-button-icon> -->
+                    <p class="slds-p-horizontal_small card-padding"><b>Jira Subject : </b> {status.caseSubject} </p>
+                    <p class="slds-p-horizontal_small card-padding"><b>Jira Description : </b> {status.caseDescription} </p>
+                    <p class="slds-p-horizontal_small card-padding"><b>Status : </b> {status.fields.status.name}</p>
+                
+            </lightning-card>
+        </div>
+        </template> 
+        </div>
+    </lightning-card>
+</template>

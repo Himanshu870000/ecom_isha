@@ -1,0 +1,96 @@
+<apex:page renderAs="pdf"  standardController="Opportunity" showHeader="false" extensions="FSLQuotePDFControllerDemo1" title="Kareeb PDF" >    
+    <apex:stylesheet value="{!$Resource.Quote}"/>
+    <head>
+        <style>
+            
+        </style>
+    </head>
+    <div class="header">
+        <!--apex:image value="https://cmenvirosystems--cmedev.sandbox.my.salesforce.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0685j000007gufR&operationContext=CHATTER&contentId=05T5j00000Hz5kT" style="float:right;height:75px;" /-->
+        <div Style="float:left">
+            <apex:image url="{!$Resource.kareeblogo}" width="auto" height="auto" /><br/>   
+        </div>
+        <br/>
+        <div Style="float:right;padding-right:100px;padding-top:0px;font-size:25px;letter-spacing:2px;font-family: Noto Sans,Helvetica,sans-serif;">
+            <b>PURCHASE&nbsp;&nbsp;ORDER</b>   
+        </div>
+    </div>
+    
+    <div class="footer">
+      
+        <br/>
+        <div class="number">Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+    </div>
+    
+    
+    
+    <br/>
+    
+    <div Style="margin-top:55px;">
+        <div class="row" Style="float:right;padding-left:0px;text-align: left;">
+            <b Style="color:#949699;font-size:20px;">Kareeb bharat</b><br/>
+            <br/>
+            5/63 Hiranandani upscale<br/>
+            Chennai Tamil Nadu,<br/>
+             INDIA- 600103<br/>
+            Phone: :+91 096509 60388<br/>
+            E-mail:kareeb.india@gmail.com
+        </div> 
+        <div class="row" escape="false" style="word-wrap:break-all float:left;">
+            <span Style="color:#949699;font-size:20px;padding-left:0px;"><b></b></span><br/><br/>
+            <b Style="color:#0E4F95;font-size:15px;">{!getVendorDetails.Name}</b><br/>
+            {!getVendorDetails.Address__Street__s},<br/>
+            {!getVendorDetails.Address__City__s}
+            {!getVendorDetails.Address__PostalCode__s} 
+             Karnataka<br/>
+            
+            <br/>
+           <br/>
+           <br/>
+           
+        </div>
+    </div>
+    <div Style="margin-top:15px;font-family: Noto Sans,Helvetica,sans-serif;">
+        <table class='Quote-items' style="-fs-table-paginate: paginate">
+            <tr class='quote-header'>
+                <th>S.No.</th>
+                <th>Description of Goods </th>
+                <th>HSN/SAC</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+            </tr>
+            <apex:variable var="index" value="{!0}" />
+            
+            <apex:repeat value="{!oppLineitemList}" var="lineItems">
+                <apex:variable var="TotalPrice" value="{!lineItems.Quantity * lineItems.UnitPrice}"/>
+                <tr class='item-details'>
+                    <apex:variable var="index" value="{!(index+1)}"/>
+                    <td><apex:outputText value="{!index}" id="theValue"/> </td>
+                    <td>{!lineItems.Product2.Name}</td>
+                    <td ><b>{!lineItems.ProductCode}</b>  <br/></td>
+                    <td style="text-align:right">{!lineItems.Quantity}</td>
+                    <td style="text-align:right">{!lineItems.UnitPrice}</td>
+                    <td style="text-align:center">{!TotalPrice}</td>
+                </tr>
+            </apex:repeat>
+            <apex:outputText rendered="{!qliDiscount == true}">
+                <tr class='item-details'><td colspan="8">&nbsp;</td></tr> 
+            </apex:outputText>
+            <apex:outputText rendered="{!qliDiscount == false}">
+                <tr class='item-details'><td colspan="7"><strong>TOTAL : &nbsp; &nbsp; &nbsp; {!oppRec.Amount}</strong> &nbsp;</td></tr>
+            </apex:outputText>
+            
+            <tr class='item-details'>
+                <apex:outputText rendered="{!qliDiscount == true}">
+                    <td colspan="8"><strong>Amount Chargeable (in words) :{!NoToWord} only </strong> </td>
+                </apex:outputText>
+                <apex:outputText rendered="{!qliDiscount == false}">
+                    <td colspan="7"><strong>Amount Chargeable (in words) :{!NoToWord} only </strong> </td>
+                </apex:outputText>
+                
+            </tr>
+        </table>
+    </div>
+    
+</apex:page>

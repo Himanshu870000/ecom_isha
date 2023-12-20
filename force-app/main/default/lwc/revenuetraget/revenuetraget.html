@@ -1,0 +1,82 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                        </svg>
+                        <span class="slds-assistive-text">account</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <a href="#" class="slds-card__header-link slds-truncate" title="Outer Card Header">
+                            <span>Set Revenue Target</span>
+                        </a>
+                    </h2>
+                </div>
+            </header>
+        </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <article class="slds-card slds-card_boundary">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <a href="#" class="slds-card__header-link slds-truncate" title="Card Header">
+                                        <span>Target</span>
+                                    </a>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner slds-grid slds-wrap slds-m-around_x-small" >
+                        <div class="slds-size_1-of-2 ">
+                            <div class="slds-text-align_center">Target</div>
+                            <div class="slds-box slds-box_xx-small slds-m-around_x-small" style="background: lightgrey;">
+                                {total_amount}
+                            </div>
+                        </div>
+                        <div class="slds-size_1-of-2">
+                            <div class="slds-text-align_center">Revenue Type</div>
+                            <div class="slds-box slds-box_xx-small slds-m-around_x-small" style="background: lightgrey;">
+                                Fiscal Year
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </article>
+                <article class="slds-card slds-card_boundary">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <a href="#" class="slds-card__header-link slds-truncate" title="Card Header">
+                                        <span>Teams Target BreakDown</span>
+                                    </a>
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner slds-grid slds-wrap slds-m-around_x-small" >
+                        <template for:each={userwiseAmount} for:item="mapKey">
+                            <div class="slds-size_1-of-2 " key={mapKey.key}>
+                                <div class="slds-text-align_center">{mapKey.value.name}</div>
+                                <div class="slds-box slds-box_xx-small slds-m-around_x-small" style="background: lightgrey;">
+                                      {mapKey.value.amount}
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </article>
+            </div>
+            <footer class="slds-card__footer">
+                <a class="slds-card__footer-action" href="#">View All
+                    <span class="slds-assistive-text">Accounts</span>
+                </a>
+            </footer>
+        </article>
+</template>

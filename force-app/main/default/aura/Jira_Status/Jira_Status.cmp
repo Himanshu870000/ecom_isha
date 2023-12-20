@@ -1,0 +1,3 @@
+<aura:component  implements="force:lightningQuickAction,force:hasRecordId,flexipage:availableForAllPageTypes" controller="CurrentRecordsControllerToCase">
+	 <c:jiraStatus recordId="{!v.recordId}"></c:jiraStatus>
+</aura:component>

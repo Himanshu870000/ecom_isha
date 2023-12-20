@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightning__HomePage,lightning__RecordPage">
+            <property name="queryString" type="String" default="SELECT Id, Name, Status__c, BillingLatitude, BillingLongitude FROM Account WHERE BillingLatitude != null AND Status__c = 'Proposal' " label="Enter the valid query string here..."></property>
+            <property name="latitudeFieldAPI" type="String" default="BillingLatitude" label="Valid salesforce lat field API."></property>
+            <property name="longitudeFieldAPI" type="String" default="BillingLongitude" label="Valid salesforce long field API."></property>
+            <property name="titleFieldAPI" type="String" default="Name" label="Field api to be used while querying marker label..."></property>
+            <property name="status" type="String" default="Status__c" label="Field api to be used while querying marker label status..."></property>
+            <property name="icon" type="String" default="standard:account" label="SLDS icon name..."></property>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

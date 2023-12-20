@@ -1,0 +1,14 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_small">
+            <lightning-progress-indicator current-step={currentvalue} type="path" variant="base">
+                <template for:each={picklistValues} for:item="value" for:index="index">
+                    <lightning-progress-step key={value} label={value} value={value} onclick={pathHandler} data-index={index}></lightning-progress-step>
+                </template>
+                <div class="slds-m-left_small">
+                    <lightning-button variant="brand" label="Mark as Current Status" onclick={handleMarkAsCurrent}></lightning-button>
+                </div>
+            </lightning-progress-indicator>
+        </div>
+    </lightning-card>
+</template>

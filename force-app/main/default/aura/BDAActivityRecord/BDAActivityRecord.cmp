@@ -1,0 +1,136 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" 
+                access="global" controller = "BDAFullViewController">
+    
+    <aura:attribute name="BDAList" type="List"/>
+    <aura:attribute name="SelectedBDA" type="string" access="PRIVATE"/>
+    <aura:attribute name="selectedDate" type="date" />
+    
+    <aura:attribute name="key" type="String"/> 
+    <!-- aura:handler name="init" value="{!this}" action="{!c.doInit}"/ -->  
+    <aura:attribute name="WrapperList" type="list" default= "[]"/> 
+    <aura:handler name="oSelectedRecordEvent" event="c:selectedsObjectRecordEvent" action="{!c.handleComponentEvent}"/>  
+    <aura:attribute name="emptyWrapper" type="boolean" default="false"/>
+    <lightning:card>
+    <div>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-12"> </div>
+            <div class="slds-p-right_medium slds-col slds-size_5-of-12">
+                <span>
+                    <c:UserCustomLookUp objectAPIName="User" IconName="standard:User" SearchKeyWord="{!v.SelectedBDA.Name}"  mainList="{!v.BDAList}" label="Select User" />
+                </span>
+            </div>
+            <div class="slds-p-left_medium slds-col slds-size_4-of-12">
+                <span>
+                    <lightning:input type="date" name="Select a date" value= "{!v.selectedDate}" label="Select Date" aura:id="searchKey"/>
+                </span>
+            </div>
+            <div class="slds-p-top_large slds-p-left_medium slds-col slds-size_1-of-12">
+                <span>
+                    <lightning:button label="Search" iconName="utility:search" iconPosition="left"  variant="brand" onclick="{!c.FetchBDAAllActivityRecord}"/>
+                    
+                </span>
+            </div>
+            <div class="slds-col slds-size_1-of-12">
+                <span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-12"> </div>
+        <div class="slds-col slds-size_10-of-12"> 
+            <aura:if isTrue="{!not(empty(v.WrapperList))}">
+                <div class="slds-m-around_x-small ">
+                    
+                    
+                    
+                    <table style="width:100%" class="table slds-table slds-table_bordered  slds-table_cell-buffer slds-table_fixed-layoutslds-scrollable slds-scrollable">
+                        <thead >
+                            <tr class="slds-text-heading_label">              
+                                <th style="width:20%" scope="col"><div class="slds-truncate slds-p-left_small" title="Name">Activity Type</div></th>
+                                <th style="width:20%" scope="col"><div class="slds-truncate slds-p-left_x-small" title="Type">Start </div></th>         
+                                <th style="width:20%" scope="col"><div class="slds-truncate slds-p-left_x-small" title="Phone">End</div></th> 
+                                <th style="width:10%" scope="col"><div class="slds-truncate slds-p-left_x-small" title="Name">Duration</div></th>
+                                <th style="width:30%" scope="col"><div class="slds-truncate slds-p-left_x-small" title="Type">Description</div></th> 
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.WrapperList}" var="WL">
+                                <tr>  
+                                    <td style="width:20%">
+                                        <div class="user-info">
+                                            <div class="user-info__img">
+                                                <aura:if isTrue="{!WL.ActivityType=='Lead Change History'}">
+                                                    <lightning:icon iconName="action:edit" size="small" alternativeText="Approved"  />
+                                                </aura:if>
+                                                <aura:if isTrue="{!WL.ActivityType=='Email Interaction'}">
+                                                    <lightning:icon iconName="action:email" size="small" alternativeText="Email" title="Email"  />
+                                                </aura:if>
+                                                <aura:if isTrue="{!WL.ActivityType=='User Sent Email Records'}">
+                                                    <lightning:icon iconName="action:email" size="small" alternativeText="Email" title="Email"  />
+                                                </aura:if>
+                                                <aura:if isTrue="{!WL.ActivityType=='Take Follow-up from Candidate'}">
+                                                    <lightning:icon iconName="action:follow" size="small" alternativeText="follow" title="follow" />
+                                                </aura:if>
+                                                <aura:if isTrue="{!WL.ActivityType=='Dialed Call'}">
+                                                    <lightning:icon iconName="action:call" size="small" alternativeText="Approved"  />
+                                                </aura:if>
+                                                <aura:if isTrue="{!WL.ActivityType=='Talk to Us'}">
+                                                    <lightning:icon iconName="action:log_a_call" size="small" alternativeText="Approved"  />
+                                                </aura:if>
+                                                <aura:if isTrue="{!WL.ActivityType=='User Checkin Record'}">
+                                                    <lightning:icon iconName="action:user" size="small" alternativeText="Approved"  />
+                                                </aura:if>
+                                                <aura:if isTrue="{!WL.ActivityType=='User CheckOut Record'}">
+                                                    <lightning:icon iconName="action:user" size="small" alternativeText="Approved"  />
+                                                </aura:if>
+                                                <aura:if isTrue="{!WL.ActivityType=='Stage Changed'}">
+                                                    <lightning:icon iconName="standard:change_request" size="small" alternativeText="Approved"  />
+                                                </aura:if>
+                                            </div>
+                                            <div class="user-info__basic">
+                                                <h5 class="mb-0 slds-p-left_small">{!WL.ActivityType} </h5>
+                                                <p class="text-muted mb-0"><lightning:formattedDateTime class="slds-p-left_small" value="{!WL.Startdatetime}" hour="2-digit" minute="2-digit" /></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width:15%">
+                                        <lightning:formattedDateTime value="{!WL.Startdatetime}" hour="2-digit" minute="2-digit" />
+                                    </td> 
+                                    <td style="width:15%">
+                                        <lightning:formattedDateTime value="{!WL.Enddatetime}" hour="2-digit" minute="2-digit" />
+                                    </td>
+                                    <!-- td style="width:15%"><div class="slds-truncate" title="EnddateTime">{!WL.Enddatetime}</div></td -->
+                                    <td style="width:10%"><div class="slds-truncate" title="Duration">{!WL.ActivityDuration}</div></td>
+                                    <!-- td><div class="slds-truncate" title="Activitydatetime">{!WL.TaskRecord.Activity_Date_Time__c}</div></td -->                   
+                                    <td style="width:40%"><div class="slds-truncate" title="{Description">{!WL.Description}
+                                        <lightning:formattedDateTime class="slds-p-left_small" value="{!WL.Descriptiondt}" hour="2-digit" minute="2-digit" />
+                                      </div>
+                                    </td>
+                                    <!-- td><div class="slds-truncate" title="DynamicDescription">{!WL.UserTrackingInfo.dynamicDescription}</div></td -->
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>    
+                    
+                    
+                </div>
+                
+            </aura:if>
+        </div>
+        <div class="slds-col slds-size_1-of-12"> </div>
+    </div>
+    <aura:if isTrue="{!v.emptyWrapper}">
+        <lightning:card>
+            <div style=" border-radius: 10px; width:1500px; height:50px; font-size: 25px; margin-top: 25px;" class="slds-align_absolute-center slds-notify slds-notify_alert slds-alert_warning" role="alert" >
+                
+                There is no BDA Activity on this Date!!!!!
+                
+            </div>
+        </lightning:card>
+    </aura:if>
+        <lightning:spinner aura:id="mySpinner" alternativeText="Processing.." title="Processing.." variant="brand" size="large" class="slds-hide"/>
+    </lightning:card>
+    
+</aura:component>

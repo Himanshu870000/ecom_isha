@@ -1,0 +1,165 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="ApplicationFormHelper" >
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="School" type="School__c"/>
+    
+    
+    
+    <div class="slds-m-around--xxx-large">               
+        <lightning:card>
+            
+             <lightning:layout class="School" >
+                <lightning:layoutItem class="e" size="12" padding="around-large">
+                    <div class="slds-align_absolute-center" >
+                        <h3 style="font-size:2rem">School Application Form.</h3>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+            <lightning:layout class="abc" >
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:input   type="email" value="{!v.School.Account_Person_Email__c}" label ="Account Person Email"  /></div>
+                </lightning:layoutItem>
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left">
+                        <lightning:input   type="phone" value="{!v.School.Account_Person_Phone__c}"  label ="Account Person Phone"/></div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+            <lightning:layout class="abc" >
+               
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left">
+                        <lightning:input   type="text" value="{!v.School.City__c}"  label ="City"/></div>
+                </lightning:layoutItem>
+
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:input   type="checkbox" value="{!v.School.Playground__c}" label ="Playground"/></div>
+                </lightning:layoutItem>
+                
+            </lightning:layout>
+            
+            <lightning:layout class="abc" >
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:input   type="email" value="{!v.School.Email__c}"  label ="Email"  /></div>
+                </lightning:layoutItem>
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:select aura:id="FeeRange" name="FeeRange" label="Select Fee range " value="{!v.School.Fee_Range__c}" onchange="{! c.feeonChange }">
+                            <option value="30K to 50K">30K to 50K</option>
+                            <option value="50K to 70K">50K to 70K</option>
+                            <option value="70k to 1Lac">70k to 1Lac</option>
+                            <option value="1 Lac to 2 Lac">1 Lac to 2 Lac</option>
+                            <option value="1 Lac to 2 Lac">1 Lac to 2 Lac</option>
+                        </lightning:select>
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+            <lightning:layout class="abc" >
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:input   type="phone" value="{!v.School.Principal_Phone__c}" label ="Principal Phone"  /></div>
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:input   type="phone" value="{!v.School.Principal_Email__c}" label ="Principal Email"  /></div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+            <lightning:layout class="abc" >
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:select aura:id="schoolType"  name="schoolType" label="Select schoole Type" value="{!v.School.Type__c}" onchange="{! c.onChange }">
+                            <option value="Day School">Day School</option>
+                            <option value="Pre School">Pre School</option>
+                            <option value="Boarding School">Boarding School</option>
+                            <option value="Residential School">Residential School</option>
+                            <option value="Day cum Residential">Day cum Residential</option>
+                            <option value="PU College">PU College</option>
+                            <option value="Online School" >Online School</option>
+                        </lightning:select>
+                    </div>
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:input   type="phone" value="{!v.School.Student_Strength__c}" label ="Number of Student"/></div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+            <lightning:layout class="abc" >
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:select aura:id="BoardType" name="BoardType" label="Select Board Affilication " value="{!v.School.Board_Affiliation__c}" onchange="{! c.BoardonChange }">
+                            <option value="CBSE">CBSE</option>
+                            <option value="ICSE">ICSE</option>
+                            <option value="IB">IB</option>
+                            <option value="IGCSE">IGCSE</option>
+                            <option value="State Board">State Board</option>
+                        </lightning:select>
+                    </div>
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:input   type="phone" value="{!v.School.PT_Teacher_Strength__c}" label ="Number of Teacher"/></div>
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+             <lightning:layout class="abc" >
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:select aura:id="deleveryMeduim" name="deleveryMeduim" label="Select Delivery Medium" value="{!v.School.Delivery_Medium__c}" onchange="{! c.deliveryonChange }">
+                            <option value="English">English</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Local">Local</option>
+                        </lightning:select>
+                    </div>
+                </lightning:layoutItem>
+
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:select aura:id="grade" name="grade" label="Select Grade range " value="{!v.School.Grade_Range__c}" onchange="{! c.gradeonChange }">
+                            <option value="Pre Nursery">Pre Nursery</option>
+                            <option value="Nursery">Nursery</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </lightning:select>
+                    </div>
+                </lightning:layoutItem>
+
+            </lightning:layout>
+
+            <lightning:layout class="abc" >
+                <lightning:layoutItem class="e" size="6" padding="around-large">
+                    <div class="slds-align_absolute-left" >
+                        <lightning:input   type="phone" value="{!v.School.Founding_Year__c}" label ="Founding Year"  /></div>
+                </lightning:layoutItem>
+
+               
+            </lightning:layout>
+            
+            <div class="slds-align_absolute-center">
+                <lightning:button variant="success" label="Submit" title="Submit" onclick="{! c.handleClick }"/>
+            </div>
+        </lightning:card>
+    </div>
+    
+</aura:component>

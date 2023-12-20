@@ -1,0 +1,28 @@
+<template>
+    <lightning-card>
+      <table>
+          <thead>
+                <th scope="col" height="22" style="width: 3rem"> Select</th>
+                <th scope="col" height="22">Name</th>
+                <th scope="col" height="22">Vendor Name</th>
+          </thead>
+          <tbody>
+              <template for:each={record} for:item="rec" for:index="index">
+                   <tr key={rec.Id} class="slds-hint-parent">
+                      <td>
+                         <lightning-input class="slds-p-left_xx-large" type="checkbox"
+                                                    data-index="checkbox" data-id={rec.Id} checked={rec.checkedvalue}
+                                                    onchange={changeHandler}></lightning-input>                   
+                      </td>
+                      <td>
+                          <div>{rec.Name}</div>
+                      </td>
+                      <td>
+                          <div>{rec.Vendor__r.Name}</div>
+                      </td>
+                   </tr>
+              </template>
+          </tbody>
+      </table>
+    </lightning-card>
+</template>

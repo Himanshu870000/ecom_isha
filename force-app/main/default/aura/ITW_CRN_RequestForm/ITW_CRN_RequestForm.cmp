@@ -1,0 +1,133 @@
+<aura:component controller="ITW_CRN_AccContact_Class" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="brandName" type="String" />
+    <aura:attribute name="legalName" type="String" />
+     <aura:attribute name="website" type="String" />
+    
+  <!--  <aura:attribute name="pickIndustry" type="String" />
+     <aura:attribute name="pickInception" type="String" />-->
+    
+    <aura:attribute name="pickValuesIndustry" type="List"/>
+    <aura:attribute name="selIndustry" type="String"/>
+    
+    <aura:attribute name="pickValuesInception" type="List"/>
+      <aura:attribute name="selInception" type="String"/>
+    
+     <aura:attribute name="pickValuesTitle" type="List"/>
+     <aura:attribute name="selTitle" type="String"/>
+    
+    <aura:attribute name="firstname" type="String" />
+    <aura:attribute name="lastname" type="String" />
+    <aura:attribute name="email" type="String" />
+    <aura:attribute name="phone" type="String" />
+     <aura:attribute name="AccountRec" type="Account" />
+    <aura:attribute name="contactRec" type="Contact" default="{}" />
+    
+
+
+    <div class="slds-page-header" >
+        
+        <div class="slds-grid " style="margin-bottom:1%; background-color:#0b2243; " >
+            
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_2-of-12" style="margin-left:20px;">
+                <br></br>
+                <img src="{!$Resource.ItwUpdatedLogo}"  style="width:70%; height:70%;"/> 
+            </div>
+            
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_7-of-12">
+                <br></br>
+                <br></br>
+                <br></br>
+                
+                <b style="font-size: 200%; color:#25abe3; margin-top:20%; padding-left:30%; font-style: Inknut Antiqua;" >Customer Request Form</b> 
+            </div>
+            
+            <div class="slds-col slds-has-flexi-truncate slds-col slds-size_3-of-12" style="margin-top:20px;">
+                <br></br>
+                <br></br>
+                 
+                
+                <b style="font-size: 250%; padding-right:20px; color:#25abe3;">ITW Consulting</b> 
+            </div>
+         </div> 
+         
+    </div>
+ 
+    <div style="margin-left:40Px; margin-right:40Px;">
+        <b>Company Details</b>
+    </div>
+    <div class="slds-form_horizontal slds-form slds-grid slds-wrap"  style="margin-left:40Px; margin-right:40Px;">
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:input   type="text" value="{!v.AccountRec.Name}" label ="Company Brand Name"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input   type="text" value="{!v.AccountRec.Company_Legal_Name__c}"  label ="Company Legal Name"/>
+        </div> 
+        <br/> 
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:select aura:id="field1" label="Inception Of Company"  onchange="{!c.onInceptionChangeHandler}">
+          <option value="">{!v.AccountRec.Inception_Of_Company__c}</option>
+          <aura:iteration items="{!v.pickValuesInception}" var="val">
+              <option value="{!val}"> {!val}</option>
+          </aura:iteration>
+      </lightning:select> 
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:select aura:id="field" label="Company Industry"  onchange="{!c.onIndustryChangeHandler}">
+          <option value="">{!v.AccountRec.Industry}</option>
+          <aura:iteration items="{!v.pickValuesIndustry}" var="val">
+              <option value="{!val}">{!val} </option>
+          </aura:iteration>
+      </lightning:select>         
+        </div> 
+            <br/>  
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:input aura:id="contactField" type="text" value="{!v.AccountRec.Website}"  label ="Website"/>
+        </div>
+         
+     </div>
+     <div style="margin-left:40Px; margin-right:40Px;">
+        <b>Contact Details</b>
+    </div>
+    <div class="slds-form_horizontal slds-form slds-grid slds-wrap" style="margin-left:40Px; margin-right:40Px;" >
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:select aura:id="field3" label=" Title"  onchange="{!c.onTitleChangeHandler}">
+          <option value="">--None--</option>
+          <aura:iteration items="{!v.pickValuesTitle}" var="val">
+              <option value="{!val}"> {!val}</option>
+          </aura:iteration>
+      </lightning:select>
+        </div>
+     </div>
+        <br/>
+    <div class="slds-form_horizontal slds-form slds-grid slds-wrap" style="margin-left:40Px; margin-right:40Px;" >
+
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:input type="text" aura:id="firstname" value="{!v.contactRec.FirstName}" label="First Name"   />
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:id="lastname" type="text" value="{!v.contactRec.LastName}" label ="Last Name"   />
+        </div> 
+        <br/> 
+        <div class="slds-col slds-size_1-of-2" >
+            <lightning:input aura:id="email" type="email" value="{!v.contactRec.Email}" label ="Email"   />
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:id="phone" type="phone" value="{!v.contactRec.Phone}" label ="Phone "   />
+        </div>
+        <br/> <br/>  
+        <div class="slds-col slds-size_1-of-2" style="margin-left:52%;">
+            <lightning:button label="Submit" variant="brand" onclick="{!c.saveRecord}" class="slds-m-center_x-small"></lightning:button>
+       </div> 
+
+    </div>
+
+   <br/>
+ 
+  
+<div class="slds-col modal-footer slds-modal__footer"> 
+     
+</div>
+
+    
+</aura:component>

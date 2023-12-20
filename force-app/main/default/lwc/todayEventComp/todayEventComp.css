@@ -1,0 +1,52 @@
+$height: 60px;
+
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .field-title{
+    font-size:20px;
+    font-weight: bold;
+  }
+
+  .app{
+    font-size:15px;
+    font-weight: normal;
+    height:200px;
+  }
+
+  body {
+    font-family: Montserrat;
+  }
+  .card-color{
+    background-color:#e3e5e6;
+    border-left: 5px solid #1099f5;
+    overflow-wrap: break-word;
+  }
+  .item {
+    position: relative;
+    top: 0;
+    animation: mymove 5s infinite 1s;
+   /*- &:first-child {
+    }
+    &:nth-child(2) {
+      color: #F79256;
+    }
+    &:nth-child(3) {
+      color: #0FA3B1;
+    }
+    &:nth-child(4) {
+      color: #FE5F55;
+    }
+    &:nth-child(5) {
+      color: #B0DB43;
+    } */
+  }
+   
+  @keyframes mymove {
+    100% {
+      top: -200px; 
+    }
+   
+  }

@@ -1,0 +1,17 @@
+<apex:page standardController="Lead" showHeader="false" sidebar="false">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="Confirm Address">
+            <apex:pageBlockSection >
+                <apex:inputField value="{!Lead.Street}" label="Street" />
+                <apex:inputField value="{!Lead.City}" label="City" />
+                <apex:inputField value="{!Lead.State}" label="State" />
+                <apex:inputField value="{!Lead.PostalCode}" label="Postal Code" />
+                <apex:inputField value="{!Lead.Country}" label="Country" />
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

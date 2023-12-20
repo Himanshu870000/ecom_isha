@@ -1,0 +1,81 @@
+<apex:page renderAs="pdf" controller="EventAggrementController">
+    <html>
+        <head>
+            
+        </head>
+        <body>
+            <div class="header">
+                <center><img src="{!$Resource.ItwUpdatedLogo}" width="25%"/></center>
+            </div>
+            
+            
+                <center><h3><span >EVENT AGREEMENT DOCUMENT</span></h3> </center>
+               
+            
+            <br/>
+            This Event Planning Agreement (the “IND vs AUS ICC World Cup - Mens Events”) is entered into 10/25/2023, by and between IND vs AUS, with an address of <b>Mr. Chakraborty(the “Client”)</b> , with an address of <b>Mr.Ravi Ranjan, (the “Planner”)</b>, also individually referred to as (the “Party”) and collectively the (“Parties”).
+            <br/>
+            <b>1. Event Date - Description : </b><br/>
+            <Span>On 10/25/2023 the Client intends to host the IND vs AUS ICC World Cup - Mens Events.</Span> <br/><br/>
+            <b>2. Planner Duties :</b><br/>
+            <span>The Client engages the Planner’s services to perform the following duties with regards to the Event:</span><br/>
+            <ul>
+                <li>Event Title Sponser for Event</li>
+                <li>Influencer Marketing</li>
+                <li>Media Marketing</li>
+                <li>Home Screen Marketing</li>
+            </ul><br/>
+            The Planner shall obtain the Client’s approval, in writing, before entering into any binding contracts for the event and/or issuing any non-refundable deposits.<br/><br/>
+            <b>3. Payment :</b><br/><span>The Parties agree to the following payment and payment terms:</span> <br/>
+            <ul>
+                
+                <li><b>Total Fee For Services :</b> 600000</li>
+                <li><b>Amount Percentage Due Upon Execution Of Agreement :</b> 30000</li>
+                <li><b>Balance Due On Day Of Event : </b> 30000</li>
+            </ul><br/><br/>
+            <b>4. Cancellation :</b><br/>
+            <ul>
+                <li>The Client may cancel this Agreement at any time. If the Client cancels up to 30 days prior to the Event Date, the Client will be entitled to a full refund. If the Client cancels 15 days prior to the Event Date,the  Client will be entitled to a fifty percent (50%) refund. If the Client cancels less than 7 days prior to the Event Date, the Client will not be entitled to a refund.</li>
+                <li>The Planner may cancel this Agreement at any time. If the Planner cancels, the Planner must provide a suitable, replacement Planner, subject to the Client’s approval, which shall be obtained in writing. In the alternative, the Planner shall refund all monies previously paid by the Client, with the exception of any non-refundable deposits, which were agreed to by the Client.</li>
+            </ul>
+            <br/><br/>
+            <b>5. Dispute Resolution and Legal Fees :</b><br/>
+            <span>In the event of a dispute arising out of this Contract that cannot be resolved by mutual agreement, the Parties agree to engage in mediation. If the matter cannot be resolved through mediation, and legal action ensues, the successful party will be entitled to its legal fees, including, but not limited to its attorneys’ fees.</span>
+            <br/><br/>
+             <b>6. Severability :</b><br/>
+            <span>In the event any provision of this Agreement is deemed invalid or unenforceable, in whole or in part, that part shall be severed from the remainder of the Agreement and all other provisions should continue in full force and effect as valid and enforceable.</span>
+            <br/><br/>
+             <b>7. Legal and Binding Agreement :</b><br/>
+            <span>This Agreement is legal and binding between the Parties as stated above. This Agreement may be entered into and is legal and binding both in the United States and throughout Europe. The Parties each represent that they have the authority to enter into this Agreement.</span>
+            <br/><br/>
+            <b>8. Governing Law and Jurisdiction :</b><br/>
+            <span>he Parties agree that this Agreement shall be governed by the State and/or Country in which both Parties do business. In the event that the Parties do business in different States and/or Countries, this Agreement shall be governed by State Goverment law.</span>
+            <br/><br/><b>9. Entire Agreement :</b><br/>
+            <span>The Parties acknowledge and agree that this Agreement represents the entire agreement between the Parties. In the event that the Parties desire to change, add, or otherwise modify any terms, they shall do so in writing to be signed by both parties.</span>
+            <br/>
+            <span>The Parties agree to the terms and conditions set forth above as demonstrated by their signatures as follows:</span><br/><br/><br/><br/>
+            
+            <b>Client :</b><br/>
+
+            Signed: _____________________________________<br/>
+
+            Name: _____________________________________<br/>
+
+            Date: _____________________________________<br/><br/><br/>
+            
+            <b>ITW :</b><br/>
+            Signed: _____________________________________<br/>
+
+            Name: _____________________________________<br/>
+
+            Date: _____________________________________<br/><br/><br/>
+            
+            <b>Rajsthan Royals Management : </b><br/>
+            Signed: _____________________________________<br/>
+
+            Name: _____________________________________<br/>
+
+            Date: _____________________________________<br/>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,7 @@
+.slds-post-overflowHandle{
+    overflow: auto;
+    word-break: break-all;
+}
+.slds-margin{
+    margin:unset;
+}

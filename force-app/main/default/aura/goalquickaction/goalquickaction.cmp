@@ -1,0 +1,4 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId,flexipage:availableForAllPageTypes">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />    
+    <c:goaltrackinglwc recordId="{!v.recordId}"></c:goaltrackinglwc>
+</aura:component>

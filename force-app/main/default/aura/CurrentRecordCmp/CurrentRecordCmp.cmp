@@ -1,0 +1,11 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId,flexipage:availableForAllPageTypes" controller="CurrentRecordsControllerToCase">
+    <aura:attribute name="existRecord" type="Boolean" default="true" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    
+    <aura:if isTrue="{!v.existRecord}">
+        <c:currentRecord recordId="{!v.recordId}"></c:currentRecord>
+        <aura:set attribute="else">
+            <c:illustration/>
+        </aura:set>
+    </aura:if>
+</aura:component>

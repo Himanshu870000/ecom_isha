@@ -1,0 +1,402 @@
+<apex:page showHeader="false" sidebar="false"  docType="html-5.0" applyBodyTag="false" renderAs="pdf" applyHtmlTag="false"  standardController="Quote" extensions="AlsGlobalQuotePDFController" >
+    <head>
+        <style>
+            @page {
+            margin-top: 0.5cm;                        
+            background-repeat: no-repeat;
+            background-position: center;
+            }
+            ol.d {list-style-type: lower-alpha;}
+        </style>
+        
+    </head>
+    <apex:stylesheet value="{!$Resource.pdf}"/>
+    <body>
+        <div class="footer">
+            
+            <hr style="border-top: 2px solid #349feb;" />  
+            <div style="font-size:15px;" class="number">Page <span class="pagenumber"/> of <span class="pagecount"/> 
+            </div>
+        </div>
+        <div style="display: inline-block;width: 100%;margin: 1rem;padding: 2rem 2rem;padding-top:0px;font-family: Noto Sans,Helvetica,sans-serif;margin-left: 30px;">
+            <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:50%">
+                <apex:image url="{!$Resource.alsgloballogo}" width="80px" height="80px" /><br/>   
+            </div>
+            <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:50%;font-size:14px;">
+                <b>ALS Testing Services India Private Ltd</b> <br/>
+                Plot No: 65, Bommasandra Jigani Link Road <br/>
+                <b>Banglore- karanataka</b> <br/>
+                <b> India - 560105</b>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        
+        <div class="content">
+            <div style="width:100%">
+                <div style="width:50%;float:left;text-align:left;font-size:17px;">
+                    
+                    <b>Customer Name :</b>  {!accRec.Name}<br/>
+                    <br/> 
+                    <b>Customer Address :</b>  {!accRec.BillingStreet}
+                    {!accRec.BillingCity}, <br/>{!accRec.BillingState}, {!accRec.BillingCountry}
+                    <br/>
+                    
+                    <br/> <b>Contact Person :</b>  {!conRec.FirstName} {!conRec.LastName}<br/>
+                    <br/><b>Contact Mobile :</b>  {!conRec.Phone}<br/>
+                    <br/><b>Email ID :</b>  {!conRec.Email}<br/>
+                    <br/><b>Account Manager :</b>  {!$User.FirstName}  {!$User.LastName}<br/>
+                    <br/><b>Subject :</b>  Silica gel- Lead by ICP-MS- Routine analysis<br/>
+                    
+                </div>
+                <div style="width:50%;float:right;font-size:17px;">
+                    <b>Quotation No. :</b>  {!QuoteRec.Name}<br/>
+                    <br/><b>Quotation Date : </b> 
+                    
+                    <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}">
+                        <apex:param value="{!QuoteRec.createdDate}"  /> 
+                    </apex:outputText>
+                    <br/>
+                    <br/><b>Quotation Validity Date : </b> 
+                    <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}">
+                        <apex:param value="{!QuoteRec.ExpirationDate}"  /> 
+                    </apex:outputText>
+                    <br/>
+                    <br/><b>ExpirationDate : </b> {!QuoteRec.Phone}<br/>
+                </div>
+            </div>
+            
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/> <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/> <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
+            <div>
+                <p style="text-align:left;">
+                    We thank you for the enquiry. Based on the information received from you, we are pleased to provide you with the following
+                    Service offer-Quotation/Contract for testing.
+                </p>
+            </div>
+            
+            <div>
+                <p style="text-align:left;">
+                    The prices and conditions apply to samples submitted to:
+                </p>
+            </div>
+            
+            <div>
+                <p style="text-align:left;">
+                    ALS Testing Services India Private Limited <br/>
+                    No.65, Bommasandra Jigani Link Road,<br/>
+                    KIADB Industrial Area,<br/>
+                    Bangalore – 560105 <br/>
+                    Karnataka. INDIA
+                </p>
+            </div>
+            
+            <div>
+                <p style="text-align:left;">
+                    All testing within the laboratory is carried out in accordance with cGMP &amp; cGLP regulations. The facility can be audited by the
+                    sponsor at any time with prior agreement.
+                </p>
+            </div>
+            
+            <div>
+                <p style="text-align:left;">
+                    This quotation has been developed based on information provided and is only available through ALS INDIA . Please refer to all
+                    sections within this quotation to ensure that we have correctly scoped your testing requirements. All prices are quoted
+                    exclusive of GST. Please do not hesitate to contact ALS INDIA for updating or reissuing, should this be required.
+                </p>
+            </div>
+            
+            <div>
+                <p style="text-align:left;">
+                    Acceptance of this quotation is required within 30 days from date of issue. Please advise ALS INDIA (via return email) upon
+                    acceptance, to allow this quote to be loaded into our Laboratory Information Management System.
+                </p>
+            </div>
+            <br/>
+            <br/>
+            <div>
+                <b>A. Sample material / logistics</b>
+                <p style="text-align:left;">
+                    Customer will provide ALS Testing Services Private Limited with sufficient information and samples to perform the requested
+                    test methods and any re-tests respectively.
+                    All samples are checked by ALS Testing Services Private Limited for completeness and conformity to the dispatch note
+                    immediately after receipt. Intermediate storage of samples is conducted under controlled conditions.
+                </p>
+            </div>
+            
+            <div>
+                <b>B.Analytical Investigations / OOS / Deviations</b>
+                <p style="text-align:left;">
+                    If OOS-results are obtained ALS will inform the customer immediately and discuss the further procedure of failure investigation
+                    if applicable. According to the out of specification SOP a single retesting will be performed in case of an obvious laboratory
+                    error and the revised results will be reported. In case of a not obvious laboratory error or a product error a double retesting will
+                    be conducted and charged separately.
+                </p>
+            </div>
+            
+            <div>
+                <b>  C.Documentation</b>
+                <p style="text-align:left;">
+                    After completion of the analytical tests, all raw data will be checked by independent reviewer. The raw data will be archived (or
+                    returned to the customer upon request) and the results summarized in reports.
+                </p>
+            </div>
+            
+            <div>
+                <b> D.Turnaround time</b>
+                <p style="text-align:left;">
+                    The turnaround time will be as agreed between the laboratory and the customer based on the requirements. We would
+                    appreciate as much prior warning as possible to allow work scheduling in the laboratory.
+                </p>
+            </div>
+            
+            <div>
+                <b> E.Sample pick-up service</b>
+                <p style="text-align:left;">
+                    Sample Pickup agreement will be made based on the customer request/Location.
+                </p>
+            </div>
+            
+            <div>
+                <b> F. Health, Safety and Environment – Hazardous Samples</b>
+                <p style="text-align:left;">
+                    For Health and Safety reasons, it is a requirement of ALS that all samples received be undamaged and prior advice given in
+                    writing of any handling concerns or potential risks to health, equipment or the environment. Suspected hazards may be;
+                </p>
+            </div>
+            
+            <div>
+                <ul style="list-style-type:disc">
+                    <li>Extreme pH values</li>
+                    <li>Potential Impurities present at concentrations greater than 10 %</li>
+                    <li>Strong or noxious odours, vapours</li>
+                    <li>Asbestos</li>
+                    <li>Highly saline water</li>
+                    <li>Biological hazards</li>
+                </ul>
+            </div>
+            <br/>  
+            <br/>  
+            <br/> 
+            <br/>  
+            <br/>  
+            <br/> 
+            <br/>  
+            <br/>  
+            <br/> 
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div> 
+                <u><b>Notes</b></u>
+                <p style="text-align:left;">
+                    Backup samples will be retained for a minimum of 1 month after completion of testing and release of the reports. All samples
+                    are disposed of at this time unless requested otherwise. Samples deemed hazardous and not suitable for landfill disposal
+                    may be returned for customer disposal and the associated costs will be charged to the customer.
+                </p>
+            </div>
+            
+            <div style="width:80%;float:left;">
+                <p style="text-align:left;">
+                    System    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  :  &nbsp;ALS Standard <br/>
+                    OOS  SOP  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         :  &nbsp;ALS SOP: S01-PLC-0008 <br/>
+                    Study Protocol / Report &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; Standard ALS Format <br/>
+                    Archival Management  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   :&nbsp; ALS SOP NO.SO1-QAM-0023 <br/>
+                    COA / ROA/ Test Report &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;Soft Copy by e-mail
+                </p>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
+            <div>
+                <table style="width:100.2%;border:1px solid black;border-collapse:collapse;">
+                    <tr>
+                        <th  style="border:1px solid black;text-align:center;">Sr.No.</th>
+                        <th  style="border:1px solid black;font-size:12px;text-align:center;">Test Code  &amp; Method</th>
+                        <th  style="border:1px solid black;text-align:center;">Test Name</th>
+                        <th  style="border:1px solid black;font-size:12px;text-align:center;">Qty</th>
+                        <th  style="border:1px solid black;text-align:center;">Rate</th>
+                        <th  style="border:1px solid black;font-size:12px;text-align:center;">Amount</th>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid black;text-align:center;">1</td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;">Test Code : ELEMENTAL-BNL 1.00 Method : In-house- Lead by</td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;">Elemental analysis by ICP-MS/OESRoutine</td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;">1</td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;">9000</td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;">300</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="border:1px solid black;text-align:center;"><b>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; Total</b>  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;   300</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="border:1px solid black;text-align:center;"><b>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; Grand Total</b> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    300</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="border:1px solid black;text-align:left;"><p>
+                            AMOUNT IN WORD : INR. THREE THOUSAND ONLY
+                            </p></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div>
+                <p style="text-align:left;">
+                    Sample quantity: 10g per batch
+                </p>
+            </div>
+            
+            <div>
+                <p style="text-align:left;">
+                    TAT: 7 working days for routine analysis upon receipt of all requirements
+                </p>
+            </div>
+            
+            <div>
+                <p style="text-align:left;">
+                    Note: Report release as Report of analysis with disclaimer.
+                </p>
+            </div>
+            
+            
+            <div>
+                <b><u>General Terms and Conditions</u></b>
+                <p style="text-align:left;">
+                    <ul style="list-style-type:disc">
+                        <li>Quotation Validity : 3 Months</li>
+                        <li> 18 % GST will be added to the above quoted price.</li>
+                        <li>Terms of payment: Advance</li>
+                        <li>The prices are based on the current official methods / Customer methods, available and mentioned above. Any change
+                            required in the methods will attract a price revision, if applicable.</li>
+                        <li> In case of unexpected analytical difficulties resulting in additional efforts we will immediately inform the sponsor and
+                            mutually decide on further progress and recalculate the price</li>
+                        <li> Any revisions to the methods also will attract price revisions, if required.</li>
+                </ul>
+            </p>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div>
+            <b><u>Bank Details</u></b>
+            <p style="text-align:left;">
+                <b>Name of Beneficiary : </b>  ALS Testing Services India Private Ltd <br/>
+                <b>Bank Name : </b>   HSBC (The Hongkong and Shanghai Banking Corporation Limited) <br/>
+                <b>Address : </b>  NO. 7, MAHATMA GANDHI ROAD, BANGALORE - 560 001 <br/>
+                <b>Branch Name : </b>  HSBC MAIN BRANCH, BANGALORE <br/>
+                <b>Bank Account Name : </b>   Current Account <br/>
+                <b>Bank Account Number : </b>  073-278624-001 <br/>
+                <b>IFSC Code : </b>  HSBC0560002 <br/>
+                ALS GST number -29AAQCA1720Q1Z <br/>
+            </p>
+        </div>
+        
+        <div>
+            <b>FEES AND PAYMENT</b>
+            <p style="text-align:left;">
+                For Clients with an approved credit account, payment terms are 30 days from the date of invoice. For all other Clients,
+                payment is due on receipt of samples by ALS, unless negotiated otherwise. Any such variance from the standard payment
+                terms must be stipulated separately in writing in the Agreement. All prices quoted by ALS are exclusive of GST unless stated otherwise. The Client must pay the amount of GST specified in
+                an invoice issued pursuant to A New Tax System (Goods and Services Tax).
+                ALS reserves the right to adjust the price for the Services provided, with effect from each anniversary of the Agreement subject
+                to indexation indicated by the percentage increase or decrease in the Consumer Price Index during the previous year. ALS
+                shall give the Client not less than 30 days prior notice in writing of the pricing changes.
+            </p>
+        </div>
+        
+        <div>
+            <center> <b style="text-align:center;"><u>ALS Limited - Terms &amp; Conditions</u></b></center>
+            <p style="text-align:left;">
+                <ol>1. ALS will provide the services described in the accompanying tender / quotation, (hereafter called “the commission”) to the customer.</ol>
+            <ol>
+                2. ALS will provide the services by exercising the same degree of skill, care and diligence that would be exercised by professional service providers in similar circumstances.
+            </ol>
+            <ol>3. The lodgement of an order or receipt of samples for analysis based on this commission will constitute acceptance of these Terms &amp; Conditions by the customer.</ol>
+            <ol>4. This commission is valid for 90 days from the issue date unless specified otherwise</ol>
+            <ol>5. ALS reserves the right to review prices at any time if significant changes to our costs are incurred that are beyond our control e.g. changes in legislative requirements or Customer variations to sample numbers, analytes requested, turnaround required, reporting requirements and such.</ol>
+            <ol>6. Payment terms are advance, unless negotiated otherwise at the time of the commission. Any such variance from the standard payment terms must be stipulated separately in writing in the commission.</ol>
+            <ol>7. To the full extent permitted by law ALS excludes all warranties, terms, conditions or undertakings, (‘terms’) whether express or implied, in relation to the services, the report, or its contents. Where any legislation implies any terms in this commission that cannot be modified or
+                excluded then such terms shall deem to be included. However, to the full extent permitted by law, ALS liability to the Customer is limited at ALS's option to the re-performance of the service or the refund of the service fee. ALS is authorized to select and engage carriers, agents, and others,
+                as required, to transport and deliver the goods, all of whom shall be considered as the agents of the Customer, and the goods may be entrusted to such agencies subject to all conditions as to limitation of liability for loss, damage, expense, or delay and to all rules, regulations, requirements and
+                conditions whether printed, written, or stamped, appearing in bills of lading, receipts or tariffs issued by such carriers, and others. ALS shall under no circumstances be liable for any loss, damage, expense, or delay to the goods for any reason whatsoever when said goods are in Custody, possession or
+                control of third parties selected by the Company to forward, enter and clear, transport or render other services with respect to such goods.</ol>
+            <ol>8. Without limiting the generality of clause 7, it is agreed that, to the full extent permitted by any applicable laws having jurisdiction, ALS will not be liable to the Customer or any other person for any special, indirect or consequential damages arising from the Customers use of ALS’s services or reports .</ol>
+            <ol>9. The Customer hereby releases and indemnifies and shall continue to release and indemnify ALS, its officers, employees and agents from and against all actions, claims, proceedings or demands (including any costs and expenses in defending or servicing same) which may be brought against it or them, in respect of any loss,
+                death, injury, illness or damage to persons or property, and whether direct or indirect and in respect of any breach of any industrial or ntellectual property rights, howsoever arising out of the use of the services or report of ALS.</ol>
+            <ol>10. The Customer acknowledges that it is the customer’s sole responsibility to make its own assessment of the suitability for any purpose of the service, report and its contents.</ol>
+            <ol>11. The service provided is subject to detection limits and confidence intervals inherent in our current methodology. Because each customer is reliant upon assay results for a particular purpose and often in a unique environmental/legislative context, it is the customer’s responsibility to inform him or herself fully as to
+                ALS’s detection limits and confidence intervals relevant to that particular set of assay results .</ol>
+            <ol>12. The Customer will give written notice of all known safety or health hazards and special procedures applicable to the safe handling, testing, storage, transport and disposal of samples submitted. ALS may in its absolute discretion, refuse to provide services where it determines the provision of such services may pose a health or safety peril.</ol>
+            <ol>13. The Customer acknowledges that during the performance of the services the samples or parts thereof may be altered, lost, damaged or destroyed. ALS shall not be liable to the Customer or any third party for any samples so altered, lost, damaged or destroyed.</ol>
+            <ol>14. Subject to the Customers approval, and if ALS considers it appropriate, then ALS may engage a third party service provider. The Customer shall not unreasonably withhold such approva</ol>
+           <ol class="d">
+                15. ALS may suspend or terminate its obligations under this commission if
+                <li>
+                    monies payable to ALS by the customer are outstanding 60 days or more (unless otherwise agreed)
+                </li>
+                <li>
+                    other substantial breach by the customer of their obligations hereunder, which breach is not remedied within 30 days of written notice from ALS requiring the breach to be remedied
+                </li>
+                <li>
+                     by giving the Customer 60 days written notice of their intention to do so.
+                </li>
+            </ol>
+            <ol>
+                16. The Customer may terminate its obligations under this commission in the event of a substantial breach by ALS in its obligations hereunder, which breach has not been remedied within 30 days of written notice from the customer requiring the breach to be remedied.                
+            </ol>
+            <ol>
+                17. ALS shall retain customer data for the period specified in the Archival SOP S01-QAM-0023 (10 years for Pharma Lab &amp; 3 years for Central Lab) from date of final report. The record retention period may be extended as per the regulatory requirements or as per the agreement with the customer
+            </ol>
+            <ol>
+                18. Confidentiality: Both ALS and customer shall keep all the information confidential. Any information disclosed directly or indirectly to each other as part of this work, and shall not disclose any such information to any third party without written permission of the other to do so. Confidentiality shall not extend to any information.
+                <li>
+                    (I). Which at the time of receipt was in the public domain.
+                </li>
+                <li>
+                    (II) Which after receipt was made public by a third party acting without impropriety in so doing.
+                </li>
+            </ol>
+        </p>
+    </div>
+    
+    <div>
+        <p style="text-align:left;">
+            Note: The provision of this clause shall survive the termination of this quotation
+        </p>
+    </div>
+    
+</div>
+</body>
+</apex:page>

@@ -1,0 +1,382 @@
+<apex:page setup="false" sidebar="false" renderAs="pdf"  standardController="Opportunity" showHeader="false"  extensions="GraphyContractDocumentPDFController"   applyHtmlTag="false" applyBodyTag="false">
+    <head>
+        <style>
+            @page {
+            margin-top:0.5cm;
+            
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #f2f2f2;
+            @bottom-left {
+            content: element(footer);
+            }
+            
+            }
+            div.footer {
+            display: block;
+            padding: 5px;
+            position: running(footer);
+            }
+            
+            header {
+            position: fixed;
+            display: block;
+            top: 0;
+            left: 10;
+            right: 0;
+            height: 50px; /* adjust height as needed */
+            }
+            
+            
+            .pagenumber:before {
+            content: counter(page);
+            }
+            .pagecount:before {
+            content: counter(pages);
+            }
+            
+            .flex-container {
+            display: flex;
+            background-color: DodgerBlue;
+            }
+            
+            
+            
+            
+        </style>
+    </head>
+    
+    <body>
+        
+        <div class="footer" style="margin-left: auto;margin-right: auto;">
+            
+            <div class="number" Style="float:right;font-size:15px;">Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+            <div class="number" Style="float:left;font-size:10px;">CONFIDENTIAL- GRAPHY LABS </div>
+        </div>
+        
+        <header >
+            <div style="width:100%">
+                <div style="float:left;width:50%">
+                    <apex:image url="{!$Resource.dineshlogography}"  width="120" height="60"  /> <br/>
+                    <span style="font-size:10px"><b>GRAPHY LABS PVT LTD</b></span>
+                </div>
+                <div style="float:right;width:50%;">
+                    <span ><b style="color:green;margin-left:60px;">Phone:</b> +91-7353048304</span> <br/>
+                    <span><b style="color:green;margin-left:60px;">Web:</b> https://graphy.com</span>
+                </div>
+            </div>
+        </header> 
+        
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        
+        <div class="content" style="margin-top:10px;">
+            
+            <div> 
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <center>
+                    
+                    
+                    <span style="color:#e88325;font-size:55px"><b>SERVICE AGREEMENT</b> <br/>
+                        <br/> <b>BETWEEN</b>   <br/>
+                        <br/>  <b>Graphy Labs</b>  <br/>
+                        &amp;
+                        <br/> <b>{!oppRec.Account.Name} </b>
+                    </span> <br/>
+                    
+                </center>                
+                <div style="page-break-after: always"/>
+            </div>
+            
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
+            <div>
+                <center> 
+                    <span><u>Service Agreement</u></span>
+                </center> <br/>
+                <span>This Agreement is made on this &nbsp;
+                    <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}">
+                        <apex:param value="{!todayDate}"  /> 
+                    </apex:outputText>, ("Effective Date") &nbsp; <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}">
+                    <apex:param value="{!TodayaddFiveDays}"  /> 
+                    </apex:outputText></span> <br/>
+                
+                <p style="text-align:left;">
+                   <b> {!oppRec.Account.Name}</b>, a company incorporated under the prevailing laws of India having its registered office at {!oppRec.Account.BillingStreet}, {!oppRec.Account.BillingCity} {!oppRec.Account.BillingState} {!oppRec.Account.BillingPostalCode} IN (hereinafter referred to as “Customer”, which expression shall unless repugnant to the meaning or context hereof, include successors, legal representatives and assigns).
+                </p> 
+                <center>
+                    <span> &amp;</span>
+                </center>
+                <p style="text-align:left;">
+                    
+                   <b> Graphy Labs Private Limited</b>, a Company incorporated under the Companies Act, 2013 and having its registered office at HOUSE NO. 205 VIVEKANAND NAGAR GHAZIABAD UP 201002 IN. (Hereinafter referred to as the “Graphy” which expression shall, unless contrary to and/or repugnant to the context mean and include its successors and assigns)
+                </p>
+                <br/>
+                <span>Company and Graphy Labs shall hereinafter be individually referred to as "Party" and collectively as "Parties."</span> <br/>
+                <br/>
+                <p  style="text-align:left;">
+                    A. The Graphy Labs has extensive experience in providing salesforce implementation &amp; support to various industry verticals.</p>
+                <p>
+                    B.	The Graphy Labs wish to be engaged by the Company in accordance with the terms of this Agreement to provide support to the salesforce; and
+                </p>
+                <p>
+                    C.	The Graphy Labs has represented to Company that the Graphy Labs is adequately qualified and competent to enter into this Agreement and perform its obligations under this Agreement and based on the said representation Company has agreed to engage Graphy Labs Services to provide the same, in accordance with following terms and conditions.
+                </p>
+                <br/>
+                <span>NOW, THEREFORE, the Parties hereby agree on following Scope of Work Document:</span>
+            </div>
+            <div style="page-break-after: always"/>
+            
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <span style="float:left;font-size:16px;color:#25b1e8;"><b>CONFIDENTIALITY</b> </span> <br/>
+                <p  style="text-align:left;">
+                    The contents of this document are provided to the organization in confidence solely for the purpose of evaluating whether the implementation services should be awarded to Graphy Labs (Henceforth referred to as Graphy)
+                    The contents herein are the intellectual property of Graphy Labs mentioned in this document
+                </p> <br/>
+                <p style="text-align:left;">
+                    Distribution of this document outside of the intended audience, or reproduction of its contents by any means requires prior consent from Graphy Labs.
+                </p>
+                <span style="font-size:16px;color:#25b1e8;"><b>GRAPHY LABS CONTACT PERSONS</b> </span> <br/>
+                <p>
+                    For enquiries regarding this document and for any long term/ strategic discussions please contact:
+                </p>
+                
+                <div style="background-color:#c7e4f2;">
+                    <div style="display: inline-block;width: 100%;margin: 1rem;padding: 2rem 2rem;padding-top:10px;">
+                        <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:50%">
+                            <span style="color:#606060;font-size: 13.5px;font-weight: bold;"><b>Name :</b> </span> <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> Ajeet Kumar</span>   <br/>
+                            <span style="color:#606060;font-size: 13.5px;font-weight: bold;"> <b>Designation :</b></span>  <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> Founder &amp; CEO</span>   <br/>
+                            <span style="color:#606060;font-size: 13.5px;font-weight: bold;"><b>Telephone :</b> </span>  <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> +91 7353048304</span>   <br/>
+                            <span style="color:#606060;font-size: 13.5px;font-weight: bold;"> <b>Email :</b></span>  <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> ajeet.kumar@graphy.com</span>  <br/>
+                        </div>
+                        <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:50%;color:#606060;">
+                            <span style="color:#606060;font-weight: bold;font-size: 13.5px"><b>Name :</b> <span style="color:#606060;font-weight: normal;font-size: 13.5px">Prithviraj Shiroor</span> </span><br/>
+                            <span style="color:#606060;font-weight: bold;font-size: 13.5px"><b>Designation :</b>  <span style="color:#606060;font-weight: normal;font-size: 13.5px">CTO</span> </span><br/>
+                            <span style="color:#606060;font-weight: bold;font-size: 13.5px"><b>Telephone :</b>  <span style="color:#606060;font-weight: normal;font-size: 13.5px">+91 97389 51291</span> </span><br/>
+                            <span style="color:#606060;font-weight: bold;font-size: 13.5px"><b>Email :</b>  <span style="color:#606060;font-weight: normal;font-size: 13.5px">prithvi.shiroor@graphy.com</span></span><br/>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <br/>
+                <span style="font-size:16px;color:#25b1e8;"><b>CUSTOMER CONTACT PERSONS</b> </span> <br/>
+                <br/> 
+                <div style="background-color:#c7e4f2;">
+                    <div style="display: inline-block;width: 100%;margin: 1rem;padding: 2rem 2rem;padding-top:10px;">
+                        <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;float:left;width:100%">
+                            <span style="color:#606060;font-size: 13.5px;font-weight: bold;"><b>Name :</b> </span> <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> </span>   <br/>
+                            <span style="color:#606060;font-size: 13.5px;font-weight: bold;"> <b>Designation :</b></span>  <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> </span>   <br/>
+                            <span style="color:#606060;font-size: 13.5px;font-weight: bold;"><b>Telephone :</b> </span>  <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"></span>   <br/>
+                            <span style="color:#606060;font-size: 13.5px;font-weight: bold;"> <b>Email :</b></span>  <span style="font-size:13px;color: #606060;font-size: 13.5px;font-weight: normal"> </span>  <br/>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div style="page-break-after: always"/>
+            
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                
+                <center>
+                    <span style="font-size:55px">TABLE OF CONTENT </span> <br/>
+                </center>
+                <br/>
+                <br/>
+                <br/> 
+                <br/>
+                <span style="text-align:left;"> <b>CONFIDENTIALITY..................................................................................................................... 3</b></span> <br/>
+                <br/> <span style="text-align:left;"> <b>GRAPHY LABS CONTACT PERSONS............................................................................ 3</b></span> <br/>
+                <br/> <span style="text-align:left;"> <b>CUSTOMER CONTACT PERSONS............................................................................................ 3</b></span> <br/>
+                <br/> <span style="text-align:left;"> <b>EXECUTIVE SUMMARY.............................................................................................................. 5</b></span> <br/>
+                <br/> <span style="text-align:left;"> <b>DETAILED PROPOSAL................................................................................................................. 6</b></span> <br/>
+                <br/> <span style="text-align:left;"> <b>FUNCTIONAL SCOPE.................................................................................................................... 6</b></span> <br/>
+                <br/> <span style="text-align:left;"> <b>B2B WORKFLOW............................................................................................................................ 6</b></span> <br/>
+                <br/> <span style="text-align:left;"> <b>COMMERCIALS.............................................................................................................................. 7</b></span> <br/>
+                <div style="page-break-after: always"/>
+            </div>
+            
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <span style="font-size:16px;color:#25b1e8;text-align:left;"><b>EXECUTIVE SUMMARY</b> </span> <br/>
+                <center>
+                    <hr style="border-top: 3px solid #e88325;" />
+                </center> 
+                <p style="text-align:left">
+                    The Management of GRAPHY LABS would like to thank the Management of {!oppRec.Name} (henceforth referred to as Customer) for giving us an opportunity to propose for the LIFETIME LMS FEE. 
+                </p>
+                <br/>
+                <span style="font-size:16px;color:#e88325;text-align:left;"><b>ABOUT CUSTOMER      </b> </span> <br/>
+                <p style="text-align:left">
+                    Salesforce.com is a collection of software services, apps, and connectors that work together to turn your unrelated sources of data into coherent, visually immersive, and interactive insights. Your data may be an Excel spreadsheet, or a collection of cloud-based and on-premises hybrid data warehouses. 
+                </p>
+                
+                <p style="text-align:left">
+                    We have assumed a set of Solution components and our recommendations are primarily driven from experience in handling similar solution requirements from clients who are similar in Business process to TUTORAC ACADEMY.
+                </p>
+                <p style="text-align:left;font-size:14px;">
+                    <span><b>From an implementation perspective GRAPHY LABS is an ideal Partner for {!oppRec.Name}  since:</b></span>
+                    <li>
+                        With a lineage spanning 7-8 years, that combines years of experience, Graphy labs has today become one of the leading Salesforce Implementation vendors specializing in end-to-end IT solutions and services.
+                    </li>
+                    <li>
+                        Strategic partnerships with industry leaders like Salesforce, Zendesk, and Zoho, AWS, HEROKU have played an instrumental role in making the organization a mature IT partner that understands the value of business process automation.
+                    </li>
+                    <li>
+                        GRAPHY LABS has attained highest levels of customer satisfaction across all business areas. A lifetime commitment to total quality and business integrity has helped us attain a sterling reputation of being a reliable technology partner for manufacturing, retail, hospitality, finance, and service industries.
+                    </li>
+                    <li>
+                        Expertise of working with Salesforce products across multiple customers having similar business in Middle East, India, and the USA.
+                    </li>
+                    
+                </p>
+                <div style="page-break-after: always"/>
+            </div>
+            
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/> 
+                <span style="font-size:16px;color:#25b1e8;text-align:left;"><b>DETAILED PROPOSAL</b> </span> <br/>
+                <center>
+                    <hr style="border-top: 3px solid #e88325;" />
+                </center> 
+                <br/>
+                <span style="font-size:16px;color:#e88325;text-align:left;"><b>FUNCTIONAL SCOPE      </b> </span> <br/>
+                <p style="text-align:left;">
+                    The following section provides information about the functional scope of the project. Unless otherwise specified, GRAPHY LABS’s scope is limited to implementing the following functionalities/processes only. GRAPHY LABS’s scope is limited to implementing the following functionalities/processes only limited to one legal entity of TUTORAC ACADEMY.
+                </p>
+                <span style="font-size:16px;color:#e88325;text-align:left;"><b>B2B WORKFLOW      </b> </span> <br/>
+                <div>
+                    <apex:image url="{!$Resource.dineshcontract}"  width="95%" height="auto"  /> <br/>
+                </div>
+                <div style="page-break-after: always"/>
+            </div>
+            
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/> 
+                <span style="font-size:16px;color:#25b1e8;text-align:left;"><b>COMMERCIALS</b> </span> <br/>
+                <center>
+                    <hr style="border-top: 3px solid #e88325;" />
+                </center> 
+                <br/>
+                <span>FEE DETAILS –ONE TIME LMS LICENSE FEE.</span> <br/>
+                <br/> <span>The following are the fees for the ‘Fixed Cost-Fixed Scope' Model.</span> <br/>
+                <br/>
+                <br/>
+                <div>
+                    
+                    <table style="width:100.2%;border:1px solid black;border-collapse:collapse;">
+                        <tr style="background-color:#c7e4f2;">
+                            <th  style="border:1px solid black;text-align:left;">Description </th>
+                            <th  style="border:1px solid black;font-size:12px;text-align:left;">Amount</th>
+                        </tr>
+                        <tr style="background-color:#c3e8fa;">
+                            <td style="border:1px solid black;text-align:left;">ONE TIME LMS LICENSE FEE.</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">19,000 Rupees</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <br/>
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <br/><br/><br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
+                <br/>
+                <span>Cost mentioned above is exclusive of any applicable taxes.</span>
+                <br/>
+                <br/>
+                <div>
+                    <table style="width:100.2%;border:1px solid black;border-collapse:collapse;">
+                        <tr style="background-color:">
+                            <th  colspan="2" style="border:1px solid black;text-align:left;background-color:#b5dcf5;">For Graphy Labs </th>
+                            <th  colspan="2" style="border:1px solid black;font-size:12px;text-align:left;background-color:#f29e50;">For {!oppRec.Name}</th>
+                        </tr>
+                        <tr style="">
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#c3e8fa;">Name</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Ajeet Kumar</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#f29e50;">Name</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">CONTACT NAME</td>
+                        </tr>
+                         <tr style=""> 
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#c3e8fa;">Designation</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Founder &amp; CEO</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#f29e50;">Designation</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"></td>
+                        </tr>
+                         <tr style="">
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#c3e8fa;">Email</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">ajeet.kumar@utilitarianlab.com</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#f29e50;">Email</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"></td>
+                        </tr>
+                         <tr style="">
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#c3e8fa;">Signature </td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"></td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#f29e50;">Signature </td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"></td>
+                        </tr>
+                         <tr style="">
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#c3e8fa;">Date &amp; Place</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">  <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}"><apex:param value="{!todayDate}"  />  </apex:outputText></td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;background-color:#f29e50;">Date &amp; Place</td>
+                            <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"></td>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</apex:page>

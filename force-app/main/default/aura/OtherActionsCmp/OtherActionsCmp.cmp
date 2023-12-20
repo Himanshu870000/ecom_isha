@@ -1,0 +1,45 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="isModalOpen" type="boolean" default="false"/>
+    <lightning:button variant="brand" label="Demand Generation" onclick="{!c.openGoogle}" class="slds-align_absolute-center"/> <br/>
+    <lightning:button variant="brand" label="Sales Navigator" onclick="{!c.openSalesforce}" class="slds-align_absolute-center"/><br/>
+    <lightning:button variant="brand" label="UnTapped Brands" onclick="{!c.openModel}" class="slds-align_absolute-center"/>
+    <aura:if isTrue="{!v.isModalOpen}">
+        <aura:html tag="style">
+.slds-modal__container{
+width: 100% !important;
+max-width: 75rem !important;
+}
+</aura:html>
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" style="max-width:100%;">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">UnTapped Brands</h2>
+                </header>
+                <!--Modal/Popup Box Body Starts here-->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <img class="imgBdr" src="{!$Resource.untappedResources}" style="width:auto; height:auto;" />
+                    
+                </div>
+                <!--Modal/Popup Box Footer Starts here-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeModel }"/>
+                    <lightning:button variant="brand"
+                                      label="OK"
+                                      title="OK"
+                                      onclick="{!c.submitDetails}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

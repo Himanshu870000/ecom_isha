@@ -1,0 +1,13 @@
+.THIS {
+font-family: 'Inknut Antiqua';
+    font-size: 20px;
+}
+
+@font-face
+{
+    font-family:'Inknut Antiqua';
+    src:url(/resource/FontStyle);
+}
+.THIS div.container {
+  position: relative;
+}

@@ -1,0 +1,877 @@
+<aura:component controller="TodayTaskAuraController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="atr1" type="string" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="accountId" type="String"/>
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    
+    <aura:attribute name="siteURL" type="String"/> 
+    <aura:attribute name="showCreateTask" type="boolean" default="false"/>
+    <aura:attribute name="showCreateCallLogTask" type="boolean" default="false"/>
+    <aura:attribute name="showCreateCase" type="boolean" default="false"/>
+    <aura:attribute name="showOpportunityCreate" type="boolean" default="false"/>
+    <aura:attribute name="StatuspickValues" type="List" default="['Not Started', 'In Progress', 'Completed']" />
+    <aura:attribute name="PrioritypickValues" type="List" default="['High', 'Normal', 'Low']" />
+    <aura:attribute name="CaseStatuspickValues" type="List" default="['New', 'Working', 'Escalated', 'Closed']" />
+    <aura:attribute name="OppStageNamepickValues" type="List" default="['New', 'Working', 'Escalated', 'Closed']" />
+    <aura:attribute name="selectedValue" type="String"/>
+    <aura:attribute name="accountAddress" type="String"/>
+    <aura:attribute name="taskRec" type="sObject" default="{sObjectType: 'Task'}"/>
+    <aura:attribute name="callRec" type="sObject" default="{sObjectType: 'Task'}"/>
+    <aura:attribute name="oppRec" type="sObject" default="{sObjectType: 'Opportunity'}" />
+    <aura:attribute name="caseRec" type="sObject" default="{sObjectType: 'Case'}" />
+    <aura:attribute name="visitRec" type="sObject" default="{sObjectType: 'Visit__c'}" />
+    <aura:attribute name="accID" type="String" />
+    <aura:attribute name="visitId" type="String" />
+    <aura:attribute name="ShowCheckInButton" type="Boolean" default = "false"/>
+    <aura:attribute name="ShowCheckOutButton" type="Boolean" default = "true"/>
+    <aura:attribute name="pastVisitList" type="List" />
+    <aura:attribute name="relOppList" type="List" />
+    <aura:attribute name="relInvoicesList" type="List" />
+    <aura:attribute name="relCaseList" type="List" />
+    <aura:attribute name="relActivityList" type="List" />
+    <aura:attribute name="currentLatitude" type="String"/>
+    <aura:attribute name="currentLongitude" type="String"/>
+    <lightning:navigation aura:id="navService" />
+    
+    <aura:attribute name="fields" type="String[]"  />
+    <aura:attribute name="SobjectApiName" type="String" />
+    <aura:attribute name="ShowModal" type="boolean" default="false" />
+    
+    
+    
+    <aura:registerEvent name="fieldVisitComponentEvent" type="c:fieldVisitComponentEvent"/>
+    
+    <aura:html tag="style">
+        .slds-modal__container { 
+        width : 60% !important; max-width : 80% !important; 
+        } 
+    </aura:html>
+    
+    
+    <!--loading spinner start-->
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <!-- Loading spinner end-->   
+    <lightning:Layout multipleRows="true">
+        <!--div style="margin-top:1%"-->
+        <lightning:LayoutItem padding="horizontal-small" size="8" class="headerStartVisitPage">
+            <div class="page-section DesktopHeader page-header">
+                <lightning:Layout>
+                    <lightning:LayoutItem size="2">
+                        <div style="padding:3%; position:relative; top:-27%; display:inline-block;">
+                            <lightning:icon variant="inverse" iconName="utility:back" alternativeText="Utility image" title="Image" onclick="{!c.goBackOnePage}" style="cursor: pointer;"/>
+                        </div>
+                        <div style="padding:3%; position:relative;margin-left:2%; top:-27%; display:inline-block;">
+                            <lightning:icon variant="inverse" iconName="standard:contact_list" alternativeText="Utility image" title="Image" />
+                        </div>
+                    </lightning:LayoutItem>
+                    <lightning:LayoutItem size="10">
+                        <div style="padding:0%;margin-left:-4%; position:relative; top:-18%; display:inline-block;"><h1 style="color:white; font-size:170%;">{!v.visitRec.Account__r.Name}</h1></div>
+                    </lightning:LayoutItem>
+                </lightning:Layout>
+            </div>
+        </lightning:LayoutItem>
+        <!--Mobile view header-->
+        <div class="mobileHeader">
+            <div style="padding:3%; position:relative; top:-27%; display:none">
+                <lightning:icon iconName='utility:back' alternativeText='back' size='small' title='back' onclick="{!c.goBackOnePage}"/>&nbsp;<h1>Back</h1>
+                
+            </div>
+            <div class="checkinButton" style="">
+                <lightning:button onclick="{!c.checkInHandler}" label="Check-In" disabled="{!v.ShowCheckInButton}" class="visitCheckInButtons"/>&nbsp;
+                <lightning:button onclick="{!c.checkOutHandler}" label="Check-Out" disabled="{!v.ShowCheckOutButton}" class="visitCheckInButtons"/>
+            </div>
+        </div>
+        
+        
+        <lightning:LayoutItem padding="horizontal-small" size="8">
+            <div class="DesktopCard">
+                <lightning:LayoutItem size="12">
+                    <lightning:card>
+                        <lightning:Layout>
+                            <lightning:LayoutItem size="12">
+                                
+                                <lightning:Layout>
+                                    <lightning:LayoutItem  size="3">
+                                        <div style=" padding-left: 12%; padding-bottom: 5%; justify-content: flex-start; align-items: center; gap: 4px;  color: black; font-size: 12px; font-family: Lato; font-weight: 600; word-wrap: break-word; display: inline-block;">Beat Id:</div>
+                                        <div style=" padding-left: 1%; justify-content: flex-start; color: #7D7D7D; font-size: 12px; font-family: Lato; font-weight: 400; word-wrap: break-word; display: inline-block;">{!v.visitRec.Name}</div>
+                                    </lightning:LayoutItem>
+                                    <lightning:LayoutItem size="6">
+                                        <div style=" padding-left: 12%; padding-bottom: 5%; justify-content: flex-start; align-items: center; gap: 4px;  color: black; font-size: 12px; font-family: Lato; font-weight: 600; word-wrap: break-word; display: inline-block;">Website:</div>
+                                        <div style=" padding-left: 1%; justify-content: flex-start; color: #7D7D7D; font-size: 12px; font-family: Lato; font-weight: 400; word-wrap: break-word; display: inline-block;">{!v.visitRec.Account__r.Website}</div>
+                                    </lightning:LayoutItem>
+                                    <lightning:LayoutItem size="3">
+                                        <div style=" padding-left: 12%; padding-bottom: 5%; justify-content: flex-start; align-items: center; gap: 4px;  color: black; font-size: 12px; font-family: Lato; font-weight: 600; word-wrap: break-word; display: inline-block;">Phone:</div>
+                                        <div style=" padding-left: 1%; justify-content: flex-start; color: #7D7D7D; font-size: 12px; font-family: Lato; font-weight: 400; word-wrap: break-word; display: inline-block;">{!v.visitRec.Account__r.Phone}</div>
+                                    </lightning:LayoutItem>
+                                </lightning:Layout>
+                            </lightning:LayoutItem>
+                        </lightning:Layout>
+                        
+                        <lightning:Layout>
+                            <lightning:LayoutItem size="12">
+                                <lightning:Layout>
+                                    <lightning:LayoutItem  size="3">
+                                        <div style=" padding-left: 12%; padding-bottom: 1%; justify-content: flex-start; align-items: center; gap: 4px;  color: black; font-size: 12px; font-family: Lato; font-weight: 600; word-wrap: break-word; display: inline-block;">Email:</div>
+                                        <div style=" padding-left: 1%; justify-content: flex-start; color: #7D7D7D; font-size: 12px; font-family: Lato; font-weight: 400; word-wrap: break-word; display: inline-block;">{!v.visitRec.Account__r.Email__c}</div>
+                                    </lightning:LayoutItem>
+                                    <lightning:LayoutItem size="6">
+                                        <div style="display: flex; align-items: center;">
+                                            <div style="padding-left: 12%; padding-bottom: 1%; justify-content: flex-start; align-items: center; gap: 4px; color: black; font-size: 12px; font-family: Lato; font-weight: 600; word-wrap: break-word; display: inline-block; position: relative; top: -46%;">Address:</div>
+                                            <div style="padding-left: 1%; padding-bottom: 1%; justify-content: flex-start; color: #7D7D7D; font-size: 12px; font-family: Lato; font-weight: 400; word-wrap: break-word; display: inline-block; max-width: 76%;">{!v.accountAddress}</div>
+                                        </div>                                        
+                                    </lightning:LayoutItem>
+                                    <lightning:LayoutItem size="3">
+                                        <div style=" padding-left: 12%; justify-content: flex-start; align-items: center; gap: 4px;  color: black; font-size: 12px; font-family: Lato; font-weight: 600; word-wrap: break-word; display: inline-block;">Visit Time:</div>
+                                        <div style=" padding-left: 1%; justify-content: flex-start; color: #7D7D7D; font-size: 12px; font-family: Lato; font-weight: 400; word-wrap: break-word; display: inline-block;">{!v.visitRec.Account__r.Visit_Time__c}</div>
+                                    </lightning:LayoutItem>
+                                </lightning:Layout>
+                                
+                            </lightning:LayoutItem>
+                        </lightning:Layout>
+                    </lightning:card>
+                </lightning:LayoutItem>
+            </div>
+        </lightning:LayoutItem>
+        
+        <!--Map Card show CSS for Mobile-->
+        <div class="mapCardMobile">
+            <div class="slds-card ">
+             <c:mapcontainer recordId="{!v.accID}"  class="map"/>
+            </div>
+        </div>
+        
+        <!--Card show CSS for Mobile-->
+        <div class="MobileCard">
+            <div class="slds-card ">
+                <div style="padding:3%; position:relative;margin-left:2%; top:-27%; display:inline-block;">
+                    <lightning:icon class="floatingButton" variant="inverse" iconName="standard:contact_list" alternativeText="Utility image" title="Image" size="medium"/>
+                </div>
+                <div style="padding:0%; position:relative; top:-18%; display:inline-block;"><h1 style="color:black;font-size: 125%;font-weight: 500;">{!v.visitRec.Account__r.Name}</h1></div>
+                <div class="cardInfo">
+                    <div class="slds-text-align_left slds-has-flexi-truncate"><b>Beat Id &nbsp;:</b>&nbsp;{!v.visitRec.Name}</div>
+                    <div class="slds-text-align_left slds-has-flexi-truncate"><b>Website &nbsp;:</b>&nbsp;{!v.visitRec.Account__r.Website}</div>
+                    <div class="slds-text-align_left slds-has-flexi-truncate"><b>Phone &nbsp;:</b>&nbsp;{!v.visitRec.Account__r.Phone}</div>
+                    <div class="slds-text-align_left slds-has-flexi-truncate"><b>Email &nbsp;:</b>&nbsp;{!v.visitRec.Account__r.Email__c}</div>
+                    <div class="slds-text-align_left slds-has-flexi-truncate"><b>Address &nbsp;:</b>&nbsp;{!v.accountAddress}</div>
+                    <div class="slds-text-align_left slds-has-flexi-truncate"><b>Visit Time &nbsp;:</b>&nbsp;{!v.visitRec.Account__r.Visit_Time__c}</div>
+                </div>
+            </div>
+        </div>
+        
+        <!--Button Group Card show CSS for Mobile-->
+        <div class="buttonGroupCardMobile">
+            <div class="slds-card ">
+                <div class="">
+                    <aura:if isTrue="{!v.ShowModal}">
+                        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container oppCreationBox">
+                                <div class="slds-modal__header">
+                                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Opportunity</h1>
+                                </div>
+                                <div class="slds-modal__content slds-p-around_medium" >
+                                    <lightning:recordForm
+                                                          objectApiName="{!v.SobjectApiName}"
+                                                          fields="{!v.fields}"
+                                                          columns="1"
+                                                          oncancel="{!c.onCancel}"
+                                                          onsuccess="{!c.handleSuccess}" />
+                                </div>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>   
+                    </aura:if>
+                </div>
+                <div class="firstbutton">
+                    <ul class="slds-button-group-row">
+                        <li class="slds-button-group-item">
+                            <lightning:button onclick="{!c.createOpportunityHandle}" label="New Opportunity" class="visitMainButtons"/>
+                        </li>
+                        <li class="slds-button-group-item">
+                           <lightning:button label="Open Google Maps" onclick="{!c.openGoogleMaps}" class="visitMainButtons"/>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="secondbutton">
+                     <ul class="slds-button-group-row">
+                        <li class="slds-button-group-item">
+                           <lightning:button onclick="{!c.createTicket}" label="New Ticket" class="visitMainButtonsSecond"/>
+                        </li>
+                        <li class="slds-button-group-item">
+                            <lightning:button onclick="{!c.createLogCall}" label="Log a call" class="visitMainButtonsSecond"/>
+                        </li>
+                         <li class="slds-button-group-item">
+                           <lightning:button onclick="{!c.createTask}" label="Log an Activity" class="visitMainButtonsSecond"/>
+                        </li>
+                    </ul>
+                </div>
+                
+                    <lightning:tabset>
+                        <lightning:tab label="Activity">
+                            <div class="dataTableMobile">
+                                <aura:iteration items="{!v.relActivityList}"  var="pastVisitRec" indexVar="index">
+                                    <div class="slds-card cardmargin">
+                                        <div class="cardInfo">
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Sr No. &nbsp;:</b>&nbsp;<b style="color: crimson;">{!index+1}</b></div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Due Date &nbsp;:</b>&nbsp;{!pastVisitRec.ActivityDate}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Priority &nbsp;:</b>&nbsp;{!pastVisitRec.Priority}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Status &nbsp;:</b>&nbsp;{!pastVisitRec.Status}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Subject &nbsp;:</b>&nbsp;{!pastVisitRec.Subject}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Type &nbsp;:</b>&nbsp; {!pastVisitRec.Type}</div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                         </lightning:tab>
+                         <lightning:tab label="Past Visits">
+                             <div class="dataTableMobile">
+                                <aura:iteration items="{!v.pastVisitList}"  var="pastVisitRec" indexVar="index">
+                                    <div class="slds-card cardmargin">
+                                        <div class="cardInfo">
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Sr No. &nbsp;:</b>&nbsp;<b style="color: crimson;">{!index+1}</b></div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Visit Type &nbsp;:</b>&nbsp;{!pastVisitRec.KPI_Target_Name__c}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Visit Id &nbsp;:</b>&nbsp;{!pastVisitRec.Name}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Visit Date &nbsp;:</b>&nbsp;{!pastVisitRec.Actual_visit_date__c}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Visit Duration &nbsp;:</b>&nbsp;{!pastVisitRec.Duration__c}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Visit Time &nbsp;:</b>&nbsp; {!pastVisitRec.Visit_Time__c}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Visit Status &nbsp;:</b>&nbsp; {!pastVisitRec.Visit_Status__c}</div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                         </lightning:tab>
+                         <lightning:tab label="Documents">
+                             <iframe src="{!v.siteURL}" width="100%" height="600px" />
+                         </lightning:tab>
+                         <lightning:tab label="Opportunities">
+                             <div class="dataTableMobile">
+                                <aura:iteration items="{!v.relOppList}"  var="val" indexVar="index">
+                                    <div class="slds-card cardmargin">
+                                        <div class="cardInfo">
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Sr No. &nbsp;:</b>&nbsp;<b style="color: crimson;">{!index+1}</b></div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Opportunity Name &nbsp;:</b>&nbsp;{!val.Name}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Stage &nbsp;:</b>&nbsp;{!val.StageName}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Close Date &nbsp;:</b>&nbsp;{!val.CloseDate}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Source &nbsp;:</b>&nbsp;{!val.LeadSource}</div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                         </lightning:tab>
+                         <lightning:tab label="Invoices">
+                             <div class="dataTableMobile">
+                                <aura:iteration items="{!v.relInvoicesList}"  var="val" indexVar="index">
+                                    <div class="slds-card cardmargin">
+                                        <div class="cardInfo">
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Sr No. &nbsp;:</b>&nbsp;<b style="color: crimson;">{!index+1}</b></div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Invoice Number &nbsp;:</b>&nbsp;{!val.Name}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Amount &nbsp;:</b>&nbsp;{!val.Amount__c}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Status &nbsp;:</b>&nbsp;{!val.Status__c}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Initiated Amount &nbsp;:</b>&nbsp;{!val.Initiated_Amount__c}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Realized Amount &nbsp;:</b>&nbsp;{!val.Realized_Amount__c}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Invoice Date &nbsp;:</b>&nbsp;{!val.Invoice_Date__c}</div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                         </lightning:tab>
+                         <lightning:tab label="Tickets">
+                              <div class="dataTableMobile">
+                                <aura:iteration items="{!v.relCaseList}"  var="val" indexVar="index">
+                                    <div class="slds-card cardmargin">
+                                        <div class="cardInfo">
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Sr No. &nbsp;:</b>&nbsp;<b style="color: crimson;">{!index+1}</b></div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Case Number &nbsp;:</b>&nbsp;{!val.CaseNumber}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Case Origin &nbsp;:</b>&nbsp;{!val.Origin}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Status &nbsp;:</b>&nbsp;{!val.Status}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Case Description &nbsp;:</b>&nbsp;{!val.Description}</div>
+                                            <div class="slds-text-align_left slds-has-flexi-truncate"><b>Case Reason &nbsp;:</b>&nbsp;{!val.Reason}</div>
+                                        </div>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                         </lightning:tab>
+                    </lightning:tabset>
+                </div>
+        </div>
+        
+        <lightning:LayoutItem class="bottomdiv" padding="around-small" size="8">
+            <div class="oppCardDesktop">
+            <lightning:card >
+                 
+                <aura:if isTrue="{!v.ShowModal}">
+                    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <div class="slds-modal__header">
+                                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Opportunity</h1>
+                            </div>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <lightning:recordForm
+                                                      objectApiName="{!v.SobjectApiName}"
+                                                      fields="{!v.fields}"
+                                                      columns="2"
+                                                      oncancel="{!c.onCancel}"
+                                                      onsuccess="{!c.handleSuccess}" />
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>   
+                </aura:if>
+                <lightning:LayoutItem size="12" class="buttonCard">
+                    <div class="buttonGroupCardDesktop">
+                    <lightning:Layout>
+                        <lightning:LayoutItem padding="around-small" size="12">
+                            <lightning:button onclick="{!c.createTicket}" label="New Ticket" class="visitMainButtons"/>
+                            <lightning:button onclick="{!c.createOpportunityHandle}" label="New Opportunity" class="visitMainButtons"/>
+                            <lightning:button label="Open Google Maps" onclick="{!c.openGoogleMaps}" class="visitMainButtons"/>
+                            <lightning:button onclick="{!c.createLogCall}" label="Log a call" class="visitMainButtons"/>
+                            <lightning:button onclick="{!c.createTask}" label="Log an Activity" class="visitMainButtons"/>
+                            <lightning:button onclick="{!c.checkOutHandler}" label="Check-Out" disabled="{!v.ShowCheckOutButton}" class="visitMainButtons"/>
+                            <lightning:button onclick="{!c.checkInHandler}" label="Check-In" disabled="{!v.ShowCheckInButton}" class="visitMainButtons"/>
+                        </lightning:LayoutItem>
+                    </lightning:Layout>
+                    <lightning:Layout>  
+                    </lightning:Layout>
+                    </div>
+                </lightning:LayoutItem>
+                
+                <div class="dataTableDesktop">
+                <lightning:LayoutItem size="12" class="">
+                    <lightning:tabset>
+                        <lightning:tab label="Activity">
+                            <div class="slds-m-around--xx-small slds-scrollable">
+                                <div class="container-fluid">
+                                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                        <thead>
+                                            <tr class="slds-text-title_caps" >
+                                                <th scope="col" title="sNo" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">S No.</div>
+                                                </th>
+                                                <th scope="col" title="Due Date" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Due Date</div>
+                                                </th>
+                                                <th scope="col" title="Priority" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Priority</div>
+                                                </th>
+                                                <th scope="col" title="Status" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Status</div>
+                                                </th>
+                                                <th scope="col" title="Subject" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Subject</div>
+                                                </th>
+                                                <th scope="col" title="Type" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Type</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.relActivityList}" var="pastVisitRec" indexVar="index">
+                                                <tr>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <h2>{!index+1}</h2>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.ActivityDate}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Priority}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Status}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Subject}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Type}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </lightning:tab>
+                        <lightning:tab label="Past Visits">
+                            <div class="slds-m-around--xx-small slds-scrollable">
+                                <div class="container-fluid">
+                                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                        <thead>
+                                            <tr class="slds-text-title_caps" >
+                                                <th scope="col" title="sNo" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">S No.</div>
+                                                </th>
+                                                <th scope="col" title="Visit Type" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Visit Type</div>
+                                                </th>
+                                                <th scope="col" title="Visit Id" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Visit Id</div>
+                                                </th>
+                                                <th scope="col" title="Visit Date" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Visit Date</div>
+                                                </th>
+                                                <th scope="col" title="Visit Duration" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Visit Duration</div>
+                                                </th>
+                                                <th scope="col" title="Visit Time" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Visit Time</div>
+                                                </th>
+                                                <th scope="col" title="Visit Status" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Visit Status</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.pastVisitList}" var="pastVisitRec" indexVar="index">
+                                                <tr>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <h2>{!index+1}</h2>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.KPI_Target_Name__c}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Name}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Actual_visit_date__c}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Duration__c}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Visit_Time__c}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!pastVisitRec.Visit_Status__c}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </lightning:tab>
+                        <lightning:tab label="Documents">
+                            <iframe src="{!v.siteURL}" width="100%" height="600px" />
+                            
+                        </lightning:tab>
+                        <lightning:tab label="Opportunities">
+                            <div class="slds-m-around--xx-small slds-scrollable">
+                                <div class="container-fluid">
+                                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                        <thead>
+                                            <tr class="slds-text-title_caps" >
+                                                <th scope="col" title="sNo" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">S No.</div>
+                                                </th>
+                                                <th scope="col" title="Visit Type" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Opportunity Name</div>
+                                                </th>
+                                                <th scope="col" title="Visit Id" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Stage</div>
+                                                </th>
+                                                <th scope="col" title="Visit Date" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Close Date</div>
+                                                </th>
+                                                <th scope="col" title="Visit Duration" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Source</div>
+                                                </th>
+                                                <!--th scope="col" title="Visit Time" style="background-color:#6CA1E9;">
+                                                        <div class="slds-truncate">Visit Time</div>
+                                                    </th>
+                                                    <th scope="col" title="Visit Status" style="background-color:#6CA1E9;">
+                                                        <div class="slds-truncate">Visit Status</div>
+                                                    </th-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.relOppList}" var="val" indexVar="index">
+                                                <tr>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <h2>{!index+1}</h2>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div data-id="{!val.Id}" onclick="{!c.handleOppClick}" style="cursor:pointer;">
+                                                            {!val.Name}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.StageName}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.CloseDate}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.LeadSource}
+                                                        </div>
+                                                    </td>
+                                                    <!--td style="background-color:#F5F5F5;">
+                                                            <div>
+                                                                {!pastVisitRec.Check_In_Time__c}
+                                                            </div>
+                                                        </td>
+                                                        <td style="background-color:#F5F5F5;">
+                                                            <div>
+                                                                {!pastVisitRec.Visit_Status__c}
+                                                            </div>
+                                                        </td-->
+                                                </tr>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </lightning:tab>
+                        
+                        <lightning:tab label="Invoices">
+                            <div class="slds-m-around--xx-small slds-scrollable">
+                                <div class="container-fluid">
+                                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                        <thead>
+                                            <tr class="slds-text-title_caps" >
+                                                <th scope="col" title="sNo" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">S No.</div>
+                                                </th>
+                                                <th scope="col" title="Visit Type" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Invoice Number</div>
+                                                </th>
+                                                <th scope="col" title="Visit Id" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Amount</div>
+                                                </th>
+                                                <th scope="col" title="Visit Date" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Status</div>
+                                                </th>
+                                                <th scope="col" title="Visit Duration" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Initiated Amount</div>
+                                                </th>
+                                                <th scope="col" title="Visit Time" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Realized Amount</div>
+                                                </th>
+                                                <th scope="col" title="Visit Status" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Invoice Date</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.relInvoicesList}" var="val" indexVar="index">
+                                                <tr>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <h2>{!index+1}</h2>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Name}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Amount__c}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Status__c}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Initiated_Amount__c}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Realized_Amount__c}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Invoice_Date__c}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </lightning:tab>
+                        
+                        <lightning:tab label="Tickets">
+                            <div class="slds-m-around--xx-small slds-scrollable">
+                                <div class="container-fluid">
+                                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                        <thead>
+                                            <tr class="slds-text-title_caps" >
+                                                <th scope="col" title="sNo" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">S No.</div>
+                                                </th>
+                                                <th scope="col" title="Visit Type" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Case Number</div>
+                                                </th>
+                                                <th scope="col" title="Visit Id" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Case Origin</div>
+                                                </th>
+                                                <th scope="col" title="Visit Date" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Status</div>
+                                                </th>
+                                                <th scope="col" title="Visit Duration" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Case Description</div>
+                                                </th>
+                                                <th scope="col" title="Visit Time" style="background-color:#6CA1E9;">
+                                                    <div class="slds-truncate">Case Reason</div>
+                                                </th>
+                                                <!--th scope="col" title="Visit Status" style="background-color:#6CA1E9;">
+                                                        <div class="slds-truncate">Invoice Date</div>
+                                                    </th-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <aura:iteration items="{!v.relCaseList}" var="val" indexVar="index">
+                                                <tr>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <h2>{!index+1}</h2>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.CaseNumber}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Origin}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Status}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Description}
+                                                        </div>
+                                                    </td>
+                                                    <td style="background-color:#F5F5F5;">
+                                                        <div>
+                                                            {!val.Reason}
+                                                        </div>
+                                                    </td>
+                                                    <!--td style="background-color:#F5F5F5;">
+                                                            <div>
+                                                                {!val.Invoice_Date__c}
+                                                            </div>
+                                                        </td-->
+                                                </tr>
+                                            </aura:iteration>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </lightning:tab>
+                    </lightning:tabset>
+                </lightning:LayoutItem>
+                </div>
+            </lightning:card>
+            </div>
+        </lightning:LayoutItem>
+        
+        <lightning:LayoutItem  size="4">
+            <div class="DesktopMapCard">
+            <lightning:Layout>
+                <lightning:LayoutItem size="12">
+                    <c:mapcontainer recordId="{!v.accID}"  class="map"/>
+                </lightning:LayoutItem>
+            </lightning:Layout>
+            </div>
+        </lightning:LayoutItem>
+        
+        
+        <aura:if isTrue="{!v.showCreateTask}">
+            <div>
+                <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container" >
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeActivityCreate}">
+                                <lightning:icon iconName="utility:close" size="small" variant="neutral"/>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </header>
+                        <center style="background: white;"><b>New Task</b></center>
+                        <div class="slds-modal__content slds-p-around_medium alignLeft" id="modal-content-id-1">
+                            <div class="row">
+                                <lightning:input name="taskSubject" label="Subject" required="true" value="{!v.taskRec.Subject}"/> 
+                                <lightning:select aura:id="fieldStatus" label="Status"  required="true" onchange="{!c.onChangeHandlerStatus}" value="{!v.taskRec.Status}">
+                                    <option value="">--None--</option>
+                                    <aura:iteration items="{!v.StatuspickValues}" var="val">
+                                        <option value="{!val}"> {!val}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                                <lightning:select aura:id="fieldPrority" label="Priority"  required="true" onchange="{!c.onChangeHandlerPriority}" value="{!v.taskRec.Priority}">
+                                    <option value="">--None--</option>
+                                    <aura:iteration items="{!v.PrioritypickValues}" var="val">
+                                        <option value="{!val}"> {!val}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                                <lightning:input type="date" name="taskduedate" label="Due Date" value="{!v.taskRec.ActivityDate}"/>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <div class="slds-align_absolute-center">
+                                <lightning:button label="Cancel" variant="destructive" class="slds-m-top--medium"   onclick="{!c.closeActivityCreate}"/>
+                                <lightning:button label="Submit" variant="brand" class="slds-m-top--medium" onclick="{!c.saveTaskHandler}"/>
+                            </div>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </aura:if>
+        
+        
+        <aura:if isTrue="{!v.showCreateCallLogTask}">
+            <div>
+                <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container" >
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeCallLogCreate}">
+                                <lightning:icon iconName="utility:close" size="small" variant="neutral"/>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </header>
+                        <center style="background: white;"><b>Log a call</b></center>
+                        <div class="slds-modal__content slds-p-around_medium alignLeft" id="modal-content-id-1">
+                            <div class="row">
+                                <lightning:input name="taskSubject" label="Subject" required="true" value="{!v.callRec.Subject}"/> 
+                                <lightning:input type="text" name="taskcomments" label="Comments" value="{!v.callRec.Description}"/>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <div class="slds-align_absolute-center">
+                                <lightning:button label="Cancel" variant="destructive" class="slds-m-top--medium"   onclick="{!c.closeCallLogCreate}"/>
+                                <lightning:button label="Submit" variant="brand" class="slds-m-top--medium" onclick="{!c.saveLogCall}"/>
+                            </div>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </aura:if>
+        
+        <aura:if isTrue="{!v.showCreateCase}">
+            <div>
+                <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container" >
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeCaseHanlde}">
+                                <lightning:icon iconName="utility:close" size="small" variant="neutral"/>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </header>
+                        <center style="background: white;"><b>New Case</b></center>
+                        <div class="slds-modal__content slds-p-around_medium alignLeft" id="modal-content-id-1">
+                            <div class="row">
+                                <lightning:select aura:id="fieldCaseStatus" label="Status"  required="true" onchange="{!c.onChangeHandlerCaseStatus}" value="{!v.caseRec.Status}">
+                                    <option value="">--None--</option>
+                                    <aura:iteration items="{!v.CaseStatuspickValues}" var="val">
+                                        <option value="{!val}"> {!val}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                                <lightning:input name="taskSubject" label="Subject" required="true" value="{!v.caseRec.Subject}"/> 
+                                <lightning:input type="text" name="taskcomments" label="Comments" value="{!v.caseRec.Description}"/>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <div class="slds-align_absolute-center">
+                                <lightning:button label="Cancel" variant="destructive" class="slds-m-top--medium"   onclick="{!c.closeCaseHanlde}"/>
+                                <lightning:button label="Submit" variant="brand" class="slds-m-top--medium" onclick="{!c.createCaseHandle}"/>
+                            </div>                            
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </aura:if>
+        
+        <!--lightning:recordForm
+                objectApiName="Opportunity"
+                mode="edit"
+                columns="2"
+                onsubmit="{!c.handleSuccess}"
+            /-->
+        
+        <aura:if isTrue="{!v.showOpportunityCreate}">
+            <div>
+                <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container" >
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeOpportunityHandle}">
+                                <lightning:icon iconName="utility:close" size="small" variant="neutral"/>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                        </header>
+                        <center style="background: white;"><b>New Opportunity</b></center>
+                        <div class="slds-modal__content slds-p-around_medium alignLeft" id="modal-content-id-1">
+                            <div class="row">
+                                <lightning:input name="RequestName" label="Opportunity Name" required="true" value="{!v.oppRec.Name}"/> 
+                                <!--lightning:input name="oppName" label="Opportunity Name" required="true" value="{!v.oppRec.Name}"/--> 
+                                <lightning:select aura:id="fieldOppStage" label="Status"  required="true" onchange="{!c.onChangeHandlerOppStage}" value="{!v.oppRec.StageName}">
+                                    <option value="">--None--</option>
+                                    <aura:iteration items="{!v.OppStageNamepickValues}" var="val">
+                                        <option value="{!val}"> {!val}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                                
+                                <lightning:input type="date" name="oppclosedate" required="true" label="Close Date" value="{!v.oppRec.CloseDate}"/>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer ">
+                            <div class="slds-align_absolute-center">
+                                <lightning:button label="Cancel" variant="destructive" class="slds-m-top--medium"   onclick="{!c.closeOpportunityHandle}"/>
+                                <lightning:button label="Submit" variant="brand" class="slds-m-top--medium" onclick="{!c.createOppHandle}"/>
+                            </div>
+                            
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </aura:if>
+        <!--/div-->
+    </lightning:Layout>
+</aura:component>

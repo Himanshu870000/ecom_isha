@@ -1,0 +1,260 @@
+<apex:page controller="createDealPageController" applyHtmlTag="false" sidebar="false"  showHeader="false" cache="true" renderAs="advanced_pdf" docType="html-5.0">
+    <head>    
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />    
+        <style type="text/css">
+            @page {
+            size: A4 landscape;    
+                
+            padding-left: 5px;    
+            padding-right: 5px;      
+            }
+            th {  
+            font-weight: bold;
+            text-align: center;
+            background-color: #92d5f0;
+            color: black;
+            padding: 8px;
+            }
+            td {    
+            font-size: 15px;
+            text-align: left;
+            padding: 8px;
+            }
+            table{
+            border-collapse: collapse;
+            }
+            table, th, td {
+            border: 1px solid black;
+            }
+        </style>    
+    </head>
+    <table width="100%">
+    	<tr>
+            <td style="width:60%">
+               <b>Pricing and Payment Schedule</b>
+            </td>
+            <td>
+               <b>Vasavi Square</b>
+            </td>
+        </tr>
+    </table>
+    <table width="100%">
+    	<tr>
+            <td style="width:10%">
+                1
+            </td>
+            <td style="width:50%">
+                Name: {!conRec.Name}
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td style="width:10%">
+                2
+            </td>
+            <td style="width:50%">
+                S/O: Papa Name
+            </td>
+            <td>
+                Age:25
+            </td>
+        </tr>
+        
+        <tr>
+            <td style="width:10%">
+                3
+            </td>
+            <td style="width:50%">
+                Mailing Address: {!conRec.MailingStreet},{!conRec.MailingCity},{!conRec.MailingState},{!conRec.MailingCountry},{!conRec.MailingPostalCode}
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td style="width:10%">
+                4
+            </td>
+            <td style="width:50%">
+                Pan No : {!conRec.Pan_No__c}
+            </td>
+            <td>
+                Adhar No : {!conRec.Aadhar_No__c}
+            </td>
+        </tr>
+        
+        <tr>
+            <td style="width:10%">
+                5
+            </td>
+            <td style="width:50%">
+                Phone : {!conRec.Phone}
+            </td>
+            <td>
+                Mobile Phone : {!conRec.MobilePhone}
+            </td>
+        </tr>
+        
+         <tr>
+            <td style="width:10%">
+                6
+            </td>
+            <td style="width:50%">
+                Email : {!conRec.Email}
+            </td>
+            <td>
+                Type : {!unitRec.Unit_Type__c}
+            </td>
+        </tr>
+        
+        <tr>
+            <td style="width:10%">
+                7
+            </td>
+            <td style="width:50%">
+                Flat Booked : {!conRec.Flat_Booked__c}
+            </td>
+            <td>
+                Flat Area : {!unitRec.Super_Built_Up_Area__c}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+    
+    <table width="100%">
+    	<tr>
+            <td style="width:10%">
+                <b>SI.no</b>
+            </td>
+            <td>
+                <b>Unit Particulars</b>
+            </td>
+        </tr>
+    </table>
+    <table width="100%">
+    	<tr>
+            <td style="width:10%">
+                1
+            </td>
+            <td style="width:100%">
+                Type: {!unitRec.Unit_Type__c}
+            </td>
+        </tr>
+        <tr>
+            <td style="width:10%">
+                2
+            </td>
+            <td style="width:100%">
+                SBA(in sq.feet) : {!unitRec.Super_Built_Up_Area__c	}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+            </td>
+        </tr>
+    </table>
+    
+    <table width="100%">
+    	<tr>
+            <td style="width:10%">
+                <b>SI.no</b>
+            </td>
+            <td style="width:50%">
+                <b>Payment Schedule</b>
+            </td>
+            <td style="width:40%">
+                <b>Amount(Rs.)</b>
+            </td>
+        </tr>
+        <apex:repeat value="{!dealRec.Payment_Schedules__r}" var="pay">
+            
+            <tr>
+                <td  style="width:10%">
+                    {!pay.Serial_No__c}
+                </td>
+                <td style="width:50%">
+                	{!pay.Name}
+                </td>
+                <td style="width:40%">
+                    {!pay.Amount__c}
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+    
+    <table width="100%">
+        
+        
+        <tr>
+            
+            <td style="width:60%">
+                <b>Grand Total</b>
+            </td>
+            <td style="width:40%">
+                {!dealRec.Total_Amount__c}
+            </td>
+        </tr>
+    </table>
+    
+    <table width="100%">
+        <tr>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>Note:Goods and Service tax,  Govt. charges towards new connections for electricity,</td>
+        </tr>
+        <tr>
+            <td>House tax assessment, Water Connection and Drainage conn are to be accertained and payable by the member. </td>
+        </tr>
+        <tr>
+            <td>Registration and stamp duty charges are to be accertained and payable by the member.</td>
+        </tr>
+        <tr>
+            <td>Corpus Fund (As applicable and Mandatory) at the time of handover of the Flat.</td>
+        </tr>
+        <tr>
+            <td>Each payment shall become payabale on demand irrespective of the serial in which they are listed above.</td>
+        </tr>
+        <tr>
+            <td>Any other statuary charges which may be imposed by the authorities from time to time</td>
+        </tr>
+        <tr>
+            <td>will also be payable by the member.</td>
+        </tr>
+        <tr>
+            <td>*For details, please contact "Sales Team- 0891-6990000"</td>
+        </tr>
+        <tr>
+            <td>The above price is subject to escalation </td>
+        </tr>
+        <tr>
+            <td>This is only a cost indicative chart and not a legal offering for a flat</td>
+        </tr>
+        <tr>
+            <td>*Car Parking Selection is based on First cum First serve basis</td>
+        </tr>
+        <tr>
+            <td>No changes will be allowed in the flat before handover. Changes can be done by the customers themselves </td>
+        </tr>
+        <tr>
+            <td>only after handover of the flat </td>
+        </tr>
+        <tr>
+            <td>Registration will be done only on completion of the flat. Sale agreement will be issued on receipt of 25% </td>
+        </tr>
+        <tr>
+            <td>amount of the total cost</td>
+        </tr>
+    </table>
+</apex:page>

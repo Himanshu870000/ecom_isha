@@ -1,0 +1,16 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" controller="FetchCaseCOntroller" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="slds-text-heading_large slds-align_absolute-center">
+        <strong style="color: black;">
+            Fetch Status
+        </strong>
+    </div>
+    
+    
+    <div class="slds-align_absolute-center" >
+        
+        <strong style="color: green;margin-top:10%">Getting Data ...</strong>
+    </div>
+</aura:component>

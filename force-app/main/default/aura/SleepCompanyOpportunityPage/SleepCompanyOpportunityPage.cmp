@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <img src="{!$Resource.sleepCompanyRecommendedOffers}"/>
+    <img src="{!$Resource.sleepCompanyAddOns}"/>
+</aura:component>

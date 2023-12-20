@@ -1,0 +1,36 @@
+<aura:component controller="SearchController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="accList" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="SearchList" type="boolean" default="false"/>
+    <aura:attribute name="activeSections" type="List"/>
+    <aura:attribute name="searchResult" type="List" description="use for store and display account list return from server"/>
+    <aura:attribute name="searchKeyword" type="String" description="use for store user search input"/>
+    
+    <div class="slds-scrollable_y">
+        <div class="slds-text-longform " >
+            <lightning:input value="{!v.searchKeyword}"
+                             placeholder="search Accounts.."
+                             aura:id="searchField"
+                             name="searchField"
+                             onchange="{!c.onChange1 }"
+                             style="border-radius: 16px; height: 30px; width: 100%;padding-left: 2%; padding-bottom: 0.4%;  margin-top: 1.5%;"/>
+        </div>
+    </div>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+        </thead>
+        <aura:if isTrue="{!v.SearchList}">
+            <tbody>
+                <aura:iteration items="{!v.accList}" var="acc" indexVar="index">
+                    <tr>
+                        <td>
+                            <div class="slds-truncate" title="">{!acc.Name}</div>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </aura:if>
+    </table>
+    
+    
+</aura:component>

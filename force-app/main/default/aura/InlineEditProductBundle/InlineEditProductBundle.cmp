@@ -1,0 +1,143 @@
+<aura:component controller="ProductBundleApexController">
+	<!--declare aura attributes-->
+    <!--aura:attribute name="showSaveCancelBtn" type="boolean"/-->
+    <aura:attribute name="showErrorClass" type="boolean" default="false"/>
+    <aura:attribute name="sNo" type="string" />
+    <aura:attribute name="singleRec" type="sobject" />
+    <aura:attribute name="EditMode" type="boolean" default="false" />
+    <aura:attribute name="EditEmail" type="boolean" default="false" />
+    <aura:attribute name="EditDescription" type="boolean" default="false" />
+    
+    <!--Table Row Start-->  
+    <tr>
+        <td>
+            <div class="slds-truncate">{!v.sNo}</div>
+        </td>
+        <td>
+                <aura:if isTrue="{!v.singleRec.IsOptionalProduct__c}"> 
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-12">
+                            <!--lightning:icon iconName="utility:chevrondown" size="x-small"/-->
+                        </div>
+                        <div class="slds-col slds-size_10-of-12">
+                             <div class="slds-truncate" title="{!v.singleRec.Product2.Name}">{!v.singleRec.Product2.Name}</div>
+                        </div>
+                    </div>
+                <aura:set attribute="else">
+                  <div class="slds-truncate" title="{!v.singleRec.Product2.Name}">{!v.singleRec.Product2.Name}</div>
+                </aura:set>
+              </aura:if>
+        </td>
+        
+        <td ondblclick="{!c.inlineEditDescription}" class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+            <span class="slds-grid slds-grid_align-spread">
+                <!-- show input and output section based on boolean flag --> 
+                <aura:if isTrue="{!v.EditMode == false}">
+                    <span class="slds-truncate" title="Last Name">{!v.singleRec.Product2.Description}</span>
+                    <button onclick="{!c.inlineEditDescription}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Description">
+                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                    </button>
+                    
+                    <!-- Inline Edit Section in else case-->  
+                    <aura:set attribute="else">
+                        <section  tabindex="0" class="slds-popover slds-popover_edit" role="dialog" style="position: absolute; top: 0px">
+                            <div class="slds-popover__body">
+                                <div class="slds-form-element slds-grid slds-wrap">
+                                    <div class="slds-form-element__control slds-grow">
+                                        <ui:inputText class="slds-input inputFieldWidth"
+                                                      labelClass="slds-form-element__label slds-form-element__label_edit slds-no-flex"
+                                                      aura:id="inputId"
+                                                      blur="{!c.closeDescriptionBox}"
+                                                      change="{!c.onDescriptionChange}"
+                                                      required="true"
+                                                      value="{!v.singleRec.Product2.Description}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <span id="form-end" tabindex="0"></span>
+                        </section>  
+                    </aura:set>  
+                </aura:if> 
+            </span>
+        </td>
+        <!---->
+        
+        <td ondblclick="{!c.inlineEditQuantity}" class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+            <span class="slds-grid slds-grid_align-spread">
+                <!-- show input and output section based on boolean flag --> 
+                <aura:if isTrue="{!v.EditEmail == false}">
+                    <span class="slds-truncate" title="Email">{!v.singleRec.Quantity}</span>
+                    <button onclick="{!c.inlineEditQuantity}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Quantity">
+                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                    </button>
+                    
+                    <!-- Inline Edit Section in else case-->  
+                    <aura:set attribute="else">
+                        <section  tabindex="0" class="slds-popover slds-popover_edit" role="dialog" style="position: absolute; top: 0px">
+                            <div class="slds-popover__body">
+                                <div class="slds-form-element slds-grid slds-wrap">
+                                    <div class="slds-form-element__control slds-grow">
+                                        <ui:inputText class="slds-input inputFieldWidth"
+                                                      labelClass="slds-form-element__label slds-form-element__label_edit slds-no-flex"
+                                                      aura:id="inputId1"
+                                                      blur="{!c.closeQuantityBox}"
+                                                      change="{!c.onQuantityChange}"
+                                                      required="true"
+                                                      value="{!v.singleRec.Quantity}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <span id="form-end" tabindex="0"></span>
+                        </section>  
+                    </aura:set>  
+                </aura:if> 
+            </span>
+        </td>
+        
+        <td>
+           <div class="slds-truncate" title="{!v.singleRec.Product2.Name}">{!v.singleRec.UnitPrice}</div>
+        </td>
+        
+        <!---->
+        <td ondblclick="{!c.inlineEditDiscount}" class="{! v.showErrorClass == true ? 'slds-cell-edit slds-has-error' : 'slds-cell-edit'}">
+            <span class="slds-grid slds-grid_align-spread">
+                <!-- show input and output section based on boolean flag --> 
+                <aura:if isTrue="{!v.EditDescription == false}">
+                    <span class="slds-truncate" title="Description">{!v.singleRec.Discount}</span>
+                    <button onclick="{!c.inlineEditDiscount}" class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small" tabindex="0" title="Edit Discount">
+                        <lightning:icon iconName="utility:edit" size="xx-small" alternativeText="edit"/>
+                    </button>
+                    
+                    <!-- Inline Edit Section in else case-->  
+                    <aura:set attribute="else">
+                        <section  tabindex="0" class="slds-popover slds-popover_edit" role="dialog" style="position: absolute; top: 0px">
+                            <div class="slds-popover__body">
+                                <div class="slds-form-element slds-grid slds-wrap">
+                                    <div class="slds-form-element__control slds-grow">
+                                        <ui:inputText class="slds-input inputFieldWidth"
+                                                      labelClass="slds-form-element__label slds-form-element__label_edit slds-no-flex"
+                                                      aura:id="Descriptioninput"
+                                                      blur="{!c.closeDiscountBox}"
+                                                      change="{!c.onDiscountChange}"
+                                                      required="true"
+                                                      value="{!v.singleRec.Discount}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <span id="form-end" tabindex="0"></span>
+                        </section>  
+                    </aura:set>  
+                </aura:if> 
+            </span>
+        </td>
+        <td>
+            
+           <aura:if isTrue="{!not(empty(!v.singleRec.NetTotal))}">
+                 <div class="slds-truncate" title="{!v.singleRec.NetTotal}">{!v.singleRec.NetTotal}</div>
+             <aura:set attribute="else">
+                  <div class="slds-truncate" title="{!v.singleRec.Product2.Name}">{!v.singleRec.TotalPrice}</div>
+                </aura:set>
+          </aura:if>     
+        </td>
+    </tr>
+</aura:component>

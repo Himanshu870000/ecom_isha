@@ -1,0 +1,13 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                 access="global" controller="IccCricketBordsEvents" >
+	 <aura:attribute name="EventList" type="Event_Master__c[]" />
+      <aura:handler name="init" value="{! this}" action="{! c.doInit}" /> 
+     <lightning:card  >
+           <ul class="slds-list--vertical slds-has-dividers--top-space">
+          <aura:iteration  items="{!v.EventList}" var="board"  >
+              <li>{!board.Name }</li> <br/>
+         </aura:iteration>
+        </ul>
+    </lightning:card>
+    
+</aura:component>

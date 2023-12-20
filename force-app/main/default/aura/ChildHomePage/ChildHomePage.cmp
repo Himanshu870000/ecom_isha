@@ -1,0 +1,56 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global" controller="IccCricketBordsEvents">
+    
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+    <aura:attribute name="Dispatched" type="Boolean" default="false"/>
+    <aura:attribute name="Dispatched1" type="Boolean" default="false"/>
+    <aura:attribute name="Dispatched2" type="Boolean" default="false"/>
+    <aura:attribute name="Dispatched3" type="Boolean" default="false"/>
+    <aura:attribute name="BoardList" type="Sports_Board__c[]" /> 
+     <aura:attribute name="EventPicklist" type="String[]"/>
+    <!--  <aura:attribute name="event" type="Event_Master__c" default= "{'sobjectType':'Event_Master__c',
+                                                                    'Events__c':''}"/>-->
+   <!--   <div class="myColor   " >
+    <lightning:card>
+                
+             <aura:iteration  items="{!v.BoardList}" var="board">
+                 <div style="float: left; width:120 px;  margin-top:10%;"  class="myColor">
+                    <lightning:formattedRichText value="{!board.Board_Logo__c}"></lightning:formattedRichText> 
+                     <lightning:button  label= "{!board.Name}"   onclick="{!c.handleClickA}"> </lightning:button>  
+                </div>
+            </aura:iteration>  
+        
+     </lightning:card>
+ </div>-->
+    
+    <lightning:card class="slds-text-heading_small slds-card_boundary"     >
+    <div class="slds-p-left--full slds-p-right--full"  style="height:200px;"  >
+               <ul class="slds-list--horizontal slds-has-dividers--top-space">
+            <aura:iteration  items="{!v.BoardList}" var="board" >
+                <li><lightning:formattedRichText value="{!board.Board_Logo__c}"></lightning:formattedRichText></li> 
+                  <li><lightning:button    label= "{!board.Name}"  onclick="{!c.handleClickA}"> </lightning:button></li>     
+             </aura:iteration>
+         </ul>
+           </div>
+        
+        <div class="slds-p-left--full slds-p-right--full" style="height:100px;" >
+               <ul class="slds-list--horizontal slds-has-dividers--top-space">
+            <aura:iteration  items="{!v.EventPicklist}" var="board"  >
+                  
+                <!--  <li><lightning:button    label= "{!board }"  onclick="{!c.handleClickA}"> </lightning:button></li> -->
+                
+                 <li>
+                      <lightning:tabset  >
+                          <lightning:tab label="{!board }"  ></lightning:tab>
+                          <c:EventMasterChild/>
+                     </lightning:tabset>
+                </li>   
+             </aura:iteration>
+         </ul>
+             
+           </div>
+        
+        
+</lightning:card> 
+     
+</aura:component>

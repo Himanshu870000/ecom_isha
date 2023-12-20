@@ -1,0 +1,21 @@
+<template>
+    <lightning-quick-action-panel class="field-title" header="Recommended Clients">
+        
+        <ul class="dynamic-text">
+            <li class="item">
+                <div class="app slds-p-around_x-large">
+                    <template for:each={recList} for:item="rec">
+                        <div key={rec.Id}>
+                        <div class="slds-card card-color slds-m-left_small">
+                            <div class="slds-align_absolute-center slds-m-top_large slds-m-left_small slds-m-bottom_large">
+                                <lightning-button variant="brand" label={rec.Name} onclick={handleClick2p2}></lightning-button>
+                            </div>
+                        </div><br/>
+                        </div>
+                    </template>
+                </div>
+            </li>
+        </ul>
+        
+</lightning-quick-action-panel>
+</template>

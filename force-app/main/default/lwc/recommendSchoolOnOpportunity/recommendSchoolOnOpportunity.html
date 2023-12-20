@@ -1,0 +1,97 @@
+<template>
+
+	  <header class="slds-modal__header">
+          <!--lightning:icon class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" iconName="utility:close" variant="close"/ -->
+
+        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Recommend School</h2>
+      </header>
+
+	<div style="height:300px;">
+		<!-- lightning-quick-action-panel header="Add Schools" -->
+			<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+				<thead>
+					<tr class="slds-line-height_reset">
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Name">S.No.</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate">School</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate">Visit Date</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate">Additional Description</div>
+						</th>
+                        <th class="" scope="col">
+							<div class="slds-truncate"></div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate"></div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<template for:each={mtrlSpecList} for:item="spec" for:index="ind">
+						<tr key={spec.index}>
+							<th scope="col">
+								<div>
+									<!--c-indexchild-l-w-c indexchild={spec.id}></c-indexchild-l-w-c-->
+									{spec.index}
+								</div>
+							</th>
+							<th scope="col">
+								<template if:true={spec.Id}>
+									<div style="height:100px;">
+										<c-school-lookup index={spec.Id} obj-name="School__c" record-id={recordId} default-record-id={spec.School__c}
+                                            search-placeholder="Search Schools"
+                                            onlookupselected={handleSpecSelection} 
+									> </c-school-lookup>
+									</div>
+								</template>
+                                <template if:false={spec.Id}>
+                                    <div >
+                                        <c-school-lookup index={spec.index} obj-name="School__c" record-id={recordId}
+                                          search-placeholder="Search Schools"
+                                          onlookupselected={handleSpecSelection}
+                                    > </c-school-lookup>
+                                    </div>
+                                </template>
+							</th>
+							<th scope="col">
+								<div>
+									<lightning-input variant="label-hidden" data-id={spec.Id} access-key={spec.index} type="datetime" name="expDate" value={spec.Visit_Date_Time__c} onchange={handleChange}> 
+									</lightning-input>
+								</div>
+							</th>
+                            <th scope="col">
+								<div>
+									<lightning-input type="text" data-id={spec.Id} access-key={spec.index} name="desc" variant="label-hidden"
+										onchange={handleChange} value={spec.Description__c}> </lightning-input>
+								</div>
+							</th>
+                            <td>
+								<lightning-button-icon access-key={spec.index} id={index} class="slds-float--left"
+									icon-name="action:new" onclick={addRow} ></lightning-button-icon>
+							</td>
+							<td>
+								<lightning-button-icon access-key={spec.index} id={index} class="slds-float--right"
+									icon-name="action:delete" onclick={removeRow} ></lightning-button-icon>
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		<!-- /lightning-quick-action-panel -->
+		
+		<br/>	
+	</div>
+	<footer class="slds-modal__footer">
+			<div class="slds-align_absolute-center">
+				<lightning-button variant="neutral" onclick={closeAction} name="cancel" label="Cancel">
+				</lightning-button>&nbsp;&nbsp;
+				<lightning-button variant="neutral" onclick={doSubmit} name="submit" label="Save">
+				</lightning-button>
+			</div>
+	</footer>
+</template>

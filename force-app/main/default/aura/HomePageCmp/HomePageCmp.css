@@ -1,0 +1,9 @@
+.THIS.myTable {
+  border-collapse: collapse;
+}
+
+.THIS.myTable th,
+.THIS.myTable td {
+  border: 1px solid black;
+  padding: 8px;
+}

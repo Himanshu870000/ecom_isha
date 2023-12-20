@@ -1,0 +1,104 @@
+<aura:component controller="CSV_Controller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global">
+    
+    <aura:html tag="style">
+        .slds-modal__container{
+        max-width: 86rem !important;
+        width:80% !important;
+        }
+    </aura:html>
+    
+   <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }       
+        .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+    </aura:html>
+    
+    <aura:attribute
+                    name="TableContent"
+                    type="String"
+                    description=" Show the Result class"
+                    />
+    <aura:attribute
+                    name="TargetFileName"
+                    type="String"
+                    description="Name of the file"
+                    />
+    <aura:attribute name="tableheaders" type="Object[]" />
+    <aura:attribute name="fileContentData" type="String" />
+    <aura:attribute name ="woLIRecId" type="String"/>
+    
+    
+    <!-- It will display 100 records . Change for your requirement-->
+    <aura:attribute name="NumOfRecords" type="Integer" default="100" />
+    <aura:attribute name="showMain" type="Boolean" default="true" />
+    <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    
+    <aura:attribute
+                    name="buttonLabel"
+                    type="string"
+                    default="Upload File"
+                    access="global"
+                    description="The label of the button."
+                    />
+    <aura:attribute
+                    name="disabled"
+                    type="Boolean"
+                    default="false"
+                    access="global"
+                    />
+    <br/>
+    <div class="slds-form-element slds-align_absolute-center" aura:id="form-container">
+        
+        <div class="slds-form-element__control">
+            <div class="slds-file-selector slds-file-selector_files slds-is-relative">
+               
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <span style="text-align:center;">
+                            <h1 style="font-size:22px;"><b>Upload Files</b></h1>
+                            <lightning:input aura:id="fuploader" onchange="{!c.onchange}" type="file" name="file" multiple="false"/><br/>
+                            <div class="slds-text-body_small slds-text-color_error">{!v.fileName}</div>
+                            <div class="slds-text-body_small slds-text-color_error">Date columns should be in YYYY-MM-DD format.</div>
+                        </span>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    
+    <br/><br/>
+    <aura:if isTrue="{!v.showMain}">
+        
+        <aura:set attribute="else">
+            <div   class="slds-scrollable_y" style="height:20rem;width:84rem ;border-style: solid;margin :1%">
+                <ui:outputRichText class="uiOutputRichText slds-m-around--large" value="{!v.TargetFileName}"/>
+                
+                <ui:outputRichText class="uiOutputRichText slds-m--around-large" value="{!v.TableContent}"/>
+            </div>
+            <div class="slds-p-around--large slds-align--absolute-center">
+                <lightning:button
+                                  label="Save"
+                                  variant="brand"
+                                  onclick="{!c.processFileContent}"
+                                  />
+                <lightning:button
+                                  label="Cancel"
+                                  variant="brand"
+                                  onclick="{!c.cancel}"
+                                  />
+            </div>
+        </aura:set>
+    </aura:if>
+    
+    <!--old-->
+</aura:component>

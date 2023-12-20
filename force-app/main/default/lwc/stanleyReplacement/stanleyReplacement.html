@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Clone Opportunity" class="slds-p-around_medium">
+            <lightning-input data-id="toggle2" type="toggle" label="Part" checked={checked} message-toggle-active="" message-toggle-inactive="" class="slds-p-around_medium"></lightning-input> <br/>
+            <lightning-input data-id="toggle1" type="toggle" label="Complete Product" onchange={changeToggle} message-toggle-active="" message-toggle-inactive="" class="slds-p-around_medium"></lightning-input> <br/>
+            <div class="slds-p-around_medium">
+
+            <lightning-button label="Submit" onclick={cloneOpportunity}></lightning-button>
+        </div>
+    </lightning-card>
+
+    
+</template>

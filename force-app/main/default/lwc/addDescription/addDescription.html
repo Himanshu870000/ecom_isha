@@ -1,0 +1,75 @@
+<template>
+    <template if:false={checkRecord}>
+    <lightning-card title="Jira comments">
+        
+        <!-- <div class="slds-p-around_small">
+           
+            <div class="row">
+                <lightning-input type="text" label="Jira comment"  onchange={setDescription}></lightning-input>
+            </div>
+            <div class="row">
+                <button class="slds-button slds-button_brand" onclick={addIssueDescription}>Add Jira Comment</button>
+            </div>
+        </div> -->
+
+        <!-- <hr/> -->
+        <template for:each={Descriptions} for:item="Description">   
+            <div class="slds-feed slds-margin" key={index}>
+                <ul class="slds-feed__list">
+                <li class="slds-feed__item">
+                <article class="slds-post">
+                <header class="slds-post__header slds-media">
+                <div class="slds-media__figure">
+                <a href="#" class="slds-avatar slds-avatar_circle slds-avatar_large">
+                <img alt="Jason Rodgers" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" title="Jason Rodgers avatar" />
+                </a>
+                </div>
+                <div class="slds-media__body">
+                <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+                <p>
+                <a href="#" title="Jason Rodgers">{Description.author.displayName}</a> —
+                <a href="#" title="Design Systems">Design Systems</a>
+                </p>
+                <!-- <button class="slds-button slds-button_icon slds-button_icon-border slds-button_icon-x-small" aria-haspopup="true" title="More Options">
+                    <svg class="slds-button__icon" aria-hidden="true">
+                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                    </svg>
+                
+                <span class="slds-assistive-text">More Options</span>
+                </button> -->
+                </div>
+                <p class="slds-text-body_small">
+                <a href="#" title="Click for single-item view of this post" class="slds-text-link_reset">{Description.created}
+                    <!-- <lightning-formatted-date-time value="1547250828000" year="2-digit" month="short" day="2-digit" hour="numeric"
+                                       weekday="long" era="short"></lightning-formatted-date-time> -->
+                </a>
+                </p>
+                </div>
+                </header>
+                <div class="slds-post__content slds-text-longform slds-post-overflowHandle" >
+                    <!-- {Description.body.content.length} -->
+                    <template for:each={Description.body.content} for:item="content">
+                        <!-- {content.type} -->
+                         <template for:each={content.content} for:item="contentForEach">
+                             {contentForEach.text}
+                         </template>
+                    </template>
+                    <!-- {Description.body.content.content.text} -->
+                </div>
+                <footer class="slds-post__footer">
+                
+            
+                </footer>
+                </article>
+                </li>
+                </ul>
+                </div>
+        </template>
+
+       
+    </lightning-card>
+</template>
+<template if:true={checkRecord}>
+    <c-illustration></c-illustration>
+</template>
+</template>

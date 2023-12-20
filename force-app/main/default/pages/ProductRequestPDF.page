@@ -1,0 +1,100 @@
+<apex:page showHeader="false" sidebar="false"  docType="html-5.0" applyBodyTag="false" renderAs="pdf" applyHtmlTag="false"  standardController="ProductRequest" extensions="ProductRequestPDFHelper">
+    
+    
+    <head>
+        <style>
+            @page {
+            margin-top: 1cm;
+            margin-right:1cm;
+            }
+        </style>
+    </head>
+    
+    <body>
+        
+        <div class="header">
+            <!--apex:image value="https://cmenvirosystems--cmedev.sandbox.my.salesforce.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0685j000007gufR&operationContext=CHATTER&contentId=05T5j00000Hz5kT" style="float:right;height:75px;" /-->
+            <div Style="float:left">
+                <apex:image url="{!$Resource.VilcartProcurementLogo}" width="50%" height="50%" /><br/>   
+            </div>
+            <br/>
+            <div Style="float:right;padding-right:70px;padding-top:0px;font-size:25px;letter-spacing:2px;color:#1097eb;font-family: Noto Sans,Helvetica,sans-serif;">
+                <b>QUOTATION</b>   
+            </div>
+        </div>
+        
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>        
+        <div style="display: inline-block;width: 100%;padding-top:10px;font-family: Noto Sans,Helvetica,sans-serif;">
+            
+            <div style="display: inline-block;float:left;width:50%">
+                <b Style="color:#949699;">Utilitarian Labs Private Limited </b><br/>
+                <span style="color:#606060">
+                    4th Floor, 70, 1st Cross Rd <br/>
+                    Sahyadri Layout, Panduranga Nagar<br/>   
+                    Bengaluru, Karnataka (560076) <br/>
+                    Phone: +91-9910770310<br/>
+                    Website: https://utilitarianlabs.com/ 
+                </span>
+                <br/>
+            </div>
+            
+            <div style="display: inline-block;float:right;width:50%">
+                
+                <span style="color:#606060;font-weight: bold;font-size: 13.5px">VENDOR SHIP DETAILS</span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">Chadan Kumar</span> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">Util Labs</span> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">5th Stage, J. P. Nagar</span> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">M M Main Road, Bangalore - 560022</span> </span><br/>
+                    <span style="color:#606060;font-weight: bold;font-size: 13.5px"> <span style="color:#606060;font-weight: normal;font-size: 13.5px">Phone : 07588229058</span> </span><br/>
+  
+                <br/>
+            </div>
+            
+        </div>
+        
+        <br/>
+        <br/>
+        
+        <div style="margin-left: 0px;margin-right:30px;font-family: Noto Sans,Helvetica,sans-serif">
+            
+            
+            
+            <br/>
+            <br/>
+            
+            <table style="width:100%;border:1px solid black;border-collapse:collapse;">
+                <tr>
+                     <th  style="border:1px solid black;background-color: #dddddd;width:5px;text-align:center;font-size:12px;">ITEM #</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;width:5px;text-align:center;font-size:12px;">Prdouct Name</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">Quantity Requested</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:20px;">Need By Date</th> 
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">Quantity Unit Of Measure</th>
+                    <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">Shipment Type</th>
+                    
+                </tr>
+                <apex:variable var="index" value="{!0}" />
+                <apex:repeat value="{!prodRequestLineItemList}" var="lineItems">
+                    <!--apex:variable var="TotalPrice" value="{!lineItems.Quantity * lineItems.UnitPrice}"/-->
+                    <tr>
+                        <apex:variable var="index" value="{!(index+1)}"/>
+                        <td style="border:1px solid black;width:5px;text-align:center;"><apex:outputText value="{!index}"/></td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;width:25px;text-align:center;">{!lineItems.Product2.Name}</td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;width:20px;text-align:center;"> <apex:outputText value="{0, number, #,###}"> <apex:param value="{!lineItems.QuantityRequested}" /> </apex:outputText> </td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;"> <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}"><apex:param value="{!lineItems.NeedByDate}"  />  </apex:outputText></td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;"> {!lineItems.QuantityUnitOfMeasure}  </td>
+                        <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;"> {!lineItems.ShipmentType}  </td>
+                    </tr>
+                </apex:repeat> 
+            </table>
+            
+        </div>
+        
+        
+    </body>
+    
+</apex:page>

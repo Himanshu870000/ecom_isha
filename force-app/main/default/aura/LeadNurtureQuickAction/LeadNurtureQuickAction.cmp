@@ -1,0 +1,106 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionwithoutheader,force:hasRecordId" 
+                access="global" Controller="InsertLeadNurtureUnderLead" >
+    <aura:attribute name="leadNurturelist" type="Lead_Nurture_Step__c[]" />
+    
+    <aura:attribute name="userId" type="string" />
+    <aura:attribute name="recordId" type="string" />  
+    <aura:attribute name="isOpen" type="boolean" default="false" />
+    <aura:attribute name="NorecFound" type="boolean" default="false" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:if isTrue="{!v.isOpen}" >
+        <lightning:card>
+        <lightning:button  iconName="utility:add"  variant="brand" label="Add"  onclick="{!c.addRow1}"/>   
+        
+        <table class="slds-table">
+            <thead class="" >
+                <tr class="slds-text-title_caps">
+                    <th scope="col">Sr.No. </th>
+                    <th scope="col"> Name </th>
+                    
+                    <th scope="col">Start Date </th>
+                    
+                    <th scope="col">End Date </th>
+                    
+                    <th scope="col">Description </th>
+                    <th scope="col">Status </th>
+                    <th scope="col">User </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.leadNurturelist}" var="lead" indexVar="index">
+                    <tr>
+                        <td> 
+                            {!index + 1}
+                        </td>
+                        
+                        <td>
+                            <lightning:input name="Name" aura:id="nam1"  value="{!lead.Name}" /> 
+                        </td>
+                        <td>
+                            <lightning:input name="Start Date" aura:id="nam2" type="date" value="{!lead.Start_Date__c}"/> 
+                        </td>
+                        <td>
+                            <lightning:input name="End Date" aura:id="nam3"  type="date" value="{!lead.End_Date__c}"/> 
+                        </td>
+                        <td>
+                            <lightning:input name="Desciption" aura:id="nam4"   value="{!lead.Description__c}"/> 
+                        </td>
+                        <td>
+                            <lightning:select name="select1" label="Status"  value="{!lead.Status__c}">
+                                <option value="Schedule">Schedule</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Not Completed">Not Completed</option>
+                                <option value="In Progress">In Progress</option>
+                            </lightning:select>
+                            <!--lightning:select name="Desciption" aura:id="nam4"   value="{!lead.Status__c}" /--> 
+                            <!--aura:if isTrue="{!(equals(v.lead.Tobealerted, 'true'))}">
+                                <div >
+                                    <lightning:input name="Desciption" aura:id="nam4" disabled="true"  value="{!lead.Status__c}" class="custom-redcolor"/> 
+                                </div>
+                            
+                            </aura:if>
+                            <aura:if isTrue="{!(equals(v.lead.TobeGreenSignalled, 'true'))}">
+                                <div >
+                                    <lightning:input name="Desciption" aura:id="nam4" disabled="true"  value="{!lead.Status__c}" class="custom-greencolor"/> 
+                                </div>
+                            
+                            </aura:if -->
+                            
+                            
+                        </td>
+                        <td> <c:CustomLookup 
+                                             objectName="User" 
+                                             selectRecordId="{!lead.User__c}"
+                                             />   
+                        </td>
+                        <td> 
+                            <a onclick="{!c.removeRow}" data-record="{!index}">
+                                <lightning:icon iconName="utility:delete" size="small" alternativeText="Delete"/>
+                                <span class="slds-assistive-text">Delete</span>
+                            </a>
+                        </td> 
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+        
+        <div class="modal-footer slds-modal__footer attach-to-bottom slds-p-around_small">
+            <footer>
+                <lightning:button class="slds-float_center"   iconPosition="left" variant="brand" label="Save"  onclick="{!c.save}" /> 
+            </footer>
+        </div>
+    </lightning:card>
+    
+    </aura:if>
+    
+    <aura:if isTrue="{!v.NorecFound}" >
+        <div  >
+            No Lead Nurture Step Found. Create New Steps     
+            <lightning:button class="slds-float_center"   iconPosition="left" variant="brand" label="Create Steps"  onclick="{!c.CreateStep}" /> 
+        </div>
+    
+    </aura:if>
+    
+</aura:component>

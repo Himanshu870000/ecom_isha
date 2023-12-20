@@ -1,0 +1,15 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+                access="global" controller="AuraHandler">
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="showModal" type="boolean"/>       
+    <aura:if isTrue="{!v.showModal}">
+        <div class="modal-header slds-modal__header slds-size_1-of-1">
+                <h4 class="title slds-text-heading--small">Provide Demo Team</h4>
+            </div><br/>
+        <p class="slds-align_absolute-center">
+            <b style="color:green; font-size:14px;">
+                Requesting for Pre-Sales Team....
+            </b>
+        </p>
+    </aura:if>
+</aura:component>

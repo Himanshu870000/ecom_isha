@@ -1,0 +1,44 @@
+.THIS .custom-button{
+    background:  #5FADB0 no-repeat;
+    color:white;
+    font-weight : bold ;
+    width: 40px;
+    align-content: center;
+    border-radius: 8px;
+    box-shadow:none;   
+}
+
+.THIS .custom-button1{
+    background:  #5FADB0 no-repeat;
+    color:white;
+    font-weight : bold ;
+    width: 120px;
+    align-content: center;
+    border-radius: 8px;
+    box-shadow:none;   
+}
+
+.THIS .custom-input{
+    font-weight : bold ;
+    width: 60px;
+    align-content: center;
+    border-radius: 8px;
+    box-shadow:none;   
+}
+
+.THIS .my-custom-range {
+    /* Change the track color */
+    --sds-c-slider-track-background-color: #0070d2;
+    
+    /* Change the thumb (slider handle) color */
+    --sds-c-slider-thumb-background-color: #ff9900;
+    
+    /* Change the thumb (slider handle) shadow color */
+    --sds-c-slider-thumb-box-shadow-color: rgba(0, 0, 0, 0.15);
+    
+    /* Change the thumb (slider handle) border color */
+    --sds-c-slider-thumb-border-color: #ffffff;
+    
+    /* Change the thumb (slider handle) border hover color */
+    --sds-c-slider-thumb-border-color-hover: #ffffff;
+}

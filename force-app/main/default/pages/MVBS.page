@@ -1,0 +1,9 @@
+<apex:page sidebar="false" showHeader="false">
+    <html>
+        <body>
+            
+            <iframe src="https://sales-production--fsldemo--c.visualforce.com/resource/1638797817000/MVBS" height="100%" width="100%" title="Iframe Example"></iframe>
+            
+        </body>
+    </html>
+</apex:page>

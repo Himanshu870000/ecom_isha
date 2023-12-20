@@ -1,0 +1,43 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+	<div style="align:center;margin-left:5px;">
+    <lightning:card>
+            <div class="slds-modal__content slds-app-launcher__content" id="modal-content-id-1" style="width:98%; height:20%; align:center;padding-left:30px;">
+                <div class="slds-section slds-is-open">
+                    
+                    <div aria-hidden="false" class="slds-section__content" id="appsContent">
+                        <div class="slds-assistive-text" id="drag-live-region" aria-live="assertive"></div>
+                        <ul class="slds-grid slds-grid_pull-padded slds-wrap">
+                            <li class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-4">
+                                <div draggable="true" class="slds-app-launcher__tile slds-text-link_reset slds-is-draggable">
+                                    
+                                    <div class="slds-app-launcher__tile-body" style="font-size:1.2rem;">
+                                        <p style="padding-top:1rem;"> No of Assets Sold</p>
+                                        <div class="slds-popover slds-popover_tooltip slds-nubbin_top-right slds-hide" role="tooltip" id="help-0" style="position:absolute;top:80px;right:30px">
+                                            <div class="slds-popover__body"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-app-launcher__tile-figure">
+                                        <span class="slds-avatar slds-avatar_large">
+                                            <abbr class="slds-avatar__initials slds-icon-custom-27" >25</abbr>
+                                        </span>
+                                        <div class="slds-m-top_xxx-small">
+                                            <button class="slds-button slds-button_icon" aria-pressed="false" title="Reorder">
+                                                <span class="slds-assistive-text">Reorder</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                         
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        
+        
+    </lightning:card>
+    </div>   
+</aura:component>

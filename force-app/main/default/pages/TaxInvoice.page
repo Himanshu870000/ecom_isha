@@ -1,0 +1,177 @@
+<apex:page readOnly="true" controller="TaxInvoiceHelper" applyHtmlTag="false" sidebar="false" showHeader="false" cache="true" renderAs="advanced_pdf" docType="html-5.0">
+    <html>
+        <head>
+            <style type="text/css">
+                @page {
+                padding-left: 5px;    
+                padding-right: 5px;      
+                }
+                th {  
+                font-weight: bold;
+                text-align: center;
+                background-color: #92d5f0;
+                color: black;
+                padding: 8px;
+                }
+                td {    
+                font-size: 15px;
+                text-align: left;
+                padding: 8px;
+                }
+                table{
+                border-collapse: collapse;
+                }
+                table, th, td {
+                border: 1px solid black;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:70%;text-align: center;border-right: none;">
+                        <b>
+                            Payment Receipt
+                        </b>
+                    </td>
+                    <td style="width:30%;">
+                        <img src="{!$Resource.graphLOGO}" width="280px" height="100px" align="right"/>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%">
+                
+                <tr>
+                    <td>
+                        <center><b>{!companyDetails.Name__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>Address: {!companyDetails.Address__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>CIN: {!companyDetails.CIN__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>GSTIN: {!companyDetails.GSTIN__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>PAN: {!companyDetails.PAN__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>Phone Number.: {!companyDetails.Phone__c}</b></center>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <center><b>Email Address: {!companyDetails.Email__c}</b></center>
+                    </td>
+                </tr>
+                
+                
+            </table>           
+            <table style="width:100%">
+                <tr>
+                    <td style="text-align:center">
+                        <b>Details of Payment Received</b>
+                    </td>  
+                </tr>
+            </table>
+            <table style="width:100%">
+                <tr>
+                    <td style="text-align:center">
+                        <b>Invoice No.</b>
+                    </td>  
+                    <td style="text-align:center">
+                        {!invoiceRecord.Name}
+                    </td>  
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        <b>Initiated Date</b>
+                    </td>  
+                    <td style="text-align:center">
+                        <apex:outputText value="{0,date}">
+                            
+                            <apex:param value="{!Today}" />
+                            
+                        </apex:outputText>
+
+                        <!--apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!invoiceRecord.Initiated_Date__c}" /> </apex:outputText-->
+                    </td>  
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        <b>Due Date</b>
+                    </td>  
+                    <td style="text-align:center">
+                         <apex:outputText value="{0,date}">
+                            
+                            <apex:param value="{!dueDate}" />
+                            
+                        </apex:outputText>
+                        <!--apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!invoiceRecord.Due_Date__c}" /> </apex:outputText-->
+                    </td>  
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        <b>Invoice Generation Date</b>
+                    </td>  
+                    <td style="text-align:center">
+                        <apex:outputText value="{0,date}">
+                            
+                            <apex:param value="{!Today}" />
+                            
+                        </apex:outputText>
+                        <!--apex:outputText value="{0,date,dd/MM/yyyy}"> <apex:param value="{!invoiceRecord.CreatedDate}" /> </apex:outputText-->
+                    </td>  
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        <b>Receiver's Name</b>
+                    </td>  
+                    <td style="text-align:center">
+                        {!invoiceRecord.lead_opp_Name__c} 
+                    </td>  
+                </tr>
+                <tr>
+                    <td style="text-align:center">
+                        <b>Amount</b>
+                    </td>  
+                    <td style="text-align:center">
+                        XXX00/-                       
+                    </td>  
+                </tr>
+            </table>
+            
+            
+            
+            
+            <table style="width:100%">
+                <tr>
+                    <td><center>This is a computer generated document requires no signature or stamp</center></td>
+                </tr>
+                
+                <tr>
+                    <td><center>©Trusted to Create,Market and Sell Courses.</center></td>
+                </tr> 
+            </table>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,94 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="VisitFormController">
+    <html>
+        <head>
+            <apex:stylesheet value="{!$Resource.VisitFormCSS}" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.css"/>
+            <c:Libraries ></c:Libraries>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+            <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet"/>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.js">
+            </script>
+        </head>
+        
+        <script>
+        var app = angular.module('visit_app', []);
+        app.controller('visit_ctrl', function ($scope) {
+            $scope.showLead = false;
+            $scope.showError = false;
+            $scope.searchLead = function(){
+                debugger;
+                VisitFormController.searchLead($scope.searchValue,function(result,event){
+                    debugger;
+                    if(event.status && result){
+                        $scope.leadDetails = result;
+                        $scope.showLead = true;
+                    }else{
+                        $scope.showError = true;
+                    }
+                    $scope.$apply();
+                })
+            }
+            
+            $scope.getLeadUrl = function (leadId) {
+        		return 'https://sales-production--ecommerce.sandbox.lightning.force.com/lightning/r/Lead/' + leadId + '/view';
+    }
+        })
+        </script>
+        
+        <div ng-app="visit_app" ng-controller="visit_ctrl" style="overflow-x: hidden;">
+            <body>
+                <div class="row">
+                    <div class="col-md-12 float-end">
+                        <!--apex:image url="{!$Resource.New}" Styleclass="float-end" /-->
+                    </div>
+                </div>
+                <hr class="border" />
+                <div class="booking-form3">
+                    <div class="container mb-5">
+                        <div class="row mt-3">
+                            <div class="col-md-5">
+                                <label class="label">Enter Email or Phone</label>
+                                <input type="text" class="form-control mt-2" ng-model="searchValue" />
+                            </div>
+                            <div class="col-md-7 mt-4">
+                                <button class="button" ng-click="searchLead()">Search</button>
+                            </div>
+                        </div>
+                        <div class="row mt-5" ng-show="showError">
+                            <h3 style="color: red; text-align:center;">No such record available ! Try Again.....</h3>
+                        </div>
+                        <div class="row mt-5" ng-show="showLead">
+                            <h6 style="color:#1e45aa;"><b>Lead Details</b></h6>
+                            <div class="col-md-6 mt-3">
+                                <label class="label pe-3 text-nowrap">First Name</label>
+                                <input type="text" class="form-control" ng-model="leadDetails.FirstName" ng-disabled="true" />
+                            </div>
+                            
+                            <div class="col-md-6 mt-3">
+                                <label class="label pe-3 text-nowrap">Last Name</label>
+                                <input type="text" class="form-control" ng-model="leadDetails.LastName" ng-disabled="true" />
+                            </div>
+
+                            <div class="col-md-6 mt-3">
+                                <label class="label pe-3 text-nowrap">Email ID</label>
+                                <input type="text" class="form-control" ng-model="leadDetails.Email" ng-disabled="true" />
+                            </div>
+
+                            <div class="col-md-6 mt-3">
+                                <label class="label pe-3 text-nowrap">Phone No.</label>
+                                <input type="text" class="form-control" ng-model="leadDetails.Phone" ng-disabled="true" />
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <a ng-href="{{ getLeadUrl(leadDetails.Id) }}" target="_blank">Click here to see registered Lead</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </div>
+    </html>
+</apex:page>

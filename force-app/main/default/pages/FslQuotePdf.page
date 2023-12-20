@@ -1,0 +1,353 @@
+<apex:page renderAs="pdf"  standardController="Quote" showHeader="false" extensions="CBSPDQuotePDFController" title="Quote PDF" >    
+    <apex:stylesheet value="{!$Resource.Quote}"/>
+    <head>
+        <style>
+            
+        </style>
+    </head>
+    <div class="header">
+        <!--apex:image value="https://cmenvirosystems--cmedev.sandbox.my.salesforce.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0685j000007gufR&operationContext=CHATTER&contentId=05T5j00000Hz5kT" style="float:right;height:75px;" /-->
+        <div Style="float:left">
+            <apex:image url="{!$Resource.ItwUpdatedLogo}" width="140" height="120" /><br/>   
+        </div>
+        <br/>
+        <div Style="float:right;padding-right:100px;padding-top:10px;font-size:25px;letter-spacing:2px;color:#0E4F95;font-family: Noto Sans,Helvetica,sans-serif;">
+            <b>Q&nbsp;&nbsp;U&nbsp;&nbsp;O&nbsp;&nbsp;T&nbsp;&nbsp;A&nbsp;&nbsp;T&nbsp;&nbsp;I&nbsp;&nbsp;O&nbsp;&nbsp;N</b>   
+        </div>
+    </div>
+    
+    <div class="footer">
+        <table class="footer-table">
+            <tr>
+                <td>&nbsp;</td>
+                <td style="text-align:center;font-size:11px;">CIN:******************</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;"><apex:image url="{!$Resource.itwnewLogo}" style="height:10px;margin-top:3px;" />&nbsp;www.cmenvirosystems.com </td>
+                <td style="text-align:center;">Registered Office : 497E, 14th Cross Road, Maruthi Nagar</td>
+                <td style="text-align:right;"><apex:image url="{!$Resource.itwnewLogo}" style="height:10px;margin-top:3px;" />+91 888 000 7700</td>
+            </tr>
+            <tr >
+                <td ><apex:image url="{!$Resource.itwnewLogo}" style="height:10px;margin-top:3px;" />&nbsp;info@cmenvirosystems.com</td>
+                <td style="text-align:center; padding-bottom:1px;">Peenya Industrial Area ,Bangalore-560058</td>
+                <td style="text-align:right;"><apex:image url="{!$Resource.itwnewLogo}" style="height:10px;margin-top:3px;" />+91 (80) 2773 4010</td>
+            </tr>
+        </table>
+        <br/>
+        <div class="number">Page <span class="pagenumber"/> of <span class="pagecount"/></div>
+    </div>
+    
+    
+    
+    <br/>
+    
+    <div Style="margin-top:55px;">
+        <div class="row" Style="float:right;padding-left:0px;text-align: left;">
+            <b Style="color:#949699;font-size:20px;">ITW India Pvt Ltd.</b><br/>
+            <br/>
+            497E, 14th Cross Road, Maruthi Nagar, Peenya<br/>
+            Industrial Area,Bangalore,<br/>
+            Karnataka INDIA- 560058<br/>
+            Phone: :+91 888 000 7700<br/>
+            Fax:+91 80 27734010<br/>
+            E-mail:info@cmenvirosystems.com
+        </div> 
+        <div class="row" escape="false" style="word-wrap:break-all float:left;">
+            <span Style="color:#949699;font-size:20px;padding-left:0px;"><b>Quotation To</b></span><br/><br/>
+            <b Style="color:#0E4F95;font-size:15px;">{!billInfoForQuote.Account.Name}</b><br/>
+            {!billInfoForQuote.BillingStreet},<br/>
+            {!billInfoForQuote.Account.BillingCity}
+            {!billInfoForQuote.BillingPostalCode} - 
+            {!billInfoForQuote.BillingState}<br/>
+            {!billInfoForQuote.BillingCountry}<br/>
+            
+            Kind Attn : {!billInfoForQuote.Contact.Salutation} {!billInfoForQuote.Contact.Name}<br/>
+            Email Id : {!billInfoForQuote.Contact.Email}<br/>
+            <br/>
+            Quotation No 	:  0987656Quote<br/>
+            Invoice Date 	: {!CreatedDate}<br/>
+            Validity    	:  8977878
+        </div>
+    </div>
+    <div Style="margin-top:15px;font-family: Noto Sans,Helvetica,sans-serif;">
+        <table class='Quote-items' style="-fs-table-paginate: paginate">
+            <tr class='quote-header'>
+                <th>S.No.</th>
+                <th>Description of Goods </th>
+                <th>HSN/SAC</th>
+                <th>Qty</th>
+                <th>Unit</th>
+                
+                <th>Unit Rate(USD)</th><!--{!billInfoForQuote.CurrencyIsoCode}-->
+                <apex:outputText rendered="{!qliDiscount == true}">
+                    <th>Discount</th>
+                </apex:outputText>
+                <th>Total (USD)</th>
+            </tr>
+            <apex:variable var="index" value="{!0}" />
+            
+            <apex:repeat value="{!quoteLines}" var="lineItems">
+                <tr class='item-details'>
+                    <apex:variable var="index" value="{!(index+1)}"/>
+                    
+                    <!--<apex:param  /> -->
+                    <td><apex:outputText value="{!index}" id="theValue"/> </td>
+                    <!--apex:outputText rendered="{!lineItems.Product_Name_Not_Required__c = true}"-->
+                        <td>{!lineItems.Product2.Name}</td>
+                    <!--/apex:outputText-->
+                    <!--apex:outputText rendered="{!lineItems.Product_Name_Not_Required__c = false}"-->
+                        <td ><b>{!lineItems.Product2.ProductCode}</b>  <br/></td>
+                    <!--/apex:outputText-->
+                    <!--td style="text-align:center"></td-->
+                    <td style="text-align:right">{!lineItems.Quantity}</td>
+                    <td style="text-align:center">Nos</td>
+                    
+                    <td style="text-align:right">{!lineItems.unitPrice}</td>
+                    <apex:outputText rendered="{!qliDiscount == true}">
+                        <td style="text-align:right">10%</td>
+                    </apex:outputText>
+                    <td style="text-align:right" value="0.00">{!lineItems.unitPrice}</td>
+                </tr>
+            </apex:repeat>
+            <apex:outputText rendered="{!qliDiscount == true}">
+                <tr class='item-details'><td colspan="8">&nbsp;</td></tr>
+            </apex:outputText>
+            <apex:outputText rendered="{!qliDiscount == false}">
+                <tr class='item-details'><td colspan="7">&nbsp;</td></tr>
+            </apex:outputText>
+            
+            <!--apex:outputText rendered="{!IF(billInfoForQuote.Discount__c!=null,true,false)}"-->
+                <tr class='item-details'>
+                    <td colspan="3" class="total">
+                        <strong>Sub Total</strong>
+                    </td>
+                    <td><strong>&nbsp;</strong></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <apex:outputText rendered="{!qliDiscount == true}">
+                        <td>&nbsp;</td>
+                    </apex:outputText>
+                    
+                    <td style="text-align:right"><strong>{!billInfoForQuote.Subtotal}</strong></td>
+                </tr>
+            <!--/apex:outputText-->
+            
+            <!--apex:outputText rendered="{!IF(billInfoForQuote.Discount__c!=null,true,false)}"-->
+                <!--tr class='item-details'>
+                    <td colspan="3" class="total">
+                        <strong>Discount</strong>
+                    </td>
+                    <td><strong>&nbsp;</strong></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <apex:outputText rendered="{!qliDiscount == true}">
+                        <td>&nbsp;</td>
+                    </apex:outputText>
+                    <td style="text-align:right"><strong>10%</strong></td>
+                </tr-->
+            <!--/apex:outputText-->
+            
+            <!--apex:outputText rendered="{!IF(billInfoForQuote.Discount__c!=null,true,false)}"-->
+                <!--tr class='item-details'>
+                    <td colspan="3" class="total">
+                        <strong>Total After Discount</strong>
+                    </td>
+                    <td><strong>&nbsp;</strong></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <apex:outputText rendered="{!qliDiscount == true}">
+                        <td>&nbsp;</td>
+                    </apex:outputText>
+                    <td style="text-align:right"><strong>500000</strong></td>
+                </tr-->
+            <!--/apex:outputText-->
+            
+            <tr class='item-details'>
+                <td colspan="3" class="total">
+                    <strong>Total</strong>
+                </td>
+                <td style="text-align:right"><strong>{!qty}</strong></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <apex:outputText rendered="{!qliDiscount == true}">
+                    <td>&nbsp;</td>
+                </apex:outputText>
+                <td style="text-align:right"><strong>{!billInfoForQuote.TotalPrice}</strong></td>
+            </tr>
+            
+            <tr class='item-details'>
+                <apex:outputText rendered="{!qliDiscount == true}">
+                    <td colspan="8"><strong>Amount Chargeable (in words) :{!NoToWord} only </strong> </td>
+                </apex:outputText>
+                <apex:outputText rendered="{!qliDiscount == false}">
+                    <td colspan="7"><strong>Amount Chargeable (in words) :{!NoToWord} only </strong> </td>
+                </apex:outputText>
+                
+            </tr>
+        </table>
+    </div>
+    
+    
+    <!--div style="font-family: Noto Sans,Helvetica,sans-serif;">
+        <apex:outputpanel rendered="{!paymentDetails.size>=0}">
+            <table class="payment-term" style="-fs-table-paginate: paginate">
+                <tr>
+                    <th colspan="4" Style="background-color:#949699;color: white;"><center>Payment Term Details</center></th>
+                </tr>
+                <tr>
+                    <th>Payment term</th>
+                    
+                    <th>Percentage Of Cost</th>
+                    <th>Tax(%)</th>
+                    <th>Amount ({!billInfoForQuote.CurrencyIsoCode})</th>
+                </tr>
+                <apex:repeat value="{!paymentDetails}" var="payment">
+                    <tr>
+                        <td>{!payment.Name}</td>
+                        
+                        <td style="text-align:right"><apex:outputText value="{0, number, 00.00}">
+                            <apex:param value="{!payment.Percentage_Of_Cost__c}" />
+                            </apex:outputText></td>
+                        <td style="text-align:right">{!payment.Tax__c}</td>
+                        <td style="text-align:right">
+                            <apex:outputText value="{0, number, 00.00}">
+                                <apex:param value="{!payment.Amount__c}" />
+                            </apex:outputText>
+                        </td>
+                        
+                    </tr>
+                </apex:repeat>
+                <tr class='item-details'>
+                    <td colspan="8"><strong>Note: All bank charges should be borne by customer.</strong> </td>
+                </tr>
+                <tr class='item-details'>
+                    <td colspan="2" class="total">
+                        <strong>Total</strong>
+                    </td>
+                    <td style="text-align:right">{!TotalTax}</td>
+                    <td style="text-align:right"><strong>
+                        {!billInfoForQuote.CurrencyIsoCode} <apex:outputText value="{0, number, 00.00}">
+                        <apex:param value="{!totalAmount}" />
+                        </apex:outputText></strong></td>
+                    
+                </tr>
+            </table>
+        </apex:outputpanel>
+    </div-->
+     <div style="page-break-after:always;">
+           
+        </div>
+    
+    <p Style="text-align:center;color:#0E4F95;font-family: Noto Sans,Helvetica,sans-serif;">
+        Terms &amp; Conditions
+    </p>
+    
+    
+    <table border="1" class='terms-and-condition' style="border: solid #808080 1px;-fs-table-paginate: paginate;font-family: Noto Sans,Helvetica,sans-serif;">
+        
+        <!--apex:outputText rendered="{!IF(termsCondition.Prices__c!=null,true,false)}"-->
+            <tr  style="border: solid #808080 1px;">
+                <td  style="border: solid #808080 1px;">Terms of Payment</td>
+                <td  style="border: solid #808080 1px;">Fees shall be agreed as stated in the relevant quotation. 50% of the Fees is required as deposit for the reservation of</td>
+            </tr>
+        <!--/apex:outputText-->
+        <!--apex:outputText rendered="{!IF(termsCondition.Validity__c!=null,true,false)}"-->
+            <tr  style="border: solid #808080 1px;">
+                <td  style="border: solid #808080 1px;">Cancellation</td>
+                <td  style="border: solid #808080 1px;">Full payment of the Fees is required to be settled if the Event is cancelled within 7 working days before the Event.</td>
+            </tr>
+        <!--/apex:outputText-->
+        <!---->
+        <tr  style="border: solid #808080 1px;">
+            <td  style="border: solid #808080 1px;">Address of the Beneficiary </td>
+            <td  style="border: solid #808080 1px;">ITW India Pvt. Ltd, 497E, 14th Cross Road, Maruthi Nagar, Peenya,
+                KIADB Industrial Area, Dabaspet, Nelmangala Taluk, Bangalore – 562111</td>
+        </tr>
+        
+        <!--apex:outputText rendered="{!IF(termsCondition.Our_Banker__c!=null,true,false)}"-->
+            <tr  style="border: solid #808080 1px;">
+                <td style="width:50%;">Failure </td>
+                <td  style="border: solid #808080 1px;">All the rights that are released and quoted are only given subject to payment in full.</td>
+            </tr>
+        <!--/apex:outputText-->
+        
+        <!--apex:outputText rendered="{!IF(termsCondition.A_c_Name__c!=null,true,false)}"-->
+            <tr  style="border: solid #808080 1px;">
+                <td  style="border: solid #808080 1px;">Additional Fee</td>
+                <td  style="border: solid #808080 1px;">An additional fee will be imposed upon confirmation for last-minute venue/ceremony installation/preparation written requests</td>
+            </tr>
+        <!--/apex:outputText-->
+        <!--apex:outputText rendered="{!IF(termsCondition.IFSC_Code__c!=null,true,false)}"-->
+            <tr  style="border: solid #808080 1px;">
+                <td  style="border: solid #808080 1px;">Permission</td>
+                <td  style="border: solid #808080 1px;">You confirm that the Event Manager is given the right and permission to use any and all images, 
+                                                        both photographic prints and digital images and videos or other recording media, in their advertising, studio, literature, event exhibitions, 
+                                                        editorial, trade or any other purpose and in any manner and medium</td>
+            </tr>
+        <!--/apex:outputText-->
+        <!--apex:outputText rendered="{!IF(termsCondition.A_c_no__c!=null,true,false)}"-->
+            <tr  style="border: solid #808080 1px;">
+                <td  style="border: solid #808080 1px;">Co-operation</td>
+                <td  style="border: solid #808080 1px;">The Parties agree to positive cooperation and communication for the best possible results</td>
+            </tr>
+        <!--/apex:outputText-->
+        
+        <tr  style="border: solid #808080 1px;">
+            <td  style="border: solid #808080 1px;">House Rules</td>
+            <td  style="border: solid #808080 1px;">Although all efforts to negotiate with the venue site management shall be made by the Event Manager, 
+                                                      the Event Manager is limited by the guidelines of the venue site management</td>
+        </tr>
+        <tr  style="border: solid #808080 1px;">
+            <td  style="border: solid #808080 1px;">Weather contingency</td>
+            <td  style="border: solid #808080 1px;">Cost of weather contingency is NOT inclusive of the quote</td>
+        </tr>
+        <tr  style="border: solid #808080 1px;">
+            <td  style="border: solid #808080 1px;">Non-guarantee</td>
+            <td  style="border: solid #808080 1px;">Although every possible care will be taken to plan and co-ordinate the Event and vendors for the Event, 
+                                                    the Event Manager cannot place an unconditional guarantee on the above</td>
+        </tr>
+        
+        <tr style="border: solid #808080 1px;">
+            <td colspan="2" Style="color:#0E4F95;border: solid #808080 1px;">
+                *Acceptance of order is issued only against receipt of Advance Payment.
+            </td>
+        </tr>
+    </table> 
+    <br/>
+    <div class="notes" style="padding:10px;font-family: Noto Sans,Helvetica,sans-serif;" >
+        <p Style="color:#0E4F95;">Notes:</p>
+        <!--apex:outputField value="My Notes"  style="white-space:pre;border-spacing:10px;" /-->
+    </div>
+    
+    <div class="signature-content" style="font-family: Noto Sans,Helvetica,sans-serif;">
+        <table>
+            <tr>
+                <td>CIN</td>
+                <td>:*****************</td>
+                <td style="text-align:right;"><strong>For ITW India Pvt. Ltd.</strong></td>
+            </tr>
+            <tr>
+                <td>MSME No</td>
+                <td>:*********************</td>
+            </tr>
+            <tr>
+                <td>GSTIN</td>
+                <td>:*****************</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td style="text-align:right;overflow-wrap: break-word;">
+                    {!billInfoForQuote.Owner.Name}<br/> 
+                    Mob: {!billInfoForQuote.Owner.Phone}<br/> 
+                    Email:{!billInfoForQuote.Owner.Email}
+                </td>
+            </tr>
+        </table>
+        <div class='computer-generated'>
+            This is a Computer Generated Document, no signature required
+        </div>
+        
+    </div>
+    
+</apex:page>

@@ -1,0 +1,62 @@
+<aura:component>
+    <aura:attribute name="SelectedProductOptions" type="List"/>
+    <aura:attribute name="SelectedOptions" type="List"/>
+    <aura:attribute name ="selectedQLI" type="List"/>
+    <Aura:attribute name ="FeatureName" type="String"/>
+    <aura:attribute name="tempList" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.myAction}" />
+    {!v.FeatureName}
+    <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-border_left slds-border_right" role="grid">
+                        
+        <tr>
+               <th scope="col" height="22" style="width: 3rem"></th>
+               <th scope="col" height="22">Product Quantity</th>
+               <th scope="col" height="22">Product Bundle</th>
+               <th scope="col" height="22">Product Code</th>
+               <th scope="col" height="22">Product Name</th>
+               <th scope="col" height="22">Product Description</th>
+               <th scope="col" height="22">List Price</th>
+        </tr>                      
+     
+      <tbody>
+             <aura:iteration items="{!v.tempList}" var="ProductOption">
+                              <!--tr>
+                                  <td>
+                                     <div class="slds-truncate" title="{!ProductOption.ProductId__r.Name}" style="font-size:20px;">{!ProductOption.ProductId__r.Name}</div>
+                                  </td>
+                              </tr-->
+                          <tr class="slds-hint-parent">
+                               <td>
+                                   <!--div data-id="{!ProductOption.Id}" onchange="{!c.selectSingleOptionRec}">
+                                       <lightning:input type="checkbox" aura:id="checkContact" label=""  name="Selected Product"  value="{checkedvalue}" text="{!ProductOption.Id}" />
+                                   </div-->
+                                   <label class="slds-checkbox">
+                                            <ui:inputCheckbox aura:id="checkContact" value="" text="{!ProductOption.Id}" change="{!c.selectSingleOptionRec}"/>
+                                            <span class="slds-checkbox--faux" />
+                                            <span class="slds-form-element__label"></span>
+                                        </label>
+                              </td>
+                              <th data-label="Product Quantity" scope="row">
+                                   <div class="slds-truncate" title="{!ProductOption.Quantity__c}">{!ProductOption.Quantity__c}</div>  
+                              </th>
+                              <th data-label="Product Bundle" scope="row">
+                                   <div class="slds-truncate" title="{!ProductOption.ProductId__r.Name}">{!ProductOption.ProductId__r.Name}</div>  
+                              </th>
+                              <th data-label="Product Code" scope="row">
+                                   <div class="slds-truncate" title="{!ProductOption.Option_Code__c}">{!ProductOption.Option_Code__c}</div>  
+                              </th>
+                              <th data-label="Product Name" scope="row">
+                                   <div class="slds-truncate" title="{!ProductOption.OptionalProductId__r.Name}">{!ProductOption.OptionalProductId__r.Name}</div>  
+                              </th>
+                              <th data-label="Product Description" scope="row">
+                                     <!--lightning:formattedRichText class="slds-cell-wrap" style="white-space: normal;" value="{!ProductOption.Description__c}"/-->
+                                   <div class="slds-truncate" title="{!ProductOption.Description__c}">{!ProductOption.Description__c}</div>  
+                              </th>
+                              <th data-label="List Price" scope="row">
+                                   <div class="slds-truncate" title="{!ProductOption.List_Price__c}">{!ProductOption.List_Price__c}</div>  
+                              </th>
+                          </tr>     
+                 </aura:iteration> 
+         </tbody>
+  </table>
+</aura:component>

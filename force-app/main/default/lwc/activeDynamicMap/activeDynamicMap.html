@@ -1,0 +1,18 @@
+<template>
+    <lightning-card variant="narrow" icon-name="standard:map">
+        <h1 slot="title">Active Accounts</h1>
+
+        <lightning-combobox
+               name="progress"
+               label="Status"
+               value={value}
+               placeholder="Select Progress"
+               options={options}
+               onchange={handleChange} >
+   </lightning-combobox>
+
+<p>Selected value is: {value}</p>
+
+        <lightning-map map-markers={mapMarkers} zoom-level={zoomLevel} list-view={listView} center={center}></lightning-map>
+    </lightning-card>
+</template>

@@ -1,0 +1,189 @@
+<aura:component controller="OrderController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="openmodel" type="boolean"/>
+    <aura:attribute name="ordList" type="Order[]"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="isLastPage" type="Boolean" default="false"/>
+    <aura:attribute name="dataSize" type="Integer" default="0"/>
+    <aura:attribute name="accIdForChild" type="String"/>
+    <aura:attribute name="showModal" type="Boolean" default="false"/>
+    <aura:attribute name="stageOptions" type="List" default="[]"/>
+    <aura:attribute name="newOrder" type="Order" default="{'sobjectType':'Order', 
+                                                          'Name': '',
+                                                          'OrderNumber': '',
+                                                          'EffectiveDate': '',
+                                                          'EndDate':'',
+                                                          'Status':''}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!--<aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <c:NewOrderCmp aura:id="eventPopId"/>  
+    
+    <aura:attribute name="fields" type="String[]" default="['Name','OrderNumber','EffectiveDate','Status','EndDate']" />
+    <aura:attribute name="Order" type="String" default="Order" />
+    <lightning:notificationsLibrary aura:id="notifLib"/> -->
+    
+    <lightning:layout >
+        <lightning:layoutItem size="12">
+            <div class="slds-m-left_xx-large">
+                <lightning:card>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_11-of-12">
+                            <h1>
+                                <span class="slds-page-header__title" style="font-size: 175%;"><Strong>Orders</Strong></span>
+                            </h1>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-12"   >
+                            <!--<lightning:button variant="bare"  label="New Order"  iconName="utility:add" onclick="{!c.newOrder}" class="custom-button"/>-->
+                            <!--lightning:button  variant="bare" label="New Order" iconName="utility:add" onclick="{!c.openModal}" class="custom-button"/-->
+                        </div>
+                    </div>
+                    
+                    <aura:set attribute="footer">
+                        <div class="slds-align_absolute-center"> 
+                            <div class="slds-p-right_xx-small">
+                                <lightning:button label="Prev"
+                                                  onclick="{!c.handlePrev}"
+                                                  disabled="{! v.pageNumber == 1}"
+                                                  variant="brand"
+                                                  iconName="utility:back"
+                                                  name="prev"/>
+                            </div>
+                            <span class="slds-badge slds-badge_lightest">
+                                Page {!v.pageNumber} | Showing records from {! (((v.pageNumber-1)*v.pageSize)+1)+' to '+((v.pageNumber-1)*v.pageSize+v.dataSize)}
+                            </span>
+                            <div class="slds-p-left_xx-small">
+                                <lightning:button label="Next"
+                                                  disabled="{!v.isLastPage}"
+                                                  onclick="{!c.handleNext}"
+                                                  variant="brand"
+                                                  iconName="utility:forward"
+                                                  iconPosition="right"
+                                                  name="next"/>
+                            </div>
+                        </div>  
+                        
+                    </aura:set>
+                    
+                    
+                    <!--Modal PopUp-->
+                    
+                    <aura:if isTrue="{!v.showModal}">
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <header class="slds-modal__header">
+                                    <h2 id="modal-heading-01" class="slds-text-heading_medium">Create New Order</h2>
+                                </header>
+                                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            <lightning:input label="Order Id" value="{!v.newOrder.OrderNumber}" name="ordName"/>
+                                        </div>
+                                        <div class="slds-col">
+                                            <lightning:input type="date" label="Order Placed On" value="{!v.newOrder.EffectiveDate}" name="ordPlacedOn"/>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            
+                                            <lightning:combobox aura:id="selectItem" name="ordStage" label="Order Stage"
+                                                                placeholder="New"
+                                                                value="new"
+                                                                onchange="{!c.handleOptionSelected}"
+                                                                options="{!v.stageOptions}"/>    
+                                        </div>
+                                        <div class="slds-col">
+                                            <lightning:input type="date" label="Order Delivery Date" value="{!v.newOrder.EndDate}" name="ordDelDate"/>
+                                        </div>   
+                                    </div>
+                                    <!-- Add more fields as needed -->
+                                </div>
+                                <footer class="slds-modal__footer">
+                                    <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{!c.closeModal}"/>
+                                    <lightning:button variant="brand" label="Create" title="Create" onclick="{!c.createOrder}"/>
+                                </footer>
+                            </div>
+                        </section>
+                    </aura:if>
+                    
+                    
+                    
+                    <!--Modal PopUp Code End-->
+                    
+                    <table style="border-collapse: separate;border-spacing:0 10px;">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="border-top-left-radius:8px;border-bottom-left-radius:8px;background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="Sr.No">
+                                        Sr.No
+                                    </div>
+                                </th>
+                                <th  scope="col" style="background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="Order Id">
+                                        Order Id
+                                    </div>
+                                </th>
+                                <th  scope="col" style="background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="Order Stage">
+                                        Order Stage
+                                    </div>
+                                </th>
+                                <th  scope="col" style="background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="Order Placed On">
+                                        Order Placed On
+                                    </div>
+                                </th>
+                                <th  scope="col" style="border-top-right-radius:8px;border-bottom-right-radius:8px;background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="Order Delivery Date">
+                                        Order Delivery Date
+                                    </div>
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <aura:if isTrue="{!v.ordList.length > 0}">
+                            <tbody>
+                                <aura:iteration items="{!v.ordList}" var="ord" indexVar ="i">
+                                    <tr>
+                                        
+                                        <td data-label="Sr.No" scope="row" style="border-top-left-radius:8px;border-bottom-left-radius:8px;background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!ord.SrNo}"> {!((v.pageNumber-1)*10)+i+1}</div>
+                                        </td>
+                                        <td  data-label="Order Id" style="background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!ord.OrderNumber}">
+                                                <!--<a onclick="{!c.orderDetail}" data-recId="{!ord.Id}">
+                                                    <p>{!ord.OrderNumber}</p>
+                                                </a>-->
+                                                <a href="{!'/lightning/r/Order/' + ord.Id + '/view'}" target="_blank">
+                                                    {!ord.OrderNumber}
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td  data-label="Order Stage" style="background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!ord.Status}">{!ord.Status}</div>
+                                        </td>
+                                        <td  data-label="Order Placed On" style="background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <!--<div class="slds-truncate" title="{!ord.EffectiveDate}">{!ord.EffectiveDate}</div>-->
+                                            <lightning:formattedDateTime value="{!ord.EffectiveDate}" year="numeric" month="numeric" day="numeric"  />
+                                            
+                                        </td>
+                                        <td  data-label="Order Delivery Date" style="border-top-right-radius:8px;border-bottom-right-radius:8px;background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <lightning:formattedDateTime value="{!ord.EndDate}" year="numeric" month="numeric" day="numeric"  />
+                                        </td>    
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </aura:if>
+                    </table>
+                    <aura:if isTrue="{!empty(v.ordList)}">
+                        <div class="slds-align_absolute-center">
+                            No records found
+                        </div>
+                    </aura:if>
+                </lightning:card>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

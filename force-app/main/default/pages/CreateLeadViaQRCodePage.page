@@ -1,0 +1,166 @@
+<apex:page id="mobileFriendlyVfUsingSlds" standardStylesheets="false" sideBar="false" showHeader="false" controller="CreateLeadViaQRCodeHelper"  >
+    
+    <html>
+        <head>
+            <apex:slds />           
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js" crossorigin='anonymous'></script>
+            
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+            
+            <style>
+                html,body{
+                    background-color:#e5e7eb;
+                    font-family: 'Dosis', sans-serif;
+                    font-family: 'Varela Round', sans-serif !important;
+                }
+            
+            .col-auto{
+                width: 647px;
+                padding-bottom: 6px;
+            }
+            </style>
+            </head>
+            
+            <script>
+                debugger;
+            var IndustryList=JSON.parse('{!Industry}');
+            //  var leadSubSourceList=JSON.parse('{!leadSubSource}');
+            // var leadSourceTypeList = JSON.parse('{!leadSourceType}');
+            var campaignRecordString;
+            var leadRecordString;
+            leadRecordString = JSON.parse('{!LeadRecordString}');
+            campaignRecordString = JSON.parse('{!campaignRecordString}');
+            var app = angular.module('myApp', []);
+            
+            
+            app.controller('myCtrl', function($scope) {
+                $scope.IndustryList= IndustryList; 
+                // $scope.leadSubSourceList= leadSubSourceList; 
+                // $scope.leadSourceTypeList= leadSourceTypeList; 
+                $scope.campaignId = campaignRecordString.Id;
+                $scope.data = leadRecordString;
+                $scope.data.Lead_Source__c ='';
+                $scope.data.Lead_Sub_Source__c='';
+                $scope.data.Lead_Source_Type__c='';
+                $scope.saveRecord = function(){
+                    debugger;
+                    delete $scope.data.attributes;
+                    var campaignId = $scope.campaignId;
+                    var name =  $scope.data.Name__c;
+                    var email = $scope.data.Email__c;
+                    var phone = $scope.data.Phone__c;
+                    var Industry =  $scope.data.Industry;
+                    //var leadSubSource = $scope.data.Lead_Sub_Source__c;
+                    //var leadSourceType = $scope.data.Lead_Source_Type__c;
+                    CreateLeadViaQRCodeHelper.insertLeadDetails(campaignId,name,email,phone,Industry, function(result, event){ 
+                        debugger;
+                        if(event.status){
+                            swal({
+                                title: "SUCCESS",
+                                text:  'Lead Details have been Saved Successfully.',
+                                icon: "success"
+                            });
+                            timeout = setTimeout(alertFunc, 3000);
+                            function alertFunc() {
+                                window.location.href = 'https://vaishnavigroup--dev.sandbox.my.salesforce-sites.com/CreateLeadViaQR/CreateLeadViaQRCodePage?id='+campaignId;
+                            }
+                            
+                            
+                        }else{
+                            swal({
+                                title: "ERROR",
+                                text:  'Something went wrong !.',
+                                icon: "error"
+                            });
+                        }
+                    })  
+                }
+            });
+            </script>
+            
+            
+            <body ng-app="myApp" ng-controller="myCtrl">      
+                <div class="slds-scope" style="width:100%;height: 100%;">
+                    <!--div class="header">
+<apex:image id="theImage" style="margin-left: 6rem" value="{!$Resource.vaishnavi_logo}" width="84%" height="2%"/>
+</div-->
+                    
+                    
+                    <div class="container" style="width:100%;padding: 0px;">
+                        <div class="mt-3" id="basic">
+                            <div class="mb-2">
+                                <div style="font-size: 18px;padding: 3px;background: cornflowerblue;margin-bottom: 10px;text-align: center;margin-right: 0px;">BASIC DETAILS</div>
+                                <form >
+                                    <div class="col-auto" style=" width: 100%; padding-bottom: 10px;">
+                                        <label class="form-label" for="form11Example4" style="margin-top: -4px; margin-bottom: 4px;margin-left: 6px;font-size: 11px;">Name</label>
+                                        <input type="text" id="form11Example4" ng-model="data.Name__c"  placeholder="Enter Name"  class="form-control" />
+                                    </div>
+                                </form>
+                                <form >
+                                    <div class="col-auto" style=" width: 100%; padding-bottom: 10px;">
+                                        <label class="form-label" for="form11Example4" style="margin-top: -2px; margin-bottom: 4px;margin-left: 6px;font-size: 11px;">Email</label>
+                                        <input type="text" id="form11Example4" ng-model="data.Email__c" placeholder="Enter Email"  class="form-control" />
+                                    </div>
+                                </form>
+                                <form >
+                                    <div class="col-auto" style=" width: 100%; padding-bottom: 10px;">
+                                        <label class="form-label" for="form11Example4" style="margin-top: -2px; margin-bottom: 4px;margin-left: 6px;font-size: 11px;">Phone</label>
+                                        <input type="text" id="form11Example4" ng-model="data.Phone__c" placeholder="Enter Phone"  class="form-control" />
+                                    </div>
+                                </form>
+                                
+                                
+                                <form >
+                                    <div class="col-auto" style=" width: 100%; padding-bottom: 10px;">
+                                        <label class="form-label" for="form11Example4" style="margin-top: -2px; margin-bottom: 4px;margin-left: 6px;font-size: 11px;">Select Lead Source</label>
+                                        
+                                        <select class="form-control" aria-label="Please select" ng-model="data.Industry">
+                                           
+                                            <option>Dinesh </option>
+                                            <option ng-repeat="source in IndustryList">{{source}}</option>
+                                        </select> 
+                                    </div>
+                                </form>
+                                <!--div>
+<form >
+<div class="col-auto" style=" width: 100%; padding-bottom: 10px;">
+<label class="form-label" for="form11Example4" style="margin-top: -2px; margin-bottom: 4px;margin-left: 6px;font-size: 11px;">Select Lead Sub Source</label>
+<select class="form-control" aria-label="Please select" ng-model="data.Lead_Sub_Source__c">
+<option >--None--</option>
+<option ng-repeat="subSource in leadSubSourceList">{{subSource}}</option>
+</select>   
+</div>
+</form>
+<form >
+<div class="col-auto" style=" width: 100%; padding-bottom: 10px;">
+<label class="form-label" for="form11Example4" style="margin-top: -2px; margin-bottom: 4px;margin-left: 6px;font-size: 11px;">Select Lead Source Type</label>
+<select class="form-control" aria-label="Please select" ng-model="data.Lead_Sub_Source__c">
+<option >--None--</option>
+<option ng-repeat="sourceType in leadSourceTypeList">{{sourceType}}</option>
+</select>   
+</div>
+</form>
+</div-->
+                                
+                            </div>
+                        </div>
+                        <div  class="text-center">
+                            <button type="submit" ng-click="saveRecord()" style="padding: 5px; margin-top: 0px ;background: royalblue;" class="btn btn-primary">Submit Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </body>
+        </html>
+        
+    </apex:page>

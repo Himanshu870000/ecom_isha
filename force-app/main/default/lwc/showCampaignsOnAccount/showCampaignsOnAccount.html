@@ -1,0 +1,33 @@
+<template>
+    <div class="slds-box menu">
+        <div class="block1">
+            <div class="rectangle" style="margin-top:10px;">
+                <div slds-col>
+                    <h3 style="color:#211DC9; font-size:21px;"><b>Assured Admission<br/> Campaign</b></h3><br/>
+                    <lightning-button variant="brand" data-name="Assured Admission Campaign" label="Promote" onclick={handleClickSelectedCamp} class="slds-align_absolute-left"></lightning-button>
+                </div>
+                <div slds-col class="slds-p-left_xxx-small slds-p-top_large">
+                    <img style="" src={assuredCamp} />
+                </div>
+            </div>
+            <div class="rectangle1" style="margin-top:10px;">
+                <div slds-col>
+                    <h3 style="color:#006e7a; font-size:21px;"><b>Admission<br/> Campaign</b></h3><br/>
+                    <lightning-button variant="brand" data-name="Admission Campaign" label="Promote" onclick={handleClickSelectedCamp} class="slds-align_absolute-left"></lightning-button>
+                </div>
+                <div slds-col class="slds-p-left_xx-large slds-p-top_medium slds-float_left" >
+                    <img style="" src={spotlightCamp} />
+                </div>
+            </div>
+            <div class="rectangle2" style="margin-top:10px;">
+                <div slds-col>
+                    <h3 style="color:#B30AC8; font-size:21px;"><b>Spotlight<br/> Campaign</b></h3><br/>
+                    <lightning-button variant="brand" data-name="Spotlight Campaign" label="Promote" onclick={handleClickSelectedCamp} class="slds-align_absolute-left"></lightning-button>
+                </div>
+                <div slds-col class="slds-p-left_xx-large slds-p-top_medium slds-float_left">
+                    <img style="" src={admissionCamp} />
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

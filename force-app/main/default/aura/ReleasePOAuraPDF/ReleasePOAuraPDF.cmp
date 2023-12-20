@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" controller="FSLQuotePDFControllerDemo1" >
+	<aura:html tag="style">
+        .slds-modal__container{
+        max-width: 50rem !important;
+        width:50% !important;    
+        }
+    </aura:html>
+    <aura:attribute name="siteURL" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+            <div class="slds-m-around_xx-large">
+                <div class="slds-align_absolute-center slds-notify slds-notify_alert slds-alert_warning"
+                     role="alert">
+                      <h2><b style="color:White;">Sending Email Please Wait...</b></h2>
+                </div>
+            </div>
+</aura:component>

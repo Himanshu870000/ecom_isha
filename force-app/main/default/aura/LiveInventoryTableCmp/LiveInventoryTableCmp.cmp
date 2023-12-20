@@ -1,0 +1,125 @@
+<aura:component controller="LiveInventoryController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="livInvList" type="Store_Inventory__c[]"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="isLastPage" type="Boolean" default="false"/>
+    <aura:attribute name="dataSize" type="Integer" default="0"/>
+    <aura:attribute name="accIdForChild" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    
+    <lightning:layout >
+        <lightning:layoutItem size="12">
+            <div class="slds-m-left_xx-large">
+                <lightning:card>
+                    <aura:set attribute="title">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h4>
+                                    <span class="slds-page-header__title" style="font-size: 175%;"><Strong>Live Inventory</Strong></span>
+                                </h4>
+                            </div>
+                        </div>
+                    </aura:set>
+                    <aura:set attribute="footer">
+                        <div class="slds-align_absolute-center"> 
+                            <div class="slds-p-right_xx-small">
+                                <lightning:button label="Prev"
+                                                  onclick="{!c.handlePrev}"
+                                                  disabled="{! v.pageNumber == 1}"
+                                                  variant="brand"
+                                                  iconName="utility:back"
+                                                  name="prev"/>
+                            </div>
+                            <span class="slds-badge slds-badge_lightest">
+                                Page {!v.pageNumber} | Showing records from {! (((v.pageNumber-1)*v.pageSize)+1)+' to '+((v.pageNumber-1)*v.pageSize+v.dataSize)}
+                            </span>
+                            <div class="slds-p-left_xx-small">
+                                <lightning:button label="Next"
+                                                  disabled="{!v.isLastPage}"
+                                                  onclick="{!c.handleNext}"
+                                                  variant="brand"
+                                                  iconName="utility:forward"
+                                                  iconPosition="right"
+                                                  name="next"/>
+                            </div>
+                        </div>                         
+                    </aura:set>
+                    <table style="border-collapse: separate;border-spacing:0 10px;">
+                        <thead>
+                            <tr >
+                                <th scope="col" style="border-top-left-radius:8px;border-bottom-left-radius:8px;background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div title="Sr.No">
+                                        Sr.No
+                                    </div>
+                                </th>
+                                <th scope="col" style="background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="Product Name" >
+                                        Product Name
+                                    </div>
+                                </th>
+                                <th scope="col" style="background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="Product Code">
+                                        Product Code
+                                    </div>
+                                </th>
+                                <th  scope="col" style="background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="isItemAvailable">
+                                        is Item Available
+                                    </div>
+                                </th>
+                                <th  scope="col" style="background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="AvailableQuantity">
+                                        Available Quantity
+                                    </div>
+                                </th>
+                                <th  scope="col" style="border-top-right-radius:8px;border-bottom-right-radius:8px;background-color:#5FADB0;Color:white;width:150px;text-align:center;padding:5px;">
+                                    <div  title="AvailableLocation">
+                                        Available Location
+                                    </div>
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <aura:if isTrue="{!v.livInvList.length > 0}">
+                            <tbody>
+                                <aura:iteration items="{!v.livInvList}" var="linv" indexVar ="i">
+                                    <tr style="background-color:#dcdcde; color:#080808;">
+                                        
+                                        <th data-label="Sr.No" scope="row" style="border-top-left-radius:8px;border-bottom-left-radius:8px;background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!linv.SrNo}">{!((v.pageNumber-1)*10)+i+1}</div>
+                                        </th>
+                                        <td class="slds-cell-wrap" data-label="Product Name" style="background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!linv.Name}">{!linv.Dealer_Product__r.Product__r.Name}</div>
+                                        </td>
+                                        <td data-label="Product Code" style="background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!linv.ProductCode}">{!linv.Dealer_Product__r.Product_Code__c}</div>
+                                        </td>
+                                        <td data-label="is Item Available" style="background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!linv.is_Item_Available__c}">{!linv.is_Item_Available__c}</div>
+                                        </td>
+                                        <td data-label="Available Quantity" style="background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!linv.ProductCode}">{!linv.Available_Quantity__c}</div>
+                                        </td>
+                                        <td data-label="Available Location" style="border-top-right-radius:8px;border-bottom-right-radius:8px;background-color: #dddddd;width:150px;text-align:center;padding:5px;">
+                                            <div  title="{!linv.Store__c}">{!linv.Store__r.Name}</div>
+                                        </td>
+                                        
+                                        
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </aura:if>
+                    </table>
+                    <aura:if isTrue="{!empty(v.livInvList)}">
+                        <div class="slds-align_absolute-center">
+                            No records found
+                        </div>
+                    </aura:if>
+                </lightning:card>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

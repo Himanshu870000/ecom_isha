@@ -1,0 +1,28 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="recordId" type="string" />
+    <aura:attribute name="selectProjectDisplay" type="boolean" default="false" />
+    <aura:attribute name="displayDailyLineItems" type="boolean" default="false" />
+    <aura:attribute name="checkSpinner" type="boolean" default="false" />
+    
+    <aura:if isTrue="{!v.checkSpinner}">
+        <div class="exampleHolder">
+            <lightning:spinner alternativeText="Loading" size="medium" />
+        </div>
+    </aura:if>
+    
+    <Lightning:card class="slds-m-around_xx-small slds-m-top_none slds-m-bottom_none slds-card__body transform">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_0.5-of-8">
+            </div>
+            <div class="slds-col slds-size_8-of-8">
+                <lightning:button label="PROPERTY SELECTION" title="CHOOSE YOUR PROPERTY" variant="brand"  iconName="utility:component_customization" onclick="{!c.showProjectAdditionComp}" ></lightning:button>
+            </div>
+            
+        </div>
+    </Lightning:card>   
+    
+    <aura:if isTrue="{!v.selectProjectDisplay}">
+        <c:PropertyAdditionComp recordId="{!v.recordId}" selectProjectDisplay= "{!v.selectProjectDisplay}" />
+    </aura:if>
+    
+</aura:component>

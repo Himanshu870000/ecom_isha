@@ -1,0 +1,297 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="DealerLogin_Controller">
+    <html>
+        <head>
+            <c:Libraries ></c:Libraries>
+            <meta charset="UTF-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    		<title>Utilitarian Labs</title>
+            <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+            <link href="CSS/style.css" rel="stylesheet" />
+            <link rel="stylesheet" media="only all and (min-width: 768px)" href="css/768.css" />
+            <link rel="stylesheet" media="only all and (min-width: 992px)" href="css/992.css" />
+            <link rel="stylesheet" media="only all and (min-width: 1200px)" href="css/1200.css" />
+            
+            <style>
+                ul, li, h1, h2, h3, h4, h5, h6 {
+                margin: 0;
+                padding: 0;
+            }
+            ul, li {
+                list-style: none;
+            }
+            a {
+                text-decoration: none;
+            }
+            body {
+                font-family: 'Open Sans', sans-serif;
+            }
+            .login {
+                width: 100%;
+                height: 100vh;
+            
+            }
+            .login > .row {
+                height: 100vh;
+            }
+            .login .left-side {
+                background: #5FADB0;
+                width: 100%;
+                height: 100%;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+            }
+            .login .login-form .logo {
+                margin: 0 auto;
+                display: block;
+            }
+            .login .login-form h1 {
+                color: #37989C;
+                font-size: 24px;
+                padding: 32px 0;
+                text-transform: uppercase;
+                font-weight: 700;
+                text-align: center;
+            }
+            .login .login-form .nav-tabs {
+                border: none;
+            }
+            .login .login-form .nav-tabs .nav-item {
+                padding: 0 12px;
+            }
+            .login .login-form .nav-tabs .nav-link {
+                color: #999;
+                padding: 0 0 6px 0;
+                font-weight: 600;
+                border: none;
+            }
+            .login .login-form .nav-tabs .nav-link:focus, .login .login-form .nav-tabs .nav-link:hover {
+                border-color: transparent;
+            }
+            .login .login-form .nav-tabs .nav-item.show .nav-link, .login .login-form .nav-tabs .nav-link.active {
+                color: #37989C;
+                border: none;
+                border-bottom: 4px solid #37989C;
+            }
+            .login .login-form label {
+                color: #000;
+                font-size: 16px;
+                font-weight: 600;
+                padding: 0 0 7px 0;
+                display: block;
+            }
+            .login .login-form .tab-content {
+                padding: 32px 0 0 0;
+            }
+            .login .login-form .form-control {
+                background: #E4E4E4;
+                border: none;
+            }
+            .login .login-form .form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: #6b6b6b;
+                font-size: 16px;
+            }
+            .login .login-form .form-control::-moz-placeholder { /* Firefox 19+ */
+                color: #6b6b6b;
+                font-size: 16px;
+            }
+            .login .login-form .form-control:-ms-input-placeholder { /* IE 10+ */
+                color: #6b6b6b;
+                font-size: 16px;
+            }
+            .login .login-form .form-control:-moz-placeholder { /* Firefox 18- */
+                color: #6b6b6b;
+                font-size: 16px;
+            }
+            .login .login-form .forgot-password {
+                color: #37989C;
+                font-size: 16px;
+                font-weight: 600;
+                text-decoration: underline;
+            }
+            .login .login-form .login-btn {
+                background: #37989C;
+                width: 100%;
+                height: 48px;
+                line-height: 48px;
+                color: #fff;
+                font-size: 20px;
+                padding: 0;
+                -moz-border-radius: 20px;
+                -webkit-border-radius: 20px;
+                border-radius: 20px;
+                box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.64);
+            }
+            .login .login-form .login-btn:disabled {
+                background: #999;
+                box-shadow: none;
+            }
+            .login .login-form .login-with {
+                color: #999;
+                font-size: 16px;
+                text-align: center;
+                margin: 32px 0;
+                position: relative;
+            }
+            .login .login-form .login-with span {
+                background: #fff;
+                padding: 0 10px;
+            }
+            .login .login-form .login-with:before {
+                content: '';
+                background: #999;
+                width: 100%;
+                height: 1px;
+                position: absolute;
+                top: 12px;
+                z-index: -1;
+                display: block;
+            }
+            .login .login-form .social-ico {
+                justify-content: center;
+                display: flex;    
+            }
+            .login .login-form .social-ico li {
+                margin: 0 40px;
+            }
+            .login .login-form .social-ico li span {
+                color: #000;
+                font-size: 16px;
+                padding: 7px 0 0 0;
+            }
+            .login .login-form .signup {
+                color: #37989C;
+            }
+            </style>
+
+        </head>
+        
+        <script>
+         var app = angular.module('login_app', []);
+         app.controller('login_ctrl',function($scope){
+             $scope.loginDetails = { userName: "", userPassword: "" };
+             $scope.auraComp = false;
+             $scope.loginDealer = function(){
+                 debugger;
+                 DealerLogin_Controller.loginDealer($scope.loginDetails.userName,function(result,event){
+                     debugger;
+                     if(event.status && result){
+                         debugger;
+                         alert('SUCCESS');
+                         $scope.accId = result;
+                         $scope.auraComp = true;
+                         window.location.replace('https://sales-production--mfgcloud--c.sandbox.vf.force.com/apex/MasterDealerDashboardPage?id='+$scope.accId);
+                         $scope.$apply();
+                      }
+                 })
+             }
+         })
+        </script>
+        
+        <body ng-app="login_app" ng-controller="login_ctrl">
+            
+            <div class="container-fluid">
+    <div class="login">
+        <div class="row justify-content-center">
+            <div class="col-md-6 ps-0 d-none d-lg-block">
+                <div class="left-side">
+                    <apex:image url="{!$Resource.MFG_Login}" />
+                </div>
+            </div>
+            <div class="col-12 col-md-8 col-lg-6 login-form">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <apex:image url="{!$Resource.elbritlogo}" />
+                        <h1>login</h1>
+                        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="email-tab" data-bs-toggle="tab" data-bs-target="#email" type="button" role="tab" aria-controls="email" aria-selected="true">Email</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="mobile-tab" data-bs-toggle="tab" data-bs-target="#mobile" type="button" role="tab" aria-controls="mobile" aria-selected="false">Phone Number</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="email" role="tabpanel" aria-labelledby="email-tab">
+                                <div class="mb-4">
+                                    <label>Email</label>
+                                    <input type="text" ng-model="loginDetails.userName" class="form-control form-control-lg" />
+                                </div>
+                                <div class="mb-2">
+                                    <label>Password</label>
+                                    <input type="text" ng-model="loginDetails.userPassword" class="form-control form-control-lg" />
+                                </div>
+                                <div class="text-end mb-4"> 
+                                    <a href="#" class="forgot-password">
+                                        Forgot Password?
+                                    </a>
+                                </div>
+                                <button type="button" ng-click="loginDealer()" class="btn login-btn">Login</button>
+                                <div class="login-with">
+                                    <span>Or Login with</span>
+                                </div>
+                                <ul class="social-ico">
+                                    <li>
+                                        <a href="#">
+                                            <apex:image url="{!$Resource.google}" />
+                                            <span class="d-block">Google</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <apex:image url="{!$Resource.facebook}" />
+                                            <span class="d-block">Facebook</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="mt-4 text-center">
+                                    Don't have an account? <a href="#" class="signup">Sign Up</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="mobile" role="tabpanel" aria-labelledby="mobile-tab">
+                                <div class="mb-4">
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control form-control-lg" placeholder="Enter 10 digits" />
+                                </div>
+                                <button type="button" class="btn login-btn">Send OTP</button>
+                                <div class="login-with">
+                                    <span>Or Login with</span>
+                                </div>
+                                <ul class="social-ico">
+                                    <li>
+                                        <a href="#">
+                                            <apex:image url="{!$Resource.google}" />
+                                            <span class="d-block">Google</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <apex:image url="{!$Resource.facebook}" />
+                                            <span class="d-block">Facebook</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="mt-4 pt-4 text-center">
+                                    Don't have an account? <a href="#" class="signup">Sign Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script src="js/custom.js"></script>
+            
+            
+        
+        </body>
+    </html>
+</apex:page>

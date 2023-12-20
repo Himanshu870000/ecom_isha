@@ -1,0 +1,63 @@
+<template>
+    <lightning-card>
+        <div slot="title">
+          <h3> <lightning-icon icon-name="standard:expense" size="small"></lightning-icon>  Expense Item </h3>
+        </div>
+      <div class="slds-grid slds-wrap">
+
+          <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+              <div class="slds-form-element">
+                <lightning-input label="Expense Item Name" value={firstName} onchange={changeValue}></lightning-input>
+              </div>
+          </div>
+
+          <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+            <div class="slds-form-element">
+                <lightning-input type="Date" label="Transaction Date" value={transactionDate} onchange={changeValue}> </lightning-input>
+            </div>
+          </div>
+
+          <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+            <div class="slds-form-element">
+                <lightning-input label="Amount" value={amount} onchange={changeValue}></lightning-input>
+             </div>
+          </div>
+
+          <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+            <label class="slds-form-element__label">
+                <span class="">Expense</span>
+            </label>
+            <div class="slds-form-element">
+                <lightning-formatted-url value={parentRecordLink} tooltip={parentRecordName} label={parentRecordName} target="_blank" ></lightning-formatted-url>
+             </div>
+          </div>
+
+          <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+            <div class="slds-form-element">
+                <c-custom-picklist object-name="ExpenseT__Expense_Item__c" field-name="ExpenseT__Expense_Item_Category__c" ongetcategoryvalue={handlecategoryChangeValue}></c-custom-picklist>
+             </div>
+          </div>
+          <div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+            <div class="slds-form-element">    
+                    <div class="slds-m-around_medium">
+                        <lightning-input type="file" 
+                        accept={acceptedFormats}
+                        label="Attachment" onchange={openfileUpload}></lightning-input>
+                    </div>
+                    <template if:true={fileData}>
+                        <p>{fileData.filename}</p>
+                    </template>
+             </div>
+          </div>
+          
+      </div>
+     
+    
+
+     <div slot="footer">
+        <lightning-button label="Save" variant="brand" onclick={insertExpenseItemAction}></lightning-button>        
+      </div>
+
+
+    </lightning-card>
+</template>

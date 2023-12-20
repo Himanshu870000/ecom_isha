@@ -1,0 +1,100 @@
+<template>
+      <lightning-card >
+        <div class="slds-p-around_xxx-small">
+                <div class="background"></div>
+                <div class="profile">
+                  <img src="https://w7.pngwing.com/pngs/60/86/png-transparent-student-coaching-college-school-course-student-class-resume-people-thumbnail.png" alt="Profile Picture" class="profile-picture" />
+                </div>
+                <template lwc:if={LeadRec}>
+                  <div>
+                    <div class="profile-name">{LeadRec.Name}</div>
+                    <p class="profile-address">{LeadRec.City},{LeadRec.State__c}</p>
+                </div>
+
+                </template>
+                
+          
+                <div class="about">
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2" style="margin-bottom: 1rem;">
+                      <div class="slds-media">
+                        <div class="slds-media__figure">
+                          <lightning-icon icon-name="action:announcement" alternative-text="announcement" size="small" title="announcement"></lightning-icon>
+                        </div>
+                         <template lwc:if={LeadRec}>
+                           <div class="slds-media__body">
+                          <h2>Class {LeadRec.Class__c},{LeadRec.Board__c} </h2>
+                          <p>Class</p>
+                        </div>
+                         </template>
+                        
+                      </div>
+                    </div>
+          
+                    <div class="slds-col slds-size_1-of-2" style="margin-bottom: 1rem;">
+                      <div class="slds-media">
+                        <div class="slds-media__figure">
+                          <lightning-icon icon-name="standard:webcart" alternative-text="webcart" size="small" title="webcart"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                          <h2>82 / 100</h2>
+                          <p>Engagement Score</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <article class="slds-card slds-p-horizontal_medium">
+                          <div class="slds-card__header slds-grid">
+                            <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                              <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-user" title="user">
+                                  <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#user"></use>
+                                  </svg>
+                                  <span class="slds-assistive-text">user name</span>
+                                </span>
+                              </div>
+                              <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                  <a href="#" class="slds-card__header-link slds-truncate" title="Churn Risk Prediction">Customer 360 ID</a>
+                                </h2>
+                                <p>PP9638383377</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="slds-card__body slds-card__body_inner">
+                          </div>
+                        </article>
+                      </div>
+          
+                    <div class="slds-col slds-size_1-of-1">
+                      <article class="slds-card slds-p-horizontal_medium">
+                        <div class="slds-card__header slds-grid">
+                          <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                              <span class="slds-icon_container slds-icon-standard-user" title="story">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                  <use xlink:href="/_slds/icons/standard-sprite/svg/symbols.svg#story"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Account Icon</span>
+                              </span>
+                            </div>
+                            <div class="slds-media__body">
+                              <h2 class="slds-card__header-title">
+                                <a href="#" class="slds-card__header-link slds-truncate" title="Churn Risk Prediction">Churn Risk Prediction: 20%</a>
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                          <lightning-progress-bar value="50" size="large" variant="circular"></lightning-progress-bar>
+                        </div>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+      </lightning-card>
+  </template>

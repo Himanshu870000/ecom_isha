@@ -1,0 +1,12 @@
+.THIS div.container {
+  position: relative;
+}
+.THIS div.container img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 35px;
+}
+.THIS div.container img.overlay {
+  z-index: 1;
+}

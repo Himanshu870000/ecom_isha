@@ -1,0 +1,98 @@
+<!-- /**
+ * @author [Dinesh Baddawar]
+ * @email dinesh.b@utilitarianLab.com
+ * @create date 2023-05-24 20:17:24
+ * @modify date 2023-05-24 20:17:24
+ * @desc [description]
+ */ -->
+
+<aura:component controller="callRecordingQuestionHelper" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="showCancelSubmit" type="Boolean" default="false"/>
+    <aura:attribute name="QuestionListRecord" type="Call_Question__c[]"/>
+    <aura:attribute name="QuestionMasterNameList" type="List"/>
+    <aura:attribute name="QuesIdList" type="List"/>
+    <aura:attribute name="SectionWithLinItemListMap" type="Map"/>
+    <aura:attribute name="MapOfQuestionTemplateNameAndListOfQuestions" type="Map"/>
+    <aura:attribute name="QuestionTemplateList" type="List"/>
+    
+    <aura:attribute name="Question1" type="Boolean" default="true"/>
+    <aura:attribute name="Question2" type="Boolean" default="false"/>
+    <aura:attribute name="QuestLineItemList" type="List"/>
+    <aura:attribute name="value" type="String"/>
+    <aura:attribute name="QuestLineItemListNew" type="List"/>
+    <aura:attribute name="colors" type="String[]" default="Bad,Average,Good,Excellent"/>
+    
+    
+    
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }       
+        
+        .slds-modal__container{
+        max-width: 174rem !important;
+        width: 60% !important
+        
+        }
+        
+        
+        .circle {
+        border-radius: 50%;
+        width: 34px;
+        background: #D5ECD5;
+        height: 34px;
+        padding: 10px;
+        
+        
+        display: inline-block;
+        text-align: center;
+        text-color: white;
+       
+        }
+    </aura:html> 
+    
+    <div class="slds-m-around--xx-large" style="font-family: Noto Sans,Helvetica,sans-serif">
+        <div class="container-fluid">
+            <div style="background: #D5ECD5;" class="slds-p-around_small">
+                <center>
+                    <td style="padding-right:1rem"><lightning:icon iconName='action:record' alternativeText='record' size='large' title='record'></lightning:icon></td>
+                    <td> <h2 style="text-align:center;font-size: 2rem;"><b>Feedback Questions</b></h2></td>
+                </center>
+            </div>
+        </div>
+        
+        <aura:iteration items="{!v.QuestionListRecord}" var="value" indexVar="index">
+            <br/>
+            <div class="slds-grid slds-gutters" style="font-weight:bold;font-size: 0.9rem;">
+                 <span class="circle slds-col slds-size_1-of-12" >  {!index + 1} </span>
+                <lightning:input style="margin-top:-13px;width: 97%;" type="text"  disabled="true" class="slds-col slds-size_10-of-12"   value="{!value.Call_Question_Name__c}" />
+            </div>
+            <br/>
+            <div data-id="{!value.Id}" class="form-group" style="font-weight:bold;margin-left: 2rem;font-size: 1rem;"  >
+                <tr>
+                    <aura:iteration items="{!v.colors}" var="color">
+                        <td>
+                            <lightning:input type="radio" name="options" label="{!color}"   onchange="{!c.handleOptionChange}"/>
+                        </td>
+                        <br/>
+                    </aura:iteration>
+                </tr>
+                <br/>
+            </div>
+        </aura:iteration>        
+        <br/>
+        <div class="modal-footer slds-modal__footer slds-size_1-of-1" style="width: 100%; ">
+            <div class="forceChangeRecordTypeFooter">
+                <ui:button class="slds-button slds-float_left  slds-button_neutral" label="Cancel"
+                           press="{! c.hideQuickAction}" />
+                <ui:button class="slds-button slds-button--brand" label="Save" press="{!c.createQuestionLineItemSave}" />
+            </div>    
+        </div>
+        
+    </div> 
+</aura:component>

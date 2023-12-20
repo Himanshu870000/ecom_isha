@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="sendQuoteProposalFromOppHelper" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+</aura:component>

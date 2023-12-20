@@ -1,0 +1,38 @@
+.number-blue{
+    /* transform: scale(2); */
+    background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);    /* background-color: #764cff; */
+    color: aliceblue;
+    font-size: 1rem;
+    margin-left: 10rem;
+    margin-top: 19px;
+    border-radius: 60%;
+    width: 34px;
+    height: 34px;
+    padding: 10px;
+    /* border: 1px solid #7848f3; */
+    text-align: center;
+}
+/* .right-pring{
+   float: right;
+   width: 48%;
+}
+.left-heaing{
+    font-size: 2rem;
+    color: black;
+    float: left;
+    width: 48%;
+} */
+.progress-ring {
+    transform: scale(2);
+    float: right;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+    /* position: absolute */
+}
+.slds-page-header{
+    background-color: white;
+}
+.lig-card{
+    width: 60%;
+    height: 90%;
+}

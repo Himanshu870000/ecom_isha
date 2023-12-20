@@ -1,0 +1,46 @@
+<aura:component implements="lightning:homeTemplate" description="5 columns flexible without header and footer." >
+    <!-- Make attribute for each column -->
+     <aura:attribute name="FirstRow" type="Aura.Component[]" description="FirstRow"/>
+    <aura:attribute name="ChildRow1" type="Aura.Component[]" description="ChildRow1"/>
+    <aura:attribute name="ChildRow2" type="Aura.Component[]" description="ChildRow2"/>
+    <aura:attribute name="ChildRow3" type="Aura.Component[]" description="ChildRow3"/>
+    <aura:attribute name="column1" type="Aura.Component[]" description="Column1"/>
+    <aura:attribute name="column2" type="Aura.Component[]" description="Column2"/>
+    <aura:attribute name="column3" type="Aura.Component[]" description="Column3"/>
+   
+    
+    <div>
+        <!-- Specify the area for each column -->
+        <lightning:layout  pullToBoundary="small">
+            <lightning:layoutItem size="12" padding="around-small">
+                {!v.FirstRow}
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout  pullToBoundary="small">
+            <lightning:layoutItem size="3" padding="around-small">
+                {!v.column1}
+            </lightning:layoutItem>
+            <lightning:layoutItem size="6" padding="around-small">         
+                {!v.column2}
+                <lightning:layout  pullToBoundary="small">
+                    <lightning:layoutItem size="12" padding="around-small">
+                        {!v.ChildRow1}
+                    </lightning:layoutItem>
+                </lightning:layout>
+                <lightning:layout  pullToBoundary="small">
+                    <lightning:layoutItem size="12" padding="around-small">
+                        {!v.ChildRow2}
+                    </lightning:layoutItem>
+                </lightning:layout>
+                <lightning:layout  pullToBoundary="small">
+                    <lightning:layoutItem size="12" padding="around-small">
+                        {!v.ChildRow3}
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="3" padding="around-small">         
+                {!v.column3}
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div> 
+</aura:component>

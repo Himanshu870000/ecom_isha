@@ -1,0 +1,40 @@
+<template>
+    <div class="slds-modal__content slds-app-launcher__content" id="modal-content-id-1" style="width:100%; height:20%; align:center;zoom:80%">
+        <div> <!--style = "border-style: solid;"-->
+            <div > <!--style = "margin :1%"-->
+                <lightning-quick-action-panel class="field-title" header="Startup &amp; Industry News">
+                    <ul class="dynamic-text">
+                        <li class="item">
+                            <div class="app slds-grid slds-gutters">
+                                <template for:each={recList} for:item="rec">
+                                    <div key={rec.Id} >
+                                        <div class="slds-card card-color slds-m-left_small" style="padding:4%;">
+                                            <div class="slds-m-top_small slds-m-left_x-small">
+                                                <a href={rec.url}> <lightning-button label={rec.News_Type__c}> </lightning-button> </a>
+                                                <span style="font-weight:500; color:#1099f5; margin-left:6px;"> {rec.Company_Name__c} </span>
+                                            </div><br/>
+                                            <p class="slds-p-horizontal_small">
+                                                <lightning-formatted-date-time value={rec.Published_Date__c} year="2-digit" month="short" day="2-digit" weekday="long"></lightning-formatted-date-time>
+                                            </p><br/>
+                                            <p class="slds-p-horizontal_small" style="font-weight:bold; font-size:18px;">
+                                                {rec.Headline__c}
+                                            </p><br/>
+                                            <p class="slds-p-horizontal_small slds-text-body_small" style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;line-clamp: 2;-webkit-box-orient: vertical;">
+                                                {rec.Description__c}... 
+                                            </p>
+                                            <lightning-formatted-url value={rec.Actual_URL__c} tooltip="Use https://domain-name" label="Continue Reading" target="_blank" style="font-size:14px;"></lightning-formatted-url>
+                                            <br/>
+                                            <br/>
+                                                -by {rec.Author__c}, {rec.Company_Name__c}
+                                        </div>
+                                            
+                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </template>
+                            </div>
+                        </li>
+                    </ul>
+                </lightning-quick-action-panel>
+            </div>
+        </div>
+    </div>
+</template>

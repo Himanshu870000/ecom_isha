@@ -1,0 +1,269 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" controller="VendoreAndProductList_Ctrl">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="ConVendorlist" type="Contact[]"  />
+    <aura:attribute name="productlist" type="Product2[]"  />
+    <aura:attribute name="vendorRecordsDetails" type="Contact" default="" />
+    <aura:attribute name="selectedvendorID" type="String"  />
+    <aura:attribute name="selectedProId" type="list"  />
+    <aura:attribute name="updateprolist" type="list"  />
+    <aura:attribute name="isRecordSelected" type="Boolean" default="true" />
+    <aura:attribute name="hideCard" type="Boolean" default="true" />
+    <aura:attribute name="showCard" type="Boolean" default="false" />
+    <aura:attribute name="selectedCount" type="integer" default="0" description="selected Records Count" />
+    <aura:attribute name="quantity" type="Integer"  />
+    
+    <aura:if isTrue="{!v.hideCard}">
+        <lightning:card>
+            <div class="slds-align_absolute-center">
+                <b style="font-size:30px">Asset Management Data model</b>
+            </div><br/>
+            <p><b style="font-size:15px">Select a Vendor</b></p>
+            <div class="slds-align_absolute-left">
+                <lightning:select label="" aura:id="contactSelect" onchange="{!c.handleProductSelection}">
+                    <option value="{!null}">Please select</option>
+                    <aura:iteration items="{!v.ConVendorlist}" var="contact">
+                        <option value="{!contact.Id}">{!contact.Name}</option>
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+            <br/>
+            <div class="slds-align_absolute-left">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout slds-table_striped"  style="position: relative;">
+                    <thead>
+                        <tr class="slds-text-title_caps " style="background-color:white;font-size:10px;">
+                            <th class="slds-text-align_center" style="width: 3rem; background-color:#CCCCFF;">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <label class="slds-checkbox">
+                                            <ui:inputCheckbox aura:id="selectAllId"
+                                                              change="{!c.handleSelectAllLead}" />
+                                            <!-- ui:inputCheckbox value="{!v.isSelectAll}" change="{!c.handleSelectAllLead}" aura:id="selectAll"/ -->
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </th>
+                            <th scope="col" style="background-color:#CCCCFF;">
+                                <strong>
+                                    <div class="slds-truncate slds-text-align_center slds-has-flexi-truncate"
+                                         title="Name">Product Name</div>
+                                </strong>
+                            </th>
+                            <th scope="col" style="background-color:#CCCCFF;">
+                                <strong>
+                                    <div class="slds-truncate slds-text-align_left slds-has-flexi-truncate"
+                                         title="Name">Description</div>
+                                </strong>
+                            </th>
+                            <th scope="col" style="background-color:#CCCCFF;">
+                                <strong>
+                                    <div class="slds-truncate slds-text-align_center slds-has-flexi-truncate"
+                                         title="Phone">Ram</div>
+                                </strong>
+                            </th>
+                            <th scope="col" style="background-color:#CCCCFF;">
+                                <strong>
+                                    <div class="slds-truncate slds-text-align_left slds-has-flexi-truncate"
+                                         title="Email">Rom</div>
+                                </strong>
+                            </th>
+                            <th scope="col" style="background-color:#CCCCFF;">
+                                <strong>
+                                    <div class="slds-truncate slds-text-align_left slds-has-flexi-truncate"
+                                         title="Email">Processor</div>
+                                </strong>
+                            </th>
+                            
+                            <th scope="col" class="slds-cell-wrap" style="background-color:#CCCCFF;">
+                                <strong>
+                                    <div class="slds-truncate slds-text-align_left slds-has-flexi-truncate"
+                                         title="Status">Quantity</div>
+                                </strong>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.productlist}" var="prod">
+                            <tr class="slds-cell-wrap" data-id ="{!prod.Id}" style="font-size:10px;width:auto;">
+                                <td class="slds-text-align_center" data-id ="{!prod.Id}">
+                                    <div class="slds-form-element" >
+                                        <div class="slds-form-element__control">
+                                            <label class="slds-checkbox" data-id ="{!prod.Id}">
+                                                <ui:inputCheckbox text="{!prod.Id}" value=""
+                                                                  change="{!c.checkboxSelect}" />
+                                                <span class="slds-checkbox_faux"></span>
+                                                <span class="slds-form-element__label text"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td scope="row" data-label="Name">
+                                    <div class="slds-text-align_center  slds-cell-wrap" title="{!prod.Name}">
+                                        
+                                        <b style="color:#6592FD;">{!prod.Name}  </b> 
+                                    </div>
+                                </td>
+                                <td scope="row" data-label="Name">
+                                    
+                                    <div class="slds-text-align_left slds-has-flexi-truncate  slds-cell-wrap"
+                                         title=" ">
+                                        
+                                        <b style="color:#6592FD;">{!prod.Description} </b>
+                                    </div>
+                                    <!-- <div class="slds-truncate" title="{!lead.Name}"></div> -->
+                                </td>
+                                <td class="slds-cell-wrap" scope="row" data-label="Phone">
+                                    <div class="slds-text-align_center slds-has-flexi-truncate"
+                                         title=" ">{!prod.RAM__c} </div>
+                                </td>
+                                <td scope="row" data-label="Email">
+                                    <div class="slds-text-align_left slds-has-flexi-truncate"
+                                         title=" "> {!prod.ROM__c} </div>
+                                </td>
+                                <td scope="row" data-label="Email">
+                                    <div class="slds-text-align_left slds-has-flexi-truncate"
+                                         title=" "> {!prod.Processor__c}  </div>
+                                </td>
+                                
+                                <td scope="row" data-label="Status">
+                                    <div class="slds-text-align_left slds-has-flexi-truncate" 
+                                         title=" ">
+                                        <lightning:input name="quantity" type="number"   disabled="{!prod.isRecordSelected}" value="{!v.quantity}"   />   
+                                        
+                                    </div>
+                                </td>
+                                
+                            </tr>
+                        </aura:iteration>
+                        
+                    </tbody>
+                    
+                    
+                </table>
+            </div>
+            <footer class="slds-card__footer">
+                <!-- Footer Content -->
+                <lightning:button label="Preview" onclick="{!c.PreviewAllData}" />
+            </footer>
+            
+        </lightning:card>
+    </aura:if>
+    <aura:if isTrue="{!v.showCard}">
+        <lightning:card>
+            <div class="slds-align_absolute-center">
+                <b style="font-size:30px">Vendor Details</b>
+            </div>
+        </lightning:card>
+        <div class="slds-align_absolute-center slds-p-around_x-large">
+            <div class="slds-grid slds-gutters slds-size_12-of-12 ">
+                <div class="slds-col slds-size_6-of-12 ">
+                    <span class="slds-align_absolute-left">
+                        <b style="font-size:15px">
+                            {!v.vendorRecordsDetails.Name}
+                        </b><br/>
+                        {!v.vendorRecordsDetails.MailingStreet}<br/>
+                        {!v.vendorRecordsDetails.MailingCity}<br/>
+                        {!v.vendorRecordsDetails.MailingCountry}<br/>
+                        
+                    </span>
+                </div>
+                <div class="slds-col slds-size_6-of-12">
+                    <span>2</span>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="slds-align_absolute-center slds-p-around_x-large">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout slds-table_striped"  style="position: relative;width:50%;">
+                <thead>
+                    <tr class="slds-text-title_caps " style="background-color:white;font-size:10px;">
+                        
+                        <th scope="col" style="background-color:#CCCCFF;">
+                            <strong>
+                                <div class="slds-truncate slds-text-align_center slds-has-flexi-truncate"
+                                     title="Name">Order Name</div>
+                            </strong>
+                        </th>
+                        <th scope="col" style="background-color:#CCCCFF;">
+                            <strong>
+                                <div class="slds-truncate slds-text-align_left slds-has-flexi-truncate"
+                                     title="Name">Description</div>
+                            </strong>
+                        </th>
+                        <th scope="col" style="background-color:#CCCCFF;">
+                            <strong>
+                                <div class="slds-truncate slds-text-align_center slds-has-flexi-truncate"
+                                     title="Phone">Ram</div>
+                            </strong>
+                        </th>
+                        <th scope="col" style="background-color:#CCCCFF;">
+                            <strong>
+                                <div class="slds-truncate slds-text-align_left slds-has-flexi-truncate"
+                                     title="Email">Rom</div>
+                            </strong>
+                        </th>
+                        <th scope="col" style="background-color:#CCCCFF;">
+                            <strong>
+                                <div class="slds-truncate slds-text-align_left slds-has-flexi-truncate"
+                                     title="Email">Processor</div>
+                            </strong>
+                        </th>
+                        
+                        <th scope="col" class="slds-cell-wrap" style="background-color:#CCCCFF;">
+                            <strong>
+                                <div class="slds-truncate slds-text-align_left slds-has-flexi-truncate"
+                                     title="Status">Quantity</div>
+                            </strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{}" var="prod">
+                        <tr class="slds-cell-wrap"  style="font-size:10px;width:auto;">
+                            
+                            <td scope="row" data-label="Name">
+                                <div class="slds-text-align_center  slds-cell-wrap" title=" ">
+                                    
+                                    <b style="color:#6592FD;">  </b> 
+                                </div>
+                            </td>
+                            <td scope="row" data-label="Name">
+                                
+                                <div class="slds-text-align_left slds-has-flexi-truncate  slds-cell-wrap"
+                                     title=" ">
+                                    
+                                    <b style="color:#6592FD;">  </b>
+                                </div>
+                                <!-- <div class="slds-truncate" title="{!lead.Name}"></div> -->
+                            </td>
+                            <td class="slds-cell-wrap" scope="row" data-label="Phone">
+                                <div class="slds-text-align_center slds-has-flexi-truncate"
+                                     title=" ">  </div>
+                            </td>
+                            <td scope="row" data-label="Email">
+                                <div class="slds-text-align_left slds-has-flexi-truncate"
+                                     title=" ">  </div>
+                            </td>
+                            <td scope="row" data-label="Email">
+                                <div class="slds-text-align_left slds-has-flexi-truncate"
+                                     title=" ">   </div>
+                            </td>
+                            
+                            <td scope="row" data-label="Status">
+                                <div class="slds-text-align_left slds-has-flexi-truncate" 
+                                     title=" ">
+                                </div>
+                            </td>
+                            
+                        </tr>
+                    </aura:iteration>
+                    
+                </tbody>
+                
+            </table>
+        </div>
+    </aura:if>
+</aura:component>

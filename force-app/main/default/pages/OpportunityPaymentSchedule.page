@@ -1,0 +1,4 @@
+<apex:page standardController="Deal__c" extensions="OpportunityPaymentScheduleExtn" action="{!createSchedule}" standardStylesheets="true" lightningStyleSheets="false" docType="html-5.0">
+    <apex:slds /> 
+    <div class="slds-text-heading_medium">Processing, please wait...</div>
+</apex:page>

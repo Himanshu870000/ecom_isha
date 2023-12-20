@@ -1,0 +1,26 @@
+<template>
+      
+    <template if:false={showProductWareHouse}>
+    <div class="slds-modal__header">
+      <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Warehouse Transfer</h1>
+    </div>
+    <div style="height:100px;">
+    <div class="slds-p-horizontal_small">
+        <!--Custom Lookup without Pre-Populate Value for Contact Object-->
+        <c-transfer-Warehouse-Products icon-name="standard:contact" record-id={recordId} s-object-api-name="Warehouse_Master__c" label="Warehouse Master"
+            onlookupupdate={handleLookupSelection} placeholder="Search Warehouse...">
+        </c-transfer-Warehouse-Products>
+        <br/>
+    </div>
+       </div>
+        <div class="slds-modal__footer" style=" height:45px; margin-right: 0px; padding-top:5px;">
+           <lightning-button variant="brand" label="Next"  onclick={handleClick} ></lightning-button>
+        </div>
+     
+    </template>
+    
+    <template if:true={showProductWareHouse}>
+        <c-warehouse-transfer record-id={recordId} selectedware-house-id={recId} onclose={modalCloseHandler}></c-warehouse-transfer>
+    </template>
+ 
+</template>

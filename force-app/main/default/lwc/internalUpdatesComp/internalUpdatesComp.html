@@ -1,0 +1,33 @@
+<template>
+    <lightning-quick-action-panel class="field-title" header="Internal News">
+        
+        <ul class="dynamic-text">
+            <li class="item">
+                <div class="app slds-p-around_x-large">
+                    <template for:each={recList} for:item="rec">
+                        <div key={rec.Id}>
+                        <div class="slds-card card-color slds-m-left_small" >
+                            <div class="slds-card__header slds-grid" style="margin-left:10px;margin-top:10px;margin-bottom:10px;">
+                                <header>
+                                    <div class="slds-no-flex">
+                                        <a href={rec.url}> <lightning-button variant="brand" label={rec.Team_Name__c}> </lightning-button> </a>
+                                      </div>
+                                </header>
+                            </div>
+                            <!-- <p class="team-name slds-m-left_small"><b>{rec.Team_Name__c}</b></p><br/> -->
+                            <!-- <p class="slds-p-horizontal_small" if:true={rec.Is_Expirable__c}><b>Is Expirable? :</b> {rec.Is_Expirable__c}</p> -->
+                            <p class="slds-p-horizontal_small" style="color: #989898;margin-left:10px;" if:true={rec.Is_Expirable__c}><b>{rec.Announcement_Validity_Date__c}</b></p>
+                            <p class="slds-p-horizontal_small" style="color: #989898;margin-left:10px;" if:false={rec.Is_Expirable__c}>NA</p>
+                            <br/><p class="slds-p-horizontal_small slds-m-top_medium field-title" style="margin-left:10px;font-size:15px;"><b>{rec.Announcement_Description__c}</b></p><br/>
+                            <p class="slds-p-horizontal_small slds-m-top_medium" style="margin-left:10px;">Is Expirable? : <b>{rec.Is_Expirable__c}</b></p>
+                            <p class="slds-p-horizontal_small slds-m-bottom_large" style="margin-left:10px;margin-bottom:10px;" if:true={rec.Is_Expirable__c}>Is Expired? : <b>{rec.Is_Expired__c}</b></p>
+                            <p class="slds-p-horizontal_small slds-m-bottom_large" style="margin-left:10px;margin-bottom:10px;" if:false={rec.Is_Expirable__c}>Is Expired? : <b>NA</b></p>
+                        </div><br/>
+                        </div>
+                    </template>
+                </div>
+            </li>
+        </ul>
+        
+</lightning-quick-action-panel>
+</template>

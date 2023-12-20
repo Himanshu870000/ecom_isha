@@ -1,0 +1,5 @@
+<apex:page Controller="UpdateOpportunityOnReject" action="{!UpdateCurrentRejectedOpportunity}">
+    <!--div style="background-color:#CF9FFF;text-align:center;padding:10px;margin-top:23%;width:30%;margin-left:35%;border-radius: 25px;font-style: oblique;font-family:Cursive;">
+        <span style="color:white;font-size:20px;">Thank You</span>
+    </div-->
+</apex:page>

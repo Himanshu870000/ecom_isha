@@ -1,0 +1,63 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" controller="FetchEMIScheduleDetails">
+    
+    
+    <aura:attribute name="recordId" type="String" access="global"/>
+    <aura:attribute name="AllEMIDetails" type="Object"/>
+    <aura:handler name="init" value="{!this}" action="{!c.FetchEMIDetails}"/>
+    
+    <aura:if isTrue="{!not(empty(v.AllEMIDetails))}">
+        <br/><div class="slds-text-heading_medium">Your upcoming EMI's</div><br/>
+        <aura:iteration items="{!v.AllEMIDetails}" var="emi" indexVar="rowIndex">
+            <lightning:card variant="Narrow" title="{!emi.DealsName}" iconName="standard:contact">
+                <aura:iteration items="{!emi.EMIList}" var="allemi" indexVar="rowIndex">
+                    
+                    <lightning:card variant="Narrow" title="{!allemi.Name+' EMI'}">
+                        
+                        <aura:set attribute="actions">
+                            <lightning:button variant="brand" label="Pay"/>
+                        </aura:set>
+                        
+                        <div class="c-container">
+                            <lightning:layout >
+                                
+                                <lightning:layoutItem padding="around-small">
+                                    <div class="header-column">
+                                        <p class="field-title" title="Start date">Start Date</p>
+                                        <p>{!allemi.Start_Date__c}</p>
+                                    </div>
+                                </lightning:layoutItem>
+                                
+                                <lightning:layoutItem padding="around-small">
+                                    <div class="header-column">
+                                        <p class="field-title" title="Due Date">Due Date</p>
+                                        <p>{!allemi.Due_Date__c}</p>
+                                    </div>
+                                </lightning:layoutItem>
+                                
+                                <lightning:layoutItem padding="around-small">
+                                    <div class="header-column">
+                                        <p class="field-title" title="Total Amount">Total Amount</p>
+                                        <p>{!allemi.Total_Amount__c}/-</p>
+                                    </div>
+                                </lightning:layoutItem>
+                                
+                                <lightning:layoutItem padding="around-small">
+                                    <div class="header-column">
+                                        <p class="field-title" title="EMI Amount">EMI Amount</p>
+                                        <p>{!allemi.EMI_Amount__c}/-</p>
+                                    </div>
+                                </lightning:layoutItem>
+                                
+                            </lightning:layout>
+                        </div>
+                        
+                    </lightning:card>
+                    <hr/>
+                    
+                </aura:iteration>
+            </lightning:card>        
+        </aura:iteration>
+    </aura:if>
+        
+    </aura:component>

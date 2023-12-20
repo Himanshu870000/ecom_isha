@@ -1,0 +1,24 @@
+<design:component label="3 columns flexible without header and footer.">
+   
+    <flexipage:template >
+        <flexipage:region name="FirstRow" label="Left Region" defaultWidth="MEDIUM">
+                
+       </flexipage:region>
+        <flexipage:region name="ChildRow1" label="Left Region" defaultWidth="MEDIUM">
+                
+       </flexipage:region>
+        <flexipage:region name="ChildRow2" label="Left Region" defaultWidth="MEDIUM">
+               
+       </flexipage:region>
+        <flexipage:region name="ChildRow3" label="Left Region" defaultWidth="MEDIUM">
+              
+       </flexipage:region>
+      <flexipage:region name="column1" defaultWidth="Small" />
+      <flexipage:region name="column2" defaultWidth="Small" />
+      <flexipage:region name="column3" defaultWidth="Small" />
+  </flexipage:template>
+     <design:supportedFormFactors>
+        <design:supportedFormFactor type="Large"/>
+        <design:supportedFormFactor type="Small"/>
+    </design:supportedFormFactors>
+</design:component>

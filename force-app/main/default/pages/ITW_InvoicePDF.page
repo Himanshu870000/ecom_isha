@@ -1,0 +1,134 @@
+<apex:page renderAs="pdf" showHeader="false" standardController="Invoices__c" extensions="ITW_InvoicPDFController" title="Invoice PDF">
+     <html>
+          <head>
+               <apex:stylesheet value="{!$Resource.PDF1}"/>
+            <style type="text/css">
+                @page {
+                /* margin-top: 0cm; */
+                padding-left: 5px;    
+                padding-right: 5px;      
+                }
+                  
+            </style>
+            <script type = "text/javascript">
+            
+            </script>
+        </head>
+    
+    <apex:stylesheet value="{!$Resource.Quote}"/>
+    
+    <div class="header">
+        <div Style="float:left">
+            <apex:image url="{!$Resource.ItwUpdatedLogo}" width="120" height="100" /><br/>   
+        </div>
+        <br/>
+        <div Style="float:right;padding-right:140px;padding-top:0px;font-size:25px;letter-spacing:1px;color:#0b2243;align:center;font-family: Noto Sans,Helvetica,sans-serif;">
+            <b >I&nbsp;&nbsp;N&nbsp;&nbsp;V&nbsp;&nbsp;O&nbsp;&nbsp;I&nbsp;&nbsp;C&nbsp;&nbsp;E</b>   
+        </div>
+    </div>
+
+
+    
+    <div Style="margin-top:5px;font-family: Noto Sans,Helvetica,sans-serif;">
+        <div class="row" Style="float:right;padding-left:0px;text-align: left;">
+            <b Style="color:#0E4F95;font-size:20px;">ITW Consulting Pvt Ltd</b><br/>
+            <br/>
+            No.16/1, 1st Floor, AVS Compound, 80 Feet Road<br/>
+            Koramangala 4th Block<br/>
+            Bangalore-560034, Karnataka INDIA-562111<br/>
+            Phone: :  +91-80-49104519<br/>
+            Site: www.itwglobal.com<br/>
+            E-mail: social@itwconsulting.in
+        </div> 
+        <div class="row" escape="false" style="word-wrap: break-all float:left;">
+            <span Style="color:#949699;font-size:20px;margin-left:-120px;"><b>Invoice To</b></span><br/><br/>
+            <b Style="color:#0E4F95">{!getInvRecord.Account__r.Name}</b><br/>
+            {!getInvRecord.Account__r.BillingStreet},<br/>
+            {!getInvRecord.Account__r.BillingCity}
+            {!getInvRecord.Account__r.BillingState}<br/>
+            
+            <!-- Email Id	 	: {!billInfoForQuote.Contact.Email}<br/> -->
+            <!--   Quotation No 	: {!billInfoForQuote.Chamber_Number__c} {!quoteVersion}<br/> -->
+            Invoice Date 	:  <apex:outputText value="{0,date,dd' 'MMMMM' 'yyyy}">
+                                   <apex:param value="{!getInvRecord.Invoice_Date__c}" /> 
+                              </apex:outputText>
+            
+            <!-- {!getInvRecord.Invoice_Date__c}<br/> -->
+            
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+
+
+    <div style="display: inline-block;width: 100%;margin: 1rem;padding: 2rem 2rem;padding-top:10px;font-family: Noto Sans,Helvetica,sans-serif;">
+     <div style="display: inline-block;padding: 2rem 2rem;vertical-align: middle;width:50%">
+          <b> <span style="color:#0E4F95">Bill To</span> </b>  <br/><br/>
+             <strong style="font-size:14px;">{!getInvRecord.Quote__r.BillingName}</strong><br/>
+             <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.BillingStreet}" /><br />
+             <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.BillingCity}" />&nbsp;
+             <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.BillingState}" />&nbsp;
+             <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.BillingPostalCode}" />&nbsp;<br />
+             <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.BillingCountry}" />&nbsp;<br />
+             
+        
+     </div>
+     <div style="display: inline-block;padding-top:2px;vertical-align: middle;">
+          <b> <span style="color:#0E4F95">Shipp To</span> </b>  <br/><br/>
+         <strong style="font-size:14px;">{!getInvRecord.Quote__r.ShippingName}</strong><br/>
+         <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.ShippingStreet}" /><br />
+         <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.ShippingCity}" />&nbsp;
+         <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.ShippingState}" />&nbsp;
+         <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.ShippingPostalCode}" />&nbsp;<br />
+         <apex:outputText style="font-size:14px;" value="{!getInvRecord.Quote__r.ShippingCountry}" />&nbsp;<br />
+         
+     </div>
+ </div>
+
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+
+ <table style=" border:1px solid #0E4F95;border-width: 1px;" >
+<tr style="background:#0E4F95;font-family: Noto Sans,Helvetica,sans-serif;" >
+     <td style="border:1px solid black;text-align:center;text-color:white !important;"> <span style="color:white">S.No.</span></td>
+     <td style="border:1px solid black;text-align:center"> <span style="color:white"> <b>Name</b></span> </td>
+     <td style="border:1px solid black;text-align:center"> <span style="color:white"><b>Product Code</b></span></td> 
+     <td style="border:1px solid black;text-align:center"> <span style="color:white"><b>Batch No</b></span></td> 
+     <td style="border:1px solid black;text-align:center"> <span style="color:white"><b>Quantity</b></span></td> 
+     <td style="border:1px solid black;text-align:center"><span style="color:white"><b>List Price </b></span></td> 
+     <td style="border:1px solid black;text-align:center"><span style="color:white"><b>Total Price</b> </span></td> 
+</tr>
+<apex:variable var="index" value="{!0}" />
+<apex:repeat value="{!oppLineItemList}" var="lineItems">
+<tr style="font-family: Noto Sans,Helvetica,sans-serif;">
+     <apex:variable var="index" value="{!(index+1)}"/>
+     <td style="text-align:center;border:1px solid black;"><apex:outputText value="{!index}" id="theValue"/> </td>
+     <td style="text-align:center;border:1px solid black;">{!lineItems.Product2.Name}</td>
+     <td style="text-align:center;border:1px solid black;">{!lineItems.ProductCode}</td>
+     <td style="text-align:center;border:1px solid black;">{!lineItems.Batch_No__c}</td>
+     <td style="text-align:center;border:1px solid black;">{!lineItems.Quantity}</td>
+     <td style="text-align:center;border:1px solid black;">{!lineItems.ListPrice}</td>
+     <td style="text-align:center;border:1px solid black;">{!lineItems.TotalPrice}</td>
+</tr>
+</apex:repeat>
+
+ </table>
+
+<br/>
+ <div style="font-family: Noto Sans,Helvetica,sans-serif;">
+     <h4>
+         <b style="font-size:16px;color:#0E4F95">NOTES</b> 
+         <br/>
+         <p style="text-align:left; margin-top:-10px;">
+            <b> Thanks for your payment.</b>
+         </p>
+     </h4>
+ </div>
+
+
+     </html>
+</apex:page>

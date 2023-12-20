@@ -1,0 +1,125 @@
+<apex:component >
+        <div style="height: 100vh;max-width: 2000px; margin: 0 auto;">
+        
+        <div class="header">
+            <div>
+                <h1 style="margin-bottom:2rem;margin-left:1.9%;font-size: 30px;" class="Mainheading">Aug_Best Plan-1234 Ajeet Kumar</h1>
+                <div class="leftSidebutton">
+                    <span>Site Visti 12</span>
+                    <span>Site Visti 12</span>
+                    <span>Site Visti 12</span>
+                    <span>Site Visti 12</span>
+                </div>
+            </div>
+            <div>
+                <a href="javascript:void(0);" class="top-button">Approved</a>
+            </div>
+        </div>
+        
+        <div class="details">
+            <div class="left">
+                <!-- Left content here -->
+                <div class="box">
+                    <h3>Week 1</h3>
+                    <p> 1 Aug - 5 Aug</p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">4 Site Visit</button>
+                        <button class="slds-button slds-button_brand button-light-green">2 CP Visit</button>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Week 2</h3>
+                    <p> 6 Aug - 12 Aug</p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">4 Site Visit</button>
+                        <button class="slds-button slds-button_brand button-light-green">2 CP Visit</button>
+                        <button class="slds-button slds-button_neutral button-light-red">1 New Partner</button>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <h3>Week 3</h3>
+                    <p> 13 Aug - 19 Aug</p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">Button 1</button>
+                        <button class="slds-button slds-button_brand button-light-green">Button 2</button>
+                        <button class="slds-button slds-button_neutral button-light-red">Button 3</button>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Week 4</h3>
+                    <p> 20 Aug - 26 Aug</p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">Button 1</button>
+                        <button class="slds-button slds-button_brand button-light-green">Button 2</button>
+                        <button class="slds-button slds-button_neutral button-light-red">Button 3</button>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Week 5</h3>
+                    <p> 27 Aug - 3 Sep </p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">Button 1</button>
+                        <button class="slds-button slds-button_brand button-light-green">Button 2</button>
+                        <button class="slds-button slds-button_neutral button-light-red">Button 3</button>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Week 1</h3>
+                    <p> 1 Aug - 5 Aug</p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">Button 1</button>
+                        <button class="slds-button slds-button_brand button-light-green">Button 2</button>
+                        <button class="slds-button slds-button_neutral button-light-red">Button 3</button>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Week 2</h3>
+                    <p> 6 Aug - 12 Aug</p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">Button 1</button>
+                        <button class="slds-button slds-button_brand button-light-green">Button 2</button>
+                        <button class="slds-button slds-button_neutral button-light-red">Button 3</button>
+                    </div>
+                </div>
+                
+                <div class="box">
+                    <h3>Week 3</h3>
+                    <p> 13 Aug - 19 Aug</p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">Button 1</button>
+                        <button class="slds-button slds-button_brand button-light-green">Button 2</button>
+                        <button class="slds-button slds-button_neutral button-light-red">Button 3</button>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Week 4</h3>
+                    <p> 20 Aug - 26 Aug</p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">Button 1</button>
+                        <button class="slds-button slds-button_brand button-light-green">Button 2</button>
+                        <button class="slds-button slds-button_neutral button-light-red">Button 3</button>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Week 5</h3>
+                    <p> 27 Aug - 3 Sep </p>
+                    <div class="box-buttons">
+                        <button class="slds-button slds-button_neutral button-light-blue">Button 1</button>
+                        <button class="slds-button slds-button_brand button-light-green">Button 2</button>
+                        <button class="slds-button slds-button_neutral button-light-red">Button 3</button>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <!-- Right content here -->
+                <p>This is the right div.</p>
+                <div class="calendar-container">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_GOOGLE_CALENDAR_URL" frameborder="0" scrolling="no"></iframe>
+                    <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_GOOGLE_CALENDAR_URL" frameborder="0" scrolling="no"></iframe>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</apex:component>

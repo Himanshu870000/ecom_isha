@@ -1,0 +1,5 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId,flexipage:availableForAllPageTypes" controller="CurrentRecordsControllerToCase">
+    <!--<aura:handler name="init" action="{!c.doInit}"  value="{!this}" />-->
+    
+   <c:addDescription recordId="{!v.recordId}"></c:addDescription>
+</aura:component>

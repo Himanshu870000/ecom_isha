@@ -1,0 +1,19 @@
+<apex:page >
+    <script>
+    	
+    	for(let i=0;i<5;i++){
+        	addElement();   
+        }
+    
+    function addElement () { 
+  		var newDiv = document.createElement("div"); 
+  		var newContent = document.createTextNode("Hi there and greetings!"); 
+  		newDiv.appendChild(newContent);  
+  		var currentDiv = document.getElementById("div1"); 
+  		document.body.insertBefore(newDiv, currentDiv); 
+	}
+    </script>
+    <div id="div1">
+        
+    </div>
+</apex:page>

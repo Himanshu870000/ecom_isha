@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" 
+                access="global" controller="UploadDocumentViaEmailController">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="showSpinner" type="boolean" default="false"/>
+
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner alternativeText="Loading, Please Wait..." title="Loading, Please Wait..." variant="brand" size="large"/>
+    </aura:if>
+    
+    <div class="slds-text-align_center" Style = "font-size: 20px;color: green; font-weight: 900; text-align: center;">
+        <h1 style="margin-top:4%">
+            Sending Email!!!!
+        </h1>
+    </div>
+	
+</aura:component>

@@ -1,0 +1,50 @@
+.container{
+        position: relative;
+        
+        }
+        .img1{
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        
+        }
+        .img2{
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        
+        }
+        .img3{
+        position: absolute;
+        z-index: 3;
+        width: 100%;
+        
+        }
+        .img4{
+        position: absolute;
+        z-index: 4;
+        width:100%;
+        color:black; 
+        
+        }
+        .img5{
+        position: relative;
+        z-index: 5;
+        width:100%;
+        color:black; 
+        
+        }
+      
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+   padding: 10px;
+   /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  
+  
+}

@@ -1,0 +1,37 @@
+<apex:page showHeader="true" sidebar="true">
+  <html>
+    <head>
+      <title>Bangalore Map</title>
+      <style>
+        /* Set the map container's size */
+        #map {
+          width: 100%;
+          height: 600px; /* Adjust the height as needed */
+        }
+      </style>
+    </head>
+    <body>
+      <!-- Map container -->
+      <div id="map"></div>
+
+      <!-- Google Maps API script with your API key -->
+      <apex:facet name="first">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&amp;callback=initMap"></script>
+      </apex:facet>
+
+      <script>
+        function initMap() {
+          debugge;
+          const bangalore = { lat: 12.9716, lng: 77.5946 }; // Bangalore's coordinates
+          const mapOptions = {
+            center: bangalore,
+            zoom: 10 // You can adjust the zoom level as needed
+          };
+
+          // Create the map
+          const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        }
+      </script>
+    </body>
+  </html>
+</apex:page>

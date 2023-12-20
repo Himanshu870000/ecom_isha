@@ -1,0 +1,129 @@
+<aura:component implements="flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,lightning:isUrlAddressable,force:hasRecordId,lightning:actionOverride" access="global" controller="EventSchedularHelper">
+    <aura:html tag="style">
+        .slds-modal__container{
+        max-width: 50rem !important;
+        width:100% !important;
+        }
+    </aura:html>O
+    
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }       
+        .slds-modal__content{
+        
+        height:auto !important;
+        max-height:auto !important;
+        min-heigth:70% !important;
+        }
+    </aura:html>
+    <aura:attribute name="displayMeetingSchedularChild" type="boolean"/>
+    <aura:attribute name="displayMeetingSchedular" type="boolean" default="true"/>
+    <aura:attribute name="displayMeetingDetails" type="boolean" default="false"/>
+    <aura:attribute name="showSlots" default="false" type="Boolean" />
+    <aura:attribute name="Warning" type="boolean" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="PassDate" type="Date" />
+    <aura:attribute name="emailOfAnotherUser" type="String" />
+    <aura:attribute name="Hostname" type="String" default="Shubham Kumar"/>
+    <aura:attribute name="HostCut" type="String" default="Shubham Kumar"/>
+    <aura:attribute name="HostEmail" type="String" default="Shubham Kumar"/>
+    <aura:attribute name="SelSlot" type="String" />
+    <aura:attribute name="SelSlotDuration" type="String" default="12:00-01:00"/>
+    <aura:attribute name="Description" type="String" />
+    <aura:attribute name="wrapperList" type="object"/>
+    <aura:attribute name="SelDay" type="String" default="60 min"/>
+    <aura:attribute name="MyNotes" type="String" />
+    <aura:attribute name="SelStartDate" type="String" />
+    <aura:attribute name="SelEndDate" type="String" />
+    <aura:attribute name="CurrentMonth" type="String"/>
+    <aura:attribute name="myMap" type="List" />
+    <aura:attribute name="availableSlots" type="List" />
+    <aura:attribute name="Days" type="String[]"/>
+    <aura:attribute name="PsyId" type="String" />
+    <aura:attribute name="pageUrl" type="String" />
+    <aura:attribute name="checkSpinner" type="boolean" default="false"/>
+    <aura:handler name="sampleComponentEvent" event="c:compEvent" action="{!c.getSlots}"/>
+    <aura:attribute name="selectedLookUpRecords" type="sObject[]" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+    <aura:if isTrue="{!v.displayMeetingSchedular}">
+        
+        <div class="slds-m-around_xx-large">
+            
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <aura:if isTrue="{!v.checkSpinner}">
+                        <div aura:id="spinnerId" class="slds-spinner_container">
+                            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                                <span class="slds-assistive-text">Loading...</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>
+                    </aura:if>
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{! c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                        <header class="slds-modal__header" style="background-color:#004d99;slds-table--header-fixed_container">
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                <div>
+                                    <b style="color:white">
+                                        Schedule Zoom Meeting<span>&#174;</span>
+                                    </b> 
+                                    
+                                </div>
+                            </h2>
+                        </header>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <b style="font-size: 15px;">
+                            HOST
+                            <br/>
+                            <span class="slds-avatar">
+                                <abbr class="slds-avatar__initials slds-icon-standard-account" title="Company name"><b style="font-size: 15px">{!v.HostCut}</b></abbr>
+                            </span>
+                            <br/>
+                            {!v.Hostname}
+                            <br/>
+                            {!v.HostEmail}
+                            <br/>
+                            
+                            Agenda For the Meeting :
+                            <lightning:Textarea value="{!v.Description}" style="font-family: Georgia, serif; color: #11a3db;" placeholder="Type something interesting"/>
+                            <br/>
+                            
+                            Time Selection <br/>
+                            
+                            <lightning:input type="datetime" name="Start Time" label="Start Time" value="{!v.SelStartDate}"/>
+                            
+                            <lightning:input type="datetime" name="End Time" label="End Time" value="{!v.SelEndDate}"/>
+                            
+                            <br/><br/>
+                            
+                            <!--c:reUsableMultiSelectLookup objectAPIName="contact"
+                                                         IconName="standard:contact"
+                                                         lstSelectedRecords="{!v.selectedLookUpRecords}"
+                                                         label="Alumni Name"/-->
+                            
+                            <br/><br/>
+                        </b>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <div class="slds-align_absolute-center">
+                            <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.closeModel }"/>
+                            <lightning:button variant="brand" label="Schedule Meeting" iconPosition="center" onclick="{!c.scheduleZoomMeeting}" />
+                        </div>
+                    </footer>
+                </div>
+            </section>
+            
+        </div>
+    </aura:if>
+</aura:component>

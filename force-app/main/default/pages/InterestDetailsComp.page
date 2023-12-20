@@ -1,0 +1,690 @@
+<apex:page controller="InterestDetailsCompController" applyHtmlTag="false" sidebar="false"  showHeader="false" cache="true" renderAs="advanced_pdf" docType="html-5.0">
+    <head>    
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />    
+        <style type="text/css"  media="print">
+           
+       
+            @page {
+            
+            <apex:outputPanel layout="none" rendered="true">
+                 background: url("{!$Resource.WaterMark}") no-repeat center center;
+            </apex:outputPanel>
+            
+            size: A4 landscape;    
+            
+            padding-left: 5px;    
+            padding-right: 5px;      
+            }
+            th {  
+            font-weight: bold;
+            text-align: center;
+            background-color: #92d5f0;
+            color: black;
+            padding: 8px;
+            }
+            td {    
+            font-size: 15px;
+            text-align: left;
+            padding: 8px;
+            }
+            table{
+            border-collapse: collapse;
+            }
+            table, th, td {
+            border: 1px solid black;
+            }
+        </style>    
+    </head>
+    
+    <body class= "watermark">
+        <table width="100%">
+            <tr>
+                <td >
+                    Name  
+                </td>
+                <td>
+                    {!conRec.Name}
+                </td>
+                
+                <td > 
+                    Date Of Booking
+                </td>
+                
+                <td > 
+                    {!unitRec.Date_Of_Booking__c}
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="width:10%">
+                    Flat Number 
+                </td>
+                <td style="width:20%">
+                    {!conRec.Flat_Booked__c}
+                </td>
+                
+                <td style="width:20%"> 
+                    Base sft
+                </td>
+                <td style="width:30%"> 
+                    {!unitRec.Base_Area_sq_ft__c }
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="width:10%">
+                    S/o  
+                </td>
+                <td style="width:20%">
+                    Naga Raju
+                </td>
+                
+                <td style="width:20%"> 
+                    initial sft
+                </td>
+                <td style="width:30%"> 
+                    {!unitRec.Initial_Area_sq_ft__c }
+                </td>
+            </tr>
+            
+            
+            
+            <tr>
+                <td style="width:10%">
+                    Address
+                </td>
+                <td style="width:90%">
+                    {!conRec.MailingStreet},{!conRec.MailingCity},{!conRec.MailingState},{!conRec.MailingCountry},{!conRec.MailingPostalCode}
+                </td>
+                
+                <td></td>
+                <td></td>
+            </tr>
+            
+            
+            
+            <tr>
+                <td style="width:10%">
+                    Mobile 1
+                </td>
+                <td style="width:40%">
+                    {!conRec.Phone}
+                </td>
+                
+                <td style="width:10%">
+                    Mobile 2
+                </td>
+                <td style="width:40%">
+                    {!conRec.MobilePhone}
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="width:10%">
+                    Email
+                </td>
+                <td style="width:50%">
+                    {!conRec.Email}
+                </td>
+                
+                <td>
+                    Registration Date 
+                </td>
+                <td>
+                    {!dealRec.Registration_Date__c}
+                </td>
+            </tr>
+            
+            
+        </table>
+    </body> 
+    <br/>
+    <div style="margin-left: 400px;">
+        <b> FLAT COSTING DETAILS </b>
+    </div>
+    <br/>
+     <table width="100%">
+        <tr>
+            <td style="width:10%">
+                <b>Base Price(PER Sqft)</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    2,650
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                24,77,750
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+           
+            <td style="width:30%">
+                <b>Agreement Details</b>
+            </td>
+        </tr>
+       <tr>
+            <td style="width:10%">
+                <b>EDC+IDC+club charges(per sqft)</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                   180
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                1,68,300
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>Sales Deed</b>
+            </td>
+            
+            <td style="width:30%">
+                <b>10,74,000</b>
+            </td>
+        </tr>
+         <tr>
+            <td style="width:10%">
+                <b>Car Parking</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    1,50,000
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                CP SLOT
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>54</b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>Construction Agreement</b>
+            </td>
+            
+            <td style="width:30%">
+                <b>17,22,050</b>
+            </td>
+        </tr>
+         <tr>
+            <td style="width:10%">
+                <b>Miscellaneous Charges</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    2650
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                247750
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            
+            <td style="width:30%">
+                <b></b>
+            </td>
+        </tr>
+         <tr>
+            <td style="width:10%">
+                <b>VAT TAX</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    1.25%
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>Doc.No</b>
+            </td>
+            
+            <td style="width:30%">
+                <b>1533/2022</b>
+            </td>
+        </tr>
+         <tr>
+            <td style="width:10%">
+                <b>IVF + Membership charges</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    1616
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                1616
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>28/03/2022</b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>0081</b>
+            </td>
+            <td style="width:10%">
+                <b>AB</b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>TOTAL</b>
+            </td>
+            
+            <td style="width:30%">
+                <b>27,96,500</b>
+            </td>
+        </tr>
+         <tr>
+            <td style="width:10%">
+                <b>Registraion Charges</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    (7.5% on SD 0.5% CA)
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                1,22,499
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                28/03/2022</b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>0081</b>
+            </td>
+            <td style="width:10%">
+                <b>AB</b>
+            </td>
+            <td style="width:10%">
+                <b>BANK LOAN DETAILS</b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            
+            <td style="width:30%">
+                <b></b>
+            </td>
+        </tr>
+         <tr>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>
+                  
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                (98270+8610+15619)
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>Name of Bank </b>
+            </td>
+            
+            <td style="width:30%">
+                <b>Allhabad</b>
+            </td>
+        </tr>
+         <tr>
+            <td style="width:10%">
+                <b>Electrical Charges</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    30000
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                30-04-2022
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>714320</b>
+            </td>
+            <td style="width:10%">
+                <b>SBI</b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>Loan Sanction Amount </b>
+            </td>
+           
+            <td style="width:30%">
+                <b>22,00,00</b>
+            </td>
+        </tr>
+         
+            <tr>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    30000
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                30-04-2022
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>714320</b>
+            </td>
+            <td style="width:10%">
+                <b>SBI</b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>Loan Sanction Amount </b>
+            </td>
+           
+            <td style="width:30%">
+                <b>22,00,00</b>
+            </td>
+        </tr>
+         
+         
+
+         <tr>
+            <td style="width:10%">
+                <b>Corpus And Maintainance Charges</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                    51,650
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                18-04-2022
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b>HDFC</b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            
+            <td style="width:30%">
+                <b></b>
+            </td>
+        </tr>
+             <tr>
+            <td style="width:10%">
+                <b>TOTAL</b>
+            </td>
+            <td style="width:10%">
+                <b>
+                  
+                </b>
+            </td>
+            <td style="width:10%">
+                <b>
+                 29,50,165 
+
+                </b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            <td style="width:10%">
+                <b></b>
+            </td>
+            
+            <td style="width:30%">
+                <b></b>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <div style="margin-left: 400px;">
+        <b>
+            Interest Costing Details
+        </b>
+    </div>
+    <br/>
+    <table width="100%">
+        <tr>
+            <td style="width:10%">
+                <b>Payment Details</b>
+            </td>
+            <td style="width:10%">
+                <b>Instal Values</b>
+            </td>
+            <td style="width:10%">
+                <b>Due Date</b>
+            </td>
+            <td style="width:10%">
+                <b>Rec Date</b>
+            </td>
+            <td style="width:10%">
+                <b>Rec Number</b>
+            </td>
+            <td style="width:10%">
+                <b>Cheque Number</b>
+            </td>
+            <td style="width:10%">
+                <b>Bank Name</b>
+            </td>
+            <td style="width:10%">
+                <b>Rec Amount</b>
+            </td>
+            <td style="width:10%">
+                <b>ST</b>
+            </td>
+            <td style="width:10%">
+                <b>Balance</b>
+            </td>
+            <td style="width:10%">
+                <b>Delay Days</b>
+            </td>
+            <td style="width:10%">
+                <b>Interest</b>
+            </td>
+        </tr>
+        <apex:repeat value="{!emiRec}" var="pay">
+            
+            <tr>
+                <td  style="width:10%">
+                    {!pay.Name}
+                </td>
+                <td style="width:10%">
+                    {!pay.Balance__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Due_Date__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Recorded_date__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Balance__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Cheque_No__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Bank_Name__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Amount_Received__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Amount_Received__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Balance__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Delay_Days__c}
+                </td>
+                <td style="width:10%">
+                    {!pay.Interest__c}
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+    
+    
+    
+    
+</apex:page>

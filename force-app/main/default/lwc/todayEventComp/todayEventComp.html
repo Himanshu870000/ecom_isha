@@ -1,0 +1,24 @@
+<template>
+    <lightning-quick-action-panel class="field-title" header="Recent Events">
+        <ul class="dynamic-text">
+            <li class="item">
+                <div class="app slds-p-around_x-medium">
+                    <template for:each={recList} for:item="rec">
+                        <div key={rec.Id}>
+                            <div class="slds-var-p-around_medium slds-card card-color slds-m-left_small">
+                                <span style="margin-right:8px; ">{rec.Event_Start_Time__c}</span> 
+                                <lightning-formatted-url value={url} tooltip="Use https://domain-name" label={rec.Subject} target="_blank" ></lightning-formatted-url>
+                                &nbsp;&nbsp;
+                            </div><br/>
+                       </div>
+                    </template>
+                </div>
+            </li>
+        </ul>
+        
+    </lightning-quick-action-panel>
+    <!-- <div>
+        <a href="_blank">View all</a>
+
+    </div> -->
+</template>

@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Upload Image">
+        <div class="slds-m-around_medium">
+            <lightning-input type="file" accept="image/*,.jpeg,.png,.jpg" onchange={handleFileSelect}></lightning-input>
+            <template if:true={imageData}>
+                <img src={imageData} alt="uploaded image" style="max-width: 300px;" />
+            </template>
+            <div class="slds-m-top_medium">
+                <lightning-button variant="brand" label="Save" onclick={saveImage}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

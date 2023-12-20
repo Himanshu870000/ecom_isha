@@ -1,0 +1,18 @@
+.THIS {
+font-family: 'Inknut Antiqua';
+    font-size: 40px;
+}
+
+@font-face
+{
+    font-family:'Inknut Antiqua';
+    src:url(/resource/FontStyle);
+}
+.THIS div.container {
+  position: relative;
+}
+.THIS.carouselImage{
+    width:10px;
+    height:10px;
+    
+}

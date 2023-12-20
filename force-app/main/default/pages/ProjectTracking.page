@@ -1,0 +1,459 @@
+<apex:page controller="ProjectTrackingController" applyBodyTag="False" sidebar="false" 	showHeader="false" >
+    <html  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="userVisit">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+        <head>
+            
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+            <apex:slds /> 
+                <c:scriptComponent />
+                    <script>
+                    debugger;
+            var nextLocationList = '{!visitLocation}';
+            console.log('nextLocationList',nextLocationList)
+            var complatedVisit = '{!complatedVisit}';
+            var userId = '{!userId}';
+            var penVisit = '{!visitListTobePending}';
+            var compVisit = '{!visitListTobeCompleted}';
+            var dayplanCreated = {!dayplanCreated};
+            </script>
+            <title>Travel Modes in Directions</title>
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=default">
+            </script>
+            <style type="text/css">
+                body{
+                	overflow-x:hidden;
+                }
+                #map {
+                height: 300px;
+                }
+                .dot {
+                height: 30px;
+                width: 30px;
+                background-color: #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                text-align: center;
+                text-decoration: none;
+                font-size: large;
+                /* padding: 2px; */
+                padding-top: 3%;
+                }
+                .previousButtonCSS{
+                display: inline;
+                
+                
+                }
+                .nextButtonCSS{
+                display: inline;
+                margin-top: 0;
+                margin-left: 3%;
+                
+                }
+                .btn-primary {
+                color: #fff;
+                background-color: #337ab7;
+                border-color: #2e6da4;
+                }
+                .button:hover {
+                background-color: #f1f1f1;
+                }
+                .dot:hover {
+                background-color: #337ab7;
+                }
+                
+                .today {
+                background-color: #337ab7;
+                color: white;
+                font-size: large;
+                }
+                .pbtn{
+                background:#f7941d !important;
+                }
+                .pheader{
+                background: #073e5f ! important;
+                }
+                .small-size{
+                }
+                @media screen and (max-width: 800px) 
+                {
+                	.slds-scope .slds-size_8-of-12 ,.slds-scope .slds-size_4-of-12{
+                		width:100%;
+                		margin-left: 2% !important;
+                	}
+                	.slds-scope .slds-grid{
+                		display:block;
+                	}
+                .slds-scope .slds-size_3-of-12{
+                	padding:2%;
+                }
+                .left-button{
+                	width:initial !important;
+                }
+                .small-size{
+                	padding-left:initial !important;
+                	padding-right:initial !important;
+                }
+                
+                }
+                @media only screen and (max-width: 800px){
+                	.small-margin{
+                	padding:unset !important;
+                }
+                
+                .small-padding{
+                    margin-left: unset !important; 
+
+                }
+                .small-btns{
+                    display: flex;
+                    flex-flow: column;
+                    justify-content: space-between;
+                }
+                 .small-padding{
+                	margin-top:6px !important;
+                }
+                }
+                
+            </style>
+        </head>
+        <body class="slds-scope" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  ng-controller="userVisitController" data-ng-init="angularInit()">
+            
+            
+            <div class="slds-page-header pheader" >
+                <div class="slds-page-header__row slds-p-top_xxx-small slds-p-bottom_xxx-small">
+                    <div class="slds-page-header__col-title">
+                        <div class="slds-media">
+                            
+                            <div class="slds-media__body">
+                                <div class="slds-page-header__name">
+                                    <div class="slds-page-header__name-title">
+                                        <h1>
+                                            <span style="color:white">User Tracking</span>
+                                            <span class="slds-page-header__title slds-truncate" title="Recently Viewed" style="color:white">Ajeet Kumar</span>
+                                        </h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-page-header__col-actions">
+                        <div class="slds-page-header__controls">
+                            <div class="slds-page-header__control">
+                                <button class="slds-button slds-button_brand pbtn" ng-click="startDay()">Start Your Day</button>
+                                <button class="slds-button slds-button_brand pbtn">End Your Day</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="slds-grid slds-gutters slds-size_12-of-12 slds-grid_horizontal slds-p-top_xx-small slds-p-bottom_xx-small" ng-show="visitData">
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="slds-col slds-size_6-of-12 slds-align_absolute-center">
+                            <h2 style="font-size: initial;">
+                               <b style="margin-top: 10px;margin-bottom: 8px;color: #073e5f;">{{monthName}} - {{year}}</b> 
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="slds-col slds-size_6-of-12 slds-align_absolute-center">
+                            
+                            <div class="slds-col slds-size_3-of-12 left-button" style="padding-left : 20%;font-size:15px;">
+                                <button ng-click="previousWeek()" class="btn-primary" style="background: #073e5f;color: white;"> <i class="fa fa-angle-left" aria-hidden="true"></i></button>
+                            </div>
+                            <div ng-repeat="currentDate in currentDateMap" style="padding-left: 2px;padding-right: 2px;padding-top: 2px;padding-bottom: 2px;">
+                                <span class="dot" ng-class="{'today': currentDate.selected}" ng-click="getVisits($index)">
+                                    {{currentDate.day}}	
+                                </span>                     
+                            </div>
+                            <div class="slds-col slds-size_3-of-12" style="padding-left:3%;font-size:15px;">
+                                <button ng-click="nextWeek()" class="btn-primary" style="background: #073e5f;color: white;"> <i class="fa fa-angle-right" aria-hidden="true"></i></button>
+                            </div>
+                            
+                    
+                    
+                </div>
+                    </div>
+                </div>
+                
+                <!--div class="row">
+                    <div class="slds-col slds-size_6-of-12 slds-align_absolute-center">
+                    {{monthName}}
+                </div>
+                </div-->
+                
+                <!--div class="row">
+                    <div class="col">col</div>
+                    
+                </div-->
+                
+                <!--div class="slds-col slds-size_6-of-12 slds-align_absolute-center">
+                    
+                    <div class="slds-col slds-size_3-of-12 left-button" style="padding-left : 20%;font-size:15px;">
+                        <button ng-click="previousWeek()" class="btn-primary"> <i class="fa fa-angle-left" aria-hidden="true"></i></button>
+                    </div>
+                    <div ng-repeat="currentDate in currentDateMap" style="padding-left: 2px;padding-right: 2px;padding-top: 2px;padding-bottom: 2px;">
+                        <span class="dot" ng-class="{'today': currentDate.selected}" ng-click="getVisits($index)">
+                            {{currentDate.day}}	
+                        </span>                     
+                    </div>
+                    <div class="slds-col slds-size_3-of-12" style="padding-left:3%;font-size:15px;">
+                        <button ng-click="nextWeek()" class="btn-primary"> <i class="fa fa-angle-right" aria-hidden="true"></i></button>
+                    </div>
+                    
+                    
+                    
+                </div-->
+                <!--div class="slds-col slds-size_3-of-12 slds-align_absolute-center">
+                    <button class="slds-button slds-button_brand pbtn" ng-click="updateWeek()">Current Week</button>
+                </div-->
+                
+            </div>
+            
+            <div class="slds-grid slds-gutters slds-size_12-of-12 slds-wrap" ng-show="visitData">
+                
+                
+                <div class="slds-col  slds-size_8-of-12 slds-p-top_small">
+                    <article class="slds-card">
+                        <div class="slds-card__header slds-grid pheader" >
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title slds-p-top_xxx-small slds-p-bottom_small">
+                                            <span style="color:white">Project List Tobe Visit</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner slds-grid small-margin">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-no-row-hover slds-table_fixed-layout">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Opportunity Name">Customer Name</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Opportunity Name">Customer Phone</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Opportunity Name">Project Name</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Account Name">Project Address</div>
+                                        </th>
+                                        <!--th class="" scope="col">
+                                            <div class="slds-truncate" title="Close Date">Dealer Phone</div>
+                                        </th-->
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Close Date">Job Status</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Close Date">Action</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="x in pendingVisit">
+                                    <tr class="slds-hint-parent" >
+                                        <td data-label="Close Date">
+                                            <div class="slds-truncate" title="4/14/2015" >{{x.Lead__r.Name}}</div>
+                                        </td>
+                                        <td data-label="Close Date">
+                                            <div class="slds-truncate" title="4/14/2015" >{{x.Lead__r.Phone}}</div>
+                                        </td>
+                                        <td data-label="Account Name">
+                                            <div class="slds-truncate" title="Cloudhub" >{{x.Project__r.Name}}</div>
+                                        </td>
+                                        <td data-label="Close Date">
+                                            <div class="slds-truncate" title="4/14/2015" >{{x.Project__r.City__c}}</div>
+                                        </td>
+                                        <!--td data-label="Prospecting">
+                                            <div class="slds-truncate" title="Prospecting" >{{x.Account__r.Phone}}</div>
+                                        </td-->
+                                        <td ng-if="x.Job_Status__c == 'Assigned'" >
+                                            <span class="slds-icon_container slds-icon-action-submit-for-approval slds-icon-text-default" >
+                                                 <svg aria-hidden="true" class="slds-icon ">
+                                                      <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                        xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#submit_for_approval">
+                                                      </use>
+                                                 </svg>
+                                                 <span class="slds-assistive-text">Pending</span>
+                                                
+											</span>
+                                        </td>
+                                        <td ng-if="x.Job_Status__c == 'In Progress'">
+                                            <span class="slds-icon_container slds-icon-action-defer slds-icon-text-default" >
+                                                 <svg aria-hidden="true" class="slds-icon ">
+                                                      <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                        xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#defer">
+                                                      </use>
+                                                 </svg>
+                                                 <span class="slds-assistive-text">Pending</span>
+											</span>
+                                        </td>
+                                        <td ng-if="x.Job_Status__c == 'Pending'">
+                                            <div class="slds-text-color_error" style="font-size: initial;">{{x.Job_Status__c}}</div>
+                                        </td>
+                                        <td data-label="Prospecting " class="small-btns"> 
+                                            <button class="slds-button slds-button_brand pbtn small-size"  ng-click="amendVisit($index,x.Id)">Amend Visit</button>
+                                            <button class="slds-button slds-button_brand pbtn small-size small-padding"  ng-click="startVisit(x.Project__r.Id,x.Id);">Start Visit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="slds-card">
+                        <div class="slds-card__header slds-grid pheader">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title slds-p-top_xxx-small slds-p-bottom_small">
+                                            <span style="color:white">Completed Project Visit</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner slds-grid small-margin">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-no-row-hover slds-table_fixed-layout">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Opportunity Name">Customer Name</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Opportunity Name">Customer Phone</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Opportunity Name">Project Name</div>
+                                        </th>
+                                        <th class="" scope="col">
+                                            <div class="slds-truncate" title="Account Name">Project Adress</div>
+                                        </th>
+                                        <!--th class="" scope="col">
+                                            <div class="slds-truncate" title="Close Date">Dealer Phone</div>
+                                        </th-->
+                                        <th>
+                                            <div class="slds-truncate" title="Close Date">Job Status</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="x in compVisit">
+                                    <tr class="slds-hint-parent">
+                                        <td data-label="Close Date">
+                                            <div class="slds-truncate" title="4/14/2015" ><h2>
+                                                {{x.Lead__r.Name}}
+                                                </h2></div>
+                                        </td>
+                                        <td data-label="Close Date">
+                                            <div class="slds-truncate" title="4/14/2015" ><h2>
+                                                {{x.Lead__r.Phone}}
+                                                </h2></div>
+                                        </td>
+                                        <td data-label="Account Name">
+                                            <div class="slds-truncate" title="Cloudhub"><h2>
+                                                {{x.Project__r.Name}}
+                                                </h2></div>
+                                        </td>
+                                        <td data-label="Close Date">
+                                            <div class="slds-truncate" title="4/14/2015"><h2>
+                                                {{x.Project__r.City__c}}
+                                                </h2></div>
+                                        </td>
+                                        <td data-label="Prospecting">
+                                            <div class="slds-truncate" title="Prospecting"><h2>
+                                                {{x.Account__r.Phone}}
+                                                </h2></div>
+                                        </td>
+                                        <td>
+                                            <span class="slds-icon_container slds-icon-action-approval slds-icon-text-default" >
+                                                 <svg aria-hidden="true" class="slds-icon ">
+                                                      <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                        xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#approval">
+                                                      </use>
+                                                 </svg>
+                                                 <span class="slds-assistive-text">Custom 22</span>
+											</span>
+                                            <!--span class="slds-icon_container slds-icon-action-priority" >
+                                                <svg aria-hidden="true" class="slds-icon  slds-icon--x-small">
+                                                    <use xmlns:xlink="<a class="vglnk" href="http://www.w3.org/1999/xlink" rel="nofollow"><span>http</span>></a>" 
+                                                         xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#priority">
+                                                    </use>
+                                                </svg>
+                                                <span class="slds-assistive-text">Priority</span>
+                                    		</span-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </article>
+                </div>
+                <div class="slds-col slds-size_4-of-12 slds-p-top_small">
+                    <article class="slds-card">
+                        <div class="slds-card__header slds-grid pheader">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title slds-p-top_xxx-small slds-p-bottom_small">
+                                            <span style="color:white">Tracking Analyst</span>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <div id="map" ></div>
+                            <div id="info_div"></div>
+                            <script src="{!$Resource.ProjectTracking}">
+                            </script>
+                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAki1KNhw8H36mkjnT_BBsJyX-dsV3hmnA&callback=initMap&libraries=&v=weekly">
+                            </script>
+                        </div>
+                    </article>
+                </div>
+                
+                <div>
+                <section role="dialog" ng-show="amendVisitHandling" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header pheader">
+                            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate" style="color:white;">Change Planned Visit Date</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-form" role="list">
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                            <label class="slds-form-element__label" for="single-form-element-id-02">Current visit Date</label>
+                                            <div class="slds-form-element__control">
+                                                <input type="date" id="single-form-element-id-02" placeholder="Dealer Name" class="slds-input" ng-model="amendVisitDate" readonly="true"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                            <label class="slds-form-element__label" for="single-form-element-id-02">Change visit date</label>
+                                            <div class="slds-form-element__control">
+                                                <input type="date" id="single-form-element-id-02" placeholder="Dealer Name" class="slds-input" ng-model="newVisitDate"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <button class="slds-button slds-button_brand pbtn" ng-click="changeAmendVisit();">Change Visit Date</button>
+                            <button class="slds-button slds-button_outline-brand" ng-click="cancelAmendVisit();">Cancel</button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" ng-show="amendVisitHandling"></div>
+            </div>
+            </div>
+        </body>
+        
+    </html>
+    
+</apex:page>

@@ -1,0 +1,13 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="schoolPageCmpHelper" access="global" >
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="imageUrl" type="String" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <lightning:card>
+        <div class="slds-align_absolute-center" >
+            <aura:if isTrue="{!not(empty(v.imageUrl))}">
+                <img src="{!v.imageUrl}" alt="Image" />
+            </aura:if>
+        </div>
+    </lightning:card>
+</aura:component>

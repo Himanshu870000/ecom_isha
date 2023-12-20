@@ -1,0 +1,36 @@
+<template>
+        <!--lightning-quick-action-panel class="field-title" header="">
+            <ul class="dynamic-text" >
+                <li class="item" >
+                    <div class="app" >
+                        <template for:each={recList} for:item="rec">
+                            <div key={rec.Id}>
+                                <div class="slds-card card-color slds-m-left_small">
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_1-of-3 slds-align_absolute-center">
+                                            <span class="slds-avatar slds-avatar_large richtext  slds-m-top_large">
+                                                <abbr class="slds-avatar__initials" title="person name">
+                                                    <a href={rec.url}> <lightning-formatted-rich-text value={rec.Logo__c} class="richtext"> </lightning-formatted-rich-text> </a>
+                                                </abbr>
+                                              </span>
+                                          </div>
+                                          <div class="slds-col slds-size_2-of-3">
+                                            <b>{rec.Name}</b>
+                                    <p class="slds-p-horizontal_small">Board/Club : <b>{rec.Asset_Belongs_To__r.Name}</b></p>
+                                    <p><b><lightning-formatted-date-time  value={rec.Event_Schedular__r.Event_Start_Date__c} year="2-digit" month="short" day="2-digit" weekday="long"></lightning-formatted-date-time></b></p>
+                                    <p class="slds-p-horizontal_small">Client Selling Date : <b>{rec.Selling_Target_Date__c}</b></p>
+                                    <p class="slds-p-horizontal_small">Asset Selling Price : <b>{rec.Selling_Asset_Cost__c}</b></p>
+                                          </div>
+                                    </div>
+                                    
+                                       
+                                
+                                </div>
+                           <br/>
+                        </div>
+                        </template>
+                    </div>
+                </li>
+            </ul>
+    </lightning-quick-action-panel-->
+    </template>

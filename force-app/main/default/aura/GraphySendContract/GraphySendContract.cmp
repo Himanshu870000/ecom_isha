@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" controller="GraphyContractDocumentPDFController" access="global" >
+    <!-- auraCmpQuickAction.cmp -->
+    <aura:handler name="init" value="{!this}" action="{!c.sendEmail}" />
+    
+</aura:component>

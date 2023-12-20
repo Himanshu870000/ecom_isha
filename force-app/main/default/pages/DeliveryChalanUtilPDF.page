@@ -1,0 +1,174 @@
+<apex:page showHeader="false" sidebar="false"  docType="html-5.0" applyBodyTag="false" renderAs="pdf" applyHtmlTag="false"  standardController="Opportunity" extensions="DeliverChalanUtilPDFController">
+    
+    
+    <apex:stylesheet value="{!$Resource.Quote}"/>
+    <head>
+        <style>
+            
+        </style>
+    </head>
+    <div class="header">
+        <!--apex:image value="https://cmenvirosystems--cmedev.sandbox.my.salesforce.com/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Png&versionId=0685j000007gufR&operationContext=CHATTER&contentId=05T5j00000Hz5kT" style="float:right;height:75px;" /-->
+        <div Style="float:left">
+            <apex:image url="{!$Resource.Utillogo}" width="auto" height="auto" /><br/>   
+        </div>
+        <br/>
+        <div Style="float:right;padding-right:70px;padding-top:0px;font-size:25px;letter-spacing:2px;color:Orange;font-family: Noto Sans,Helvetica,sans-serif;">
+            <b>DELIVERY&nbsp;&nbsp;CHALLAN</b>   
+        </div>
+    </div>
+    
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    
+    <br/>
+    <br/>
+    
+    <div >
+        <center>
+            <b style="color:#00b26f;font-size:24px;font-weight: bold;">Delivery Challan – Utilitarian Labs </b>
+        </center>
+    </div>
+    <br/>
+    <br/>
+    <div>
+        <table style="width:100%;border:1px solid black;border-collapse:collapse;background-color: #dddddd;">
+            <tr>
+                <td style="border:1px solid black;padding:10px;width:30%;">Company Name</td>
+                <td style="border:1px solid black;padding:10px;width:70%;"><b>UTILITARIAN LABS PRIVATE LIMITED</b></td>
+            </tr>
+            <tr>
+                <td style="border:1px solid black;background-color: #dddddd;padding:10px;width:30%;">Address</td>
+                <td style="border:1px solid black;padding:10px;width:70%;"><b>4th Floor, 70, 1st Cross Rd, Sahyadri Layout, Panduranga Nagar, Bengaluru, Karnataka 560076</b> </td>
+            </tr>
+            <tr>
+                <td style="border:1px solid black;background-color: #dddddd;padding:10px;width:30%;">Phone</td>
+                <td style="border:1px solid black;padding:10px;width:70%;"><b>+91 -9910770310</b></td>
+            </tr>
+            <tr>
+                <td style="border:1px solid black;background-color: #dddddd;padding:10px;width:30%;">Email</td>
+                <td style="border:1px solid black;padding:10px;width:70%;"><b>Chandan.k@utilitarianlab.com</b></td>
+            </tr>
+            <tr>
+                <td style="border:1px solid black;background-color: #dddddd;padding:10px;width:30%;">GSTIN</td>
+                <td style="border:1px solid black;padding:10px;width:70%;"><b>29AACCU5285G1ZZ</b></td>
+            </tr>
+        </table>
+        
+        <br/>
+        <br/>
+        <table style="width:100.2%;border:1px solid black;border-collapse:collapse;">
+            <tr style="background-color:">
+                <td  colspan="2" style="border:1px solid black;text-align:left;width:50%">Delivery Challan For:Kishan Labs </td>
+                <td  colspan="2" style="border:1px solid black;text-align:left;width:50%">Shipping To: Same as the one chosen in pick list </td>
+            </tr>
+            <tr style="">
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Party Name:</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Ajeet Kumar</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Shipping Name:</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">4th Floor, 70, 1st Cross Rd, Sahyadri Layout, Panduranga Nagar, Bengaluru, Karnataka 560076</td>
+            </tr>
+            <tr style=""> 
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Address:</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Founder &amp; CEO</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Address:</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"></td>
+            </tr>
+            <tr style="">
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Phone:</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">+91 -9910770310</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Phone:</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">+91 -9910770310</td>
+            </tr>
+            <tr style="">
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Email: </td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">dinesh.b@utilitarianlab.com</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Email: </td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">dinesh.b@utilitarianlab.com</td>
+            </tr>
+            
+            <tr style="">
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">GSTIN: </td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">29AACCU5285G1ZZ</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">GSTIN: </td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">29AACCU5285G1ZZ</td>
+            </tr>
+            
+            <tr style="">
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Challan No. </td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">0032</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Delivery time:</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"><apex:outputText value="{0,date,yyyy.MM.dd :  HH:mm:ss}"> <apex:param value="{!todayDateTime}" /> </apex:outputText></td>
+            </tr>
+            
+            <tr style="">
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">Date</td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;">  <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}"><apex:param value="{!todayDate}"  />  </apex:outputText></td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"></td>
+                <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:left;"></td>
+            </tr>
+            
+        </table>
+        
+        <br/>
+        <br/>
+        
+        <table style="width:100%;border:1px solid black;border-collapse:collapse;">
+            <tr>
+                <th  style="border:1px solid black;background-color: #dddddd;padding:10px;width:5px;text-align:center;">No.</th>
+                <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">Item Name</th>
+                <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">HSN Code</th>
+                <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:20px;">Quantity</th>
+                <th  style="border:1px solid black;background-color: #dddddd;font-size:12px;text-align:center;width:25px;">Unit</th>
+            </tr>
+            <apex:variable var="index" value="{!0}" />
+            <apex:repeat value="{!oppLineItemList}" var="lineItems">
+                <tr>
+                    <apex:variable var="index" value="{!(index+1)}"/>
+                    <td style="border:1px solid black;padding:10px;width:5px;text-align:center;"><apex:outputText value="{!index}"/></td>
+                    <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;width:25px;text-align:center;">{!lineItems.Product2.Name}</td>
+                    <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;">{!lineItems.Product2.HSN_Code__c}</td>
+                    <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;width:20px;text-align:center;">{!lineItems.Quantity}</td>
+                    <td style="border:1px solid black;word-wrap: break-word;padding:5px;word-wrap: break-all;text-align:center;width:25px;">{!lineItems.UnitPrice}</td>
+                </tr>
+            </apex:repeat>
+            <tr >
+                <td  colspan="2" style="border:1px solid black;text-align:center;width:50%">TOTAL</td>
+                <td  colspan="3" style="border:1px solid black;text-align:center;width:50%">5000</td>
+            </tr>
+        </table>
+        <div style="page-break-after: always"/>
+        
+        
+    <br/>
+    <br/>
+  
+                
+    <div>
+        <table style="width:100%;border:1px solid black;border-collapse:collapse;">
+             <tr>
+                <td style="border:1px solid black;width:50%;padding:10px;">Received By: Ajeet Kumar</td>
+                <td style="border:1px solid black;width:50%;padding:10px;">Delivered By: <span>Chadan Kumar</span> </td>
+           </tr>
+             <tr>
+                <td style="border:1px solid black;width:50%;padding:10px;border-top: hidden;">Name: Kishan Kumar</td>
+                <td style="border:1px solid black;width:50%;padding:10px;border-top: hidden;">Name: Mukesh Chawala </td>
+           </tr>
+             <tr>
+                <td style="border:1px solid black;width:50%;padding:10px;border-top: hidden;">Comment:Date is pending</td>
+                <td style="border:1px solid black;width:50%;padding:10px;border-top: hidden;">Comment: Amount is added </td>
+           </tr>
+             <tr>
+                <td style="border:1px solid black;width:50%;padding:10px;border-top: hidden;">Date:  <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}"><apex:param value="{!todayDate}"  />  </apex:outputText> </td>
+                <td style="border:1px solid black;width:50%;padding:10px;border-top: hidden;">Date:  <apex:outputText value="{0,date,dd-' 'MMMMM-' 'yyyy}"><apex:param value="{!todayDate}"  />  </apex:outputText> </td>
+           </tr>
+          </table>
+    </div>
+              
+       
+    </div>
+    
+    
+</apex:page>

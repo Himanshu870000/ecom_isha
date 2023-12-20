@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" 
+                access="global" controller="RecentOrderController">
+    
+    <aura:attribute type="Order[]" name="orderList"/>
+    <aura:attribute name="mycolumns" type="List"/>
+      <aura:attribute name="recordId" type="string" default=""/>   
+    
+    <aura:handler name="init" value="{!this}" action="{!c.fetchOrders}"/>
+      
+    <lightning:datatable data="{! v.orderList }"
+                         columns="{! v.mycolumns }"
+                         keyField="id"
+                         hideCheckboxColumn="true"/>
+</aura:component>

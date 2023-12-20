@@ -1,0 +1,210 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:handler name="init" value="{! this}" action="{! c.doInit}" />
+    <aura:attribute name="Dispatched" type="Boolean" default="false"/>
+    <aura:attribute name="Dispatched1" type="Boolean" default="false"/>
+    <aura:attribute name="Dispatched2" type="Boolean" default="false"/>
+    <aura:attribute name="Dispatched3" type="Boolean" default="false"/>
+    <lightning:card>
+        
+        <!--   <div  style="width:100%; margin-left:5%;    margin-top:12%;">
+               <div  style="width:80%; margin-left:40px; text-align: center; ">
+                    <img  src="{!$Resource.BackgroundBlue}"    />  
+                     <table class="slds-table" width="80%" height="10%"   >
+                         <tr  style="width:80%; text-align:center;" >
+                             <td style="  text-align:center;">  <img  src="{!$Resource.IndiaLogo}" /></td>
+                             <td style="  text-align:center;">  <img  src="{!$Resource.Australia}" /></td>
+                             <td style="  text-align:center;">  <img  src="{!$Resource.EnglandLogio}" /></td>
+                             <td style="  text-align:center;">  <img  src="{!$Resource.WestIndiesLogo}" /></td>
+                             <td style="  text-align:center;">  <img  src="{!$Resource.NewzeLanndLogo}" /></td>
+                             <td style="  text-align:center;">  <img  src="{!$Resource.SirlankaLogo}" /></td>
+                             <td style="  text-align:center;">  <img  src="{!$Resource.SouthAricaLogo}" /></td>
+                             <td style="  text-align:center;">  <img  src="{!$Resource.BangladeshLogo}" /></td>
+                             <td style="  text-align:center;">  <img  src="{!$Resource.AfganistanLogo}" /></td>
+                         </tr>
+                         <tr  style="width:80%;">
+                             <td>   <lightning:button variant="brand"  label="INDIA" title="Begins the task" onclick="{!c.handleClick}"> </lightning:button> </td>
+                             <td>   <lightning:button variant="brand"  label="AUSTRALIA" title="Begins the task" onclick="{handleClick}"> </lightning:button> </td>
+                             <td>   <lightning:button variant="brand"  label="ENGLAND" title="Begins the task" onclick="{handleClick}"> </lightning:button> </td>
+                             <td>   <lightning:button variant="brand"  label="WESTINDIES" title="Begins the task" onclick="{handleClick}"> </lightning:button> </td>
+                             <td>   <lightning:button variant="brand"  label="NEWZEALAND" title="Begins the task" onclick="{handleClick}"> </lightning:button> </td>
+                             <td>   <lightning:button variant="brand"  label="SRILANKA" title="Begins the task" onclick="{handleClick}"> </lightning:button> </td>
+                             <td>   <lightning:button variant="brand"  label="SOUTHAFRICA" title="Begins the task" onclick="{handleClick}"> </lightning:button> </td>
+                             <td>   <lightning:button variant="brand"  label="BANGLADESH" title="Begins the task" onclick="{handleClick}"> </lightning:button> </td>
+                             <td>   <lightning:button variant="brand"  label="AFGANISTAN" title="Begins the task" onclick="{handleClick}"> </lightning:button> </td>
+
+                             
+
+                         </tr>
+                   </table>
+              </div>
+           </div> -->
+        
+        <div style=" width 100%; height:100%;text-align:center;   " >
+            <img  src="{!$Resource.BackgroundBlue}" style=" width 100%;"/>  
+            <div class="demo-only demo-only--sizing slds-grid slds-wrap" style="  text-align:center; margin-top:-30%; margin-left:11%; ">
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center;"> <img  src="{!$Resource.IndiaLogo}" /></div>
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center;  margin-right:10px;"> <img  src="{!$Resource.Australia}" /></div>
+                </div> 
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center;  margin-left:10px;" > <img  src="{!$Resource.EnglandLogio}" /></div>
+                </div> 
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center;  margin-left:10px;"> <img  src="{!$Resource.WestIndiesLogo}" /></div>
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center;  margin-left:10px;"> <img  src="{!$Resource.NewzeLanndLogo}" /></div>
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center; margin-left:10px"> <img  src="{!$Resource.SirlankaLogo}" /></div>
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center; margin-left:10px"> <img  src="{!$Resource.SouthAricaLogo}" /></div>
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center; margin-left:10px"> <img  src="{!$Resource.BangladeshLogo}" /></div>
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style="  text-align:center; margin-left:10px"> <img  src="{!$Resource.AfganistanLogo}" /></div>
+                </div>
+                
+            </div>
+            
+            <div class="demo-only demo-only--sizing slds-grid slds-wrap"  style="  float:center; margin-rigth:-30%;">
+             <!--   <lightning:layout>
+                     <lightning:layoutItem size="2">
+                    <lightning:button     class="slds-size_full"  label="INDIA" title="Begins the task" onclick="{!c.handleClick}"> </lightning:button>
+                    </lightning:layoutItem>
+                </lightning:layout>
+                 <lightning:layout>
+                     <lightning:layoutItem size="2">
+                    <lightning:button   class="slds-size_full"   label="AUSTRALIA" title="Begins the task" onclick="{handleClick1}"></lightning:button>
+                    </lightning:layoutItem>
+                </lightning:layout>-->
+
+              <div class="slds-size_1-of-9" style=" text-align:center; margin-left:11%;" >
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center; margin-right:-30%; font-size: 8px;" ><lightning:button        label="INDIA" title="Begins the task" onclick="{!c.handleClick}"> </lightning:button></div>
+                </div> 
+                 <div class="slds-size_1-of-9"  style=" text-align:center; margin-left:2%;">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center;  font-size: 8px;"><lightning:button      label="AUSTRALIA" title="Begins the task" onclick="{handleClick1}"> </lightning:button></div>
+                    
+                </div>  
+                <div class="slds-size_1-of-9" style=" text-align:center; margin-right:4%;">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center;   font-size: 8px;"><lightning:button    label="ENGLAND" title="Begins the task" onclick="{handleClick2}"> </lightning:button></div>
+                    
+                </div>
+                
+                <div class="slds-size_1-of-9"  style=" text-align:center; margin-left:-4%;">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center;  font-size: 8px;"><lightning:button    label="WEST INDIES" title="Begins the task" onclick="{handleClick3}"> </lightning:button></div>
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center; margin-left:0%; font-size: 8px;"><lightning:button    label="NEW  ZEALAND" title="Begins the task" onclick="{handleClick4}"> </lightning:button></div>
+                    
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center; margin-left:0%; font-size: 8px;"><lightning:button    label="SRI  LANKA" title="Begins the task" onclick="{handleClick5}"> </lightning:button></div>
+                    
+                </div>
+                
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center; margin-left:0%; font-size: 8px;"><lightning:button   label="SOUTH AFRICA" title="Begins the task" onclick="{handleClick6}"> </lightning:button></div>
+                </div>
+                <div class="slds-size_1-of-9">
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center; margin-left:0%; font-size: 8px;"><lightning:button    label="BANGLADESH" title="Begins the task" onclick="{handleClick7}"> </lightning:button></div>
+                    
+                </div>
+                <div class="slds-size_1-of-9">  
+                    <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:center; margin-left:0%; font-size: 8px;"><lightning:button    label="AFGANISTAN" title="Begins the task" onclick="{handleClick8}"> </lightning:button></div>
+                    
+                </div> 
+                
+                <div   style="width:100%;">
+                    <aura:if isTrue="{!v.Dispatched}">
+                        <div class="demo-only demo-only--sizing slds-grid slds-wrap"  style="width:40%; margin-left:10%;">
+                            <div class="slds-size_1-of-3">
+                                <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:left;   font-size: 15px;  "  ><lightning:button        label="ICCEvents" title="Begins the task" onclick="{!c.handleClickA}"> </lightning:button></div>
+                            </div>
+                            
+                            <div class="slds-size_1-of-3">
+                                <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:left;  font-size: 15px; " ><lightning:button        label="BilataralSeries" title="Begins the task" onclick="{!c.handleClickB}"> </lightning:button></div>
+                            </div>
+                            <div class="slds-size_1-of-3">
+                                <div class="  slds-text-align_center slds-m-around_x-small" style=" text-align:left;   font-size: 15px; " ><lightning:button        label="DomesticTournaments" title="Begins the task" onclick="{!c.handleClickC}"> </lightning:button></div>
+                            </div>
+                        </div>
+                        <aura:set attribute="else">
+                            <div style="width:100%;">
+                                
+                            </div>
+                        </aura:set>
+                    </aura:if>
+                    <aura:if isTrue="{!v.Dispatched1}">
+                    <div style="width:80%; float: left; background-color: white; margin-left:12%;">
+                        <div style="width:40%; float: left;   ">
+                             <ul style="  " class="slds-list_dotted slds-m-top_large" >
+                                 <li style="margin-right:35%;">ICC ODI World Cup - Men</li> 
+                            <li style="margin-right:30%;">ICC Champion Trophy - Men</li> 
+                            <li style="margin-right:25%;">ICC - Test Chempionship - Men</li> 
+                            </ul> 
+                        </div >
+                        <div style="width:40%; float: left;">
+                             <ul style="  " class="slds-list_dotted slds-m-top_large">
+                             <li>ICC ODI World Cup - Women</li> 
+                            <li>ICC ODI World Cup - U19- Men</li> 
+                            <li>ICC ODI World Cup - U19- Women</li> 
+                        </ul> 
+                        
+                        </div>
+                        
+                    </div>
+                    <aura:set attribute="else">
+                        <div style="width:100%;">
+                            
+                        </div>
+                    </aura:set>
+                    
+                </aura:if> 
+               <!--     <aura:if isTrue="{!v.Dispatched2}">
+                    
+                    <aura:set attribute="else">
+                        <div style="width:80%; float: left; background-color: white; margin-left:10px;">
+                        <div style="width:40%; float: left; ">
+                             <ul style="  " class="slds-list_dotted slds-m-top_large">
+                                  <li>Border Gavaskar Trophy </li> 
+                                 <li>Patodi Trophy</li> 
+                                 <li>Anthony de melo Trophy</li> 
+                                 <li>Freedom Trophy</li> 
+                                 <li>Ind Vs Sri Lanka(Home) </li> 
+                                 <li>Ind Vs New Zeland Lanka(Home)</li> 
+                                 <li>Ind Vs Australia(Home)y</li> 
+                           
+                        </ul> 
+                        </div >
+                        <div style="width:40%; float: right;">
+                             <ul style="  " class="slds-list_dotted slds-m-top_large">
+                                 <li>Border Gavaskar Trophy </li> 
+                                 <li>World Test Championship Final</li> 
+                                 <li>West Indies vs India</li> 
+                                 <li>Freedom Trophy</li> 
+                                 <li>Ind Vs Sri Lanka(Home) </li> 
+                                 <li>Ind Vs New Zeland Lanka(Home)</li> 
+                                 <li>Ind Vs Australia(Home)y</li> 
+                            </ul>
+                        </div>
+                        
+                    </div>
+                    </aura:set>
+                    
+                </aura:if>-->
+                        
+                </div>
+                
+            </div>
+        </div>
+        
+    </lightning:card>
+    
+</aura:component>

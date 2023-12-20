@@ -1,0 +1,30 @@
+<template>
+    <lightning-quick-action-panel class="field-title" header="Internal Tasks">
+        <ul class="dynamic-text">
+            <li class="item">
+                <div class="app">
+                    <template for:each={recList} for:item="rec">
+                        <div key={rec.Id}>
+                            <div class="slds-card card-color slds-p-left_small slds-p-right_small slds-p-bottom_small slds-p-top_small" style="margin-bottom: 20px;">
+                                <div class="slds-grid">
+                                    <div> <!--class="slds-col slds-size_2-of-12"-->
+                                        <lightning-icon icon-name="utility:copy" size="small"></lightning-icon>
+                                    </div>
+                                    <div style="margin-left:3%; margin-top:-1%;"> <!--class="slds-col slds-size_10-of-12"-->
+                                        <span>
+                                            <b><lightning-formatted-url style="font-size:15px;" value='https://sales-production--fsldemo.sandbox.lightning.force.com/lightning/r/Account/001N000002AUr3AIAT/view' tooltip="Use https://domain-name" label={rec.Subject} target="_blank" class="blackColor"> </lightning-formatted-url> </b> 
+                                        </span>
+                                        <br/>
+                                        <p style="font-size:12px;"><b>{rec.Owner.Name}</b></p>
+                                        <lightning-formatted-date-time style="font-size:12px;color:red;" value={rec.ActivityDate} year="2-digit" month="short" day="2-digit" weekday="long"></lightning-formatted-date-time>
+                                        <!-- <p style="font-size:12px;">Due Date: <span style="color:red;">{rec.ActivityDate}</span></p> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </li>
+        </ul>
+        </lightning-quick-action-panel>
+</template>

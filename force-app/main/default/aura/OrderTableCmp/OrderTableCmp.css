@@ -1,0 +1,15 @@
+.THIS .custom-button{
+    background:  #5FADB0 no-repeat;
+    color:white;
+    font-weight : bold ;
+    width: 120px;
+    align-content: center;
+    border-radius: 8px;
+    box-shadow:none;   
+}
+
+.THIS .slds-modal__container {
+    max-width: 80rem !important;
+    width: 80% !important;
+    height: 80% !important;
+}

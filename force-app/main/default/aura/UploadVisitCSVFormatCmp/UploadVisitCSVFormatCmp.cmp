@@ -1,0 +1,16 @@
+<aura:component controller ="UploadVisitCSVFormatController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" >
+	
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+    <aura:attribute name="uploadCSVFileFormat" type="Upload_Visit__mdt"/>
+    
+    <div style="width:100%;padding: 25px">
+        <div style="float:right">
+            <lightning:button iconName="utility:download" 
+                              iconPosition="left" 
+                              label="Download Format" 
+                              onclick="{!c.downloadFormat}" 
+                              class="slds-button slds-button_brand"/>        
+        </div>
+    </div>
+    
+</aura:component>

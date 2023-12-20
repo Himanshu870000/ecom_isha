@@ -1,0 +1,116 @@
+<aura:component controller="POLineItemHelper" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="NewProductList" type="List" default="[]"/>
+    <aura:attribute name="name" type="String"/>
+    <aura:attribute name="serialNumber" type="String"/>
+    <aura:attribute name="price" type="Integer"/>
+    <aura:attribute name="quantity" type="Integer"/>
+    <aura:attribute name="individualPrice" type="Decimal" />
+    <aura:attribute name="purchaseOrderLineItem" type="Object" />
+    <aura:attribute name="showCustomLookUp" type="boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.fetchPOLineItem}"/>
+    
+    <div class="slds-m-around--xxx-large"> 
+        <lightning:card>
+            <aura:set attribute="title">
+                Received Entries
+            </aura:set>
+            
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset slds-text-title_caps">
+                        <th  class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Product Name">
+                                Product Name
+                            </div>
+                        </th>
+                        <th  class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Price">
+                                Price
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Quantity">
+                                Quantity
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Serial Number">
+                                Serial Number
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Serial Number">
+                                WANT TO ASSIGNED ?
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Serial Number">
+                                CONTACT LOOKUP
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <aura:if isTrue="{!v.NewProductList.length > 0}">
+                    <tbody>
+                        <aura:iteration items="{!v.NewProductList}" var="item">
+                            <tr class="slds-hint-parent">
+                                
+                                <th data-label="Product Name" scope="row">
+                                    <div class="slds-truncate" title="{!item.Name}">{!item.Name}</div>
+                                </th>
+                                <!--<td data-label="Price">
+                                    <div class="slds-truncate" title="{!item.Price}">{!item.Price}</div>
+                                </td> -->
+                                <td data-label="Price">
+                                    <div class="slds-truncate" title="{!v.individualPrice}">{!item.Price}</div>
+                                </td> 
+                                <td data-label="Quantity">
+                                    <div class="slds-truncate" title="{!item.Quantity }">{!item.Quantity }</div>
+                                </td>
+                                <td data-label="Serial Number">
+                                    <div class="slds-truncate" title="">
+                                        <lightning:input name="serialNumber" type="text" value="{!item.SerialNumber}"/>
+                                    </div>
+                                </td>  
+                                <td data-label="Want To Assigned">
+                                    <div class="slds-truncate" title="">
+                                        <ui:inputCheckbox aura:id="checkbox" change="{!c.onCheck}"/>
+                                    </div>
+                                </td>  
+                                <td data-label="Serial Number">
+                                    <div class="slds-truncate" title="">
+                                        <aura:if isTrue="{!v.showCustomLookUp}">
+                                            <lightning:input label="Input Text" aura:id="inputText"/>
+                                        </aura:if>
+                                    </div>
+                                </td>  
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </aura:if>
+            </table>
+            
+            <aura:if isTrue="{!empty(v.NewProductList)}">
+                <div class="slds-align_absolute-center">
+                    No records found
+                </div>
+            </aura:if>
+            
+            <aura:set attribute="footer">
+                <div class="slds-align_absolute-center">                     
+                    <div class="slds-p-left_xx-small">
+                        <lightning:button label="Submit"
+                                          onclick="{!c.handleSubmit}"
+                                          variant="brand"
+                                          iconName="utility:forward"
+                                          iconPosition="right"
+                                          name="submit"/>
+                    </div>
+                </div>  
+            </aura:set>
+        </lightning:card>
+    </div>
+    
+</aura:component>

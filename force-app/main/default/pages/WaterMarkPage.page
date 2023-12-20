@@ -1,0 +1,40 @@
+<apex:page controller="ViewPdf" applyHtmlTag="false" sidebar="false"  showHeader="false" cache="true" renderAs="advanced_pdf" docType="html-5.0">
+    <head>    
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />    
+        <style type="text/css"  media="print">
+            
+            @page {
+            
+            <apex:outputPanel layout="none" rendered="true">
+                background: url("{!$Resource.WaterMark}") no-repeat center center;
+            </apex:outputPanel>
+            size: A4 landscape;    
+            
+            padding-left: 5px;    
+            padding-right: 5px;      
+            }
+            th {  
+            font-weight: bold;
+            text-align: center;
+            background-color: #92d5f0;
+            color: black;
+            padding: 8px;
+            }
+            td {    
+            font-size: 15px;
+            text-align: left;
+            padding: 8px;
+            }
+            table{
+            border-collapse: collapse;
+            }
+            table, th, td {
+            border: 1px solid black;
+            }
+        </style>    
+    </head>
+    
+    <body class= "watermark">
+        <apex:image value="{!URLFOR($Action.Attachment.Download, '00PN000000EKkNUMA1')} " />
+    </body>
+</apex:page>
